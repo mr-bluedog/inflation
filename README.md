@@ -114,6 +114,20 @@ Test local de l'image : `docker build -f backend/Dockerfile -t inflation-api .` 
 **Frontend (Vercel)** : projet avec *Root Directory* = `frontend` (`frontend/vercel.json` : build Vite, réécriture
 SPA, cache des fichiers). Variables : `VITE_DATA_MODE=api`, `VITE_API_BASE=https://<service>.up.railway.app`.
 
+### Accès protégé par mot de passe
+
+Le site en ligne est fermé par un **middleware Vercel** (`frontend/middleware.ts`, logique et tests dans
+`frontend/src/edge/`) : une page de connexion précède tout, pages **et** données. Variables Vercel (Settings →
+Environment Variables, **sans** préfixe `VITE_`, donc jamais envoyées au navigateur) :
+
+| Variable | Rôle |
+|---|---|
+| `SITE_PASSWORD` | mot de passe d'accès (obligatoire : sans lui, le site reste fermé) |
+| `SITE_SESSION_DAYS` | durée de la session en jours (30 par défaut) |
+
+Changer `SITE_PASSWORD` (puis redéployer) déconnecte tout le monde. Lien « Se déconnecter » en bas de la barre
+latérale. En local (`npm run dev`), le middleware ne s'exécute pas.
+
 ### Mode statique : Vercel seul
 
 Mêmes réglages Vercel, sans variable : `frontend/vercel.json` construit en **mode statique par défaut** (`VITE_DATA_MODE=api` pour le mode API). Le site lit

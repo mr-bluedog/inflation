@@ -10,6 +10,10 @@ import { useThemeMode } from '../useThemeMode';
 import { VIEWS } from '../views/registry';
 import { Segmented } from './Segmented';
 
+/** En ligne (Vercel) : la protection par mot de passe est active, on propose la déconnexion. */
+const ONLINE =
+  typeof window !== 'undefined' && !['localhost', '127.0.0.1'].includes(window.location.hostname);
+
 const THEMES: { value: ThemePref; label: string }[] = [
   { value: 'system', label: 'Auto' },
   { value: 'light', label: 'Clair' },
@@ -50,6 +54,11 @@ export function Layout() {
         <div className="sidebar-foot">
           Moteur euroinfl
           {meta.data && <> · run {meta.data.meta.run_id}</>}
+          {ONLINE && (
+            <div>
+              <a href="/logout">Se déconnecter</a>
+            </div>
+          )}
         </div>
       </aside>
 
