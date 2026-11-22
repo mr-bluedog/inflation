@@ -102,7 +102,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   Dézipper/vérifier `euroinfl/`, lancer `run_all.py`, lister chaque fichier de `out/` avec ses colonnes réelles et écrire `docs/DATA_CONTRACT.md` (schéma exact de chaque fichier). Repérer où sont stockés les fixings marché et l'historique HICP. Lancer le backtest pour produire `backtest_errors.csv`. `git init`, `.gitignore`, premier commit.
 - [x] **Phase 1 — Backend lecture (1 j)** — fait le 22/11/2026 : 17 routes GET, 43 tests pytest (témoins §7 inclus), `export_static.py` (272 fichiers, 6,9 Mo)
   FastAPI, chargement de `out/` au démarrage, toutes les routes GET du §4, schémas pydantic, tests pytest qui vérifient les chiffres témoins (§7). `export_static.py`.
-- [ ] **Phase 2 — Frontend socle (1 j)**
+- [x] **Phase 2 — Frontend socle (1 j)** — fait le 22/11/2026 : layout 8 vues, palette validée (`theme.ts`), client typé api/statique, 12 tests vitest ; vérifié dans le navigateur (clair/sombre, 375 px, mode statique)
   Vite + React + TS, layout (barre latérale, en-tête, sélecteurs globaux), thème, client API typé (types générés depuis l'OpenAPI ou écrits à la main), formatage (`fmtPct`, `fmtBp`, `fmtFixing`).
 - [ ] **Phase 3 — Vues lecture (2 j)**
   Vue d'ensemble, Pays, Scénarios énergie, Méthodologie.

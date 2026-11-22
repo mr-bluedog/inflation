@@ -13,3 +13,5 @@ Thumbs.db
 frontend/public/data/
 .pytest_cache/
 .ruff_cache/
+frontend/dist-static/
+.claude/
