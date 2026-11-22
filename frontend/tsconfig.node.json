@@ -17,7 +17,6 @@
   },
   "include": [
     "vite.config.ts",
-    "middleware.ts",
-    "src/edge/auth.ts"
+    "middleware.ts"
   ]
 }

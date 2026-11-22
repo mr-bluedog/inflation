@@ -116,8 +116,8 @@ SPA, cache des fichiers). Variables : `VITE_DATA_MODE=api`, `VITE_API_BASE=https
 
 ### Accès protégé par mot de passe
 
-Le site en ligne est fermé par un **middleware Vercel** (`frontend/middleware.ts`, logique et tests dans
-`frontend/src/edge/`) : une page de connexion précède tout, pages **et** données. Variables Vercel (Settings →
+Le site en ligne est fermé par un **middleware Vercel** (`frontend/middleware.ts`, fichier autonome : Vercel
+le compile sans ses imports locaux ; tests dans `frontend/src/edge/auth.test.ts`) : une page de connexion précède tout, pages **et** données. Variables Vercel (Settings →
 Environment Variables, **sans** préfixe `VITE_`, donc jamais envoyées au navigateur) :
 
 | Variable | Rôle |

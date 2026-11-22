@@ -1,4 +1,4 @@
-import { COOKIE, handleAuth, makeToken, safeNext, verifyToken, type AuthEnv } from './auth';
+import { COOKIE, handleAuth, makeToken, safeNext, verifyToken, type AuthEnv } from '../../middleware';
 
 const ENV: AuthEnv = { SITE_PASSWORD: 'correct horse battery staple' };
 const NOW = Date.UTC(2026, 10, 22, 12);
