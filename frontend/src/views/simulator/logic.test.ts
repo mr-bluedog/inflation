@@ -1,6 +1,7 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Geo, SensitivityRow } from '../../api/types';
+import { isReferenceVintage } from '../../test-vintage';
 import { key3, linearImpact, parseSearch, scaleFactor, SLIDERS, toSearch } from './logic';
 
 const def = (k: string) => SLIDERS.find((d) => d.key === k)!;
@@ -38,7 +39,7 @@ describe('simulateur : échelle et URL', () => {
 
 const DATA = resolve(__dirname, '../../../public/data');
 
-describe.skipIf(!existsSync(resolve(DATA, 'meta.json')))('approximation sur les sensibilités réelles', () => {
+describe.skipIf(!isReferenceVintage(DATA))('approximation sur les sensibilités réelles', () => {
   const load = (g: string) =>
     JSON.parse(readFileSync(resolve(DATA, `sensitivities/${g}.json`), 'utf-8')).data as SensitivityRow[];
   const sens = Object.fromEntries(['EA', 'IT', 'FR', 'DE', 'ES'].map((g) => [g, load(g)])) as Record<

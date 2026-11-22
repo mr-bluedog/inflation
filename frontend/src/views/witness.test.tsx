@@ -2,7 +2,7 @@
  * Chiffres témoins (plan §7) vérifiés À L'ÉCRAN : les vues sont rendues avec les vrais fichiers exportés par
  * backend/export_static.py (frontend/public/data). Prérequis : `python backend/export_static.py`.
  */
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, within } from '@testing-library/react';
@@ -11,6 +11,7 @@ import { MemoryRouter } from 'react-router-dom';
 import type { ReactElement } from 'react';
 import type { ComponentRow } from '../api/types';
 import { useApp } from '../store';
+import { isReferenceVintage } from '../test-vintage';
 import { waterfallSteps } from './country/logic';
 import { Country } from './Country';
 import { Methodology } from './Methodology';
@@ -24,11 +25,7 @@ import { Scenarios } from './Scenarios';
 vi.mock('../charts/Chart', () => ({ Chart: () => null })); // pas de canvas dans jsdom
 
 const DATA = resolve(__dirname, '../../public/data');
-// Chiffres témoins valables pour le millésime d'inputs de référence (20/11/2026) : ignorés après une mise à jour.
-const REF_ASOF = '2026-11-20';
-const HAS_DATA =
-  existsSync(resolve(DATA, 'meta.json')) &&
-  JSON.parse(readFileSync(resolve(DATA, 'meta.json'), 'utf-8')).meta.asof === REF_ASOF;
+const HAS_DATA = isReferenceVintage(DATA);
 const NB = String.fromCharCode(0x00a0);
 const pct = (s: string) => `${s}${NB}%`;
 
