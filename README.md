@@ -11,7 +11,7 @@ chocs, un simulateur, le backtest et les entrées.
 | `backend/` | API FastAPI : lit `euroinfl/out/`, recalcul exact des chocs (`POST /api/simulate`) |
 | `frontend/` | Dashboard React + TypeScript + Vite + ECharts (8 vues) |
 | `data/raw/` | Base macro brute (97 séries, ne pas modifier) |
-| `docs/` | Plan du dashboard, contrat de données, dictionnaire, site de référence |
+| `docs/` | Plan du dashboard, contrat de données, dictionnaire des séries |
 
 ## Démarrage local (Windows, PowerShell)
 

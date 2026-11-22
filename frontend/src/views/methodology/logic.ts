@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 // diacritiques combinants U+0300–U+036F (construits par code pour rester lisibles dans le source)
 const COMBINING = new RegExp(`[${String.fromCharCode(0x300)}-${String.fromCharCode(0x36f)}]`, 'g');
 
-/** Ancre stable à partir d'un titre (« 14. Limites et… » → « 14-limites-et… »). */
+/** Ancre stable à partir d'un titre (« 13. Limites et… » → « 13-limites-et… »). */
 export function slug(text: string): string {
   return text
     .normalize('NFD')

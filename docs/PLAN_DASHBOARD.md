@@ -1,6 +1,6 @@
 # Plan — Dashboard du modèle d'inflation HICPxT
 
-> Objectif : un terminal de recherche web qui affiche **nos** prévisions (moteur `euroinfl`), explique **d'où elles viennent** et permet de **choquer les inputs**. Inspiration UX : euro-inflation.vercel.app (voir `docs/euro-inflation-spec.md`).
+> Objectif : un terminal de recherche web qui affiche **nos** prévisions (moteur `euroinfl`), explique **d'où elles viennent** et permet de **choquer les inputs**.
 > Périmètre : EA, IT, FR, DE, ES · fixings Nov-26 → Dec-27 · données HICP jusqu'à oct. 2026, courbes au 20/11/2026.
 
 ---
@@ -114,7 +114,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   Tables RMSE, graphe d'erreurs, poids ; courbes, mois estimés, explorateur des 97 séries.
 - [ ] **Phase 7 — Finition et déploiement (1 j)** — finition faite le 22/11/2026 (vues à la demande, filet d'erreur, export CSV/PNG, revue 375 px et sombre, Dockerfile, `railway.json`, `vercel.json`, README) ; **reste : la mise en ligne Railway + Vercel** (comptes du propriétaire)
   Responsive, mode sombre, états de chargement/erreur, export CSV/PNG des graphes, Dockerfile backend, déploiement Railway + Vercel, README.
-- [ ] **Phase 8 (plus tard)** — Édition des inputs depuis l'UI puis relance de `run_all.py` en tâche de fond ; historisation des vintages ; ajout d'un modèle ML challenger ; vues Linkers / Auctions façon site de référence.
+- [ ] **Phase 8 (plus tard)** — Édition des inputs depuis l'UI puis relance de `run_all.py` en tâche de fond ; historisation des vintages ; ajout d'un modèle ML challenger ; vues Linkers / Auctions.
 
 ---
 

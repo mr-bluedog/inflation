@@ -5,6 +5,8 @@ Les entrées modifiables sont dans data/market_inputs.json et pipeline.CONFIG.
 import sys, json, warnings
 from pathlib import Path
 warnings.filterwarnings("ignore")
+if hasattr(sys.stdout, "reconfigure"):  # console Windows (cp1252) : affichage UTF-8, y compris redirigé
+    sys.stdout.reconfigure(encoding="utf-8")
 sys.path.insert(0, str(Path(__file__).parent))
 import numpy as np
 import pandas as pd
@@ -25,7 +27,7 @@ f_st = stat.forecast(X=X)
 
 # 2. Combinaison par horizon (poids issus du backtest, cf. out/combo_weights.json)
 cw_path = OUT / "combo_weights.json"
-cw = json.loads(cw_path.read_text()) if cw_path.exists() else {}
+cw = json.loads(cw_path.read_text(encoding="utf-8")) if cw_path.exists() else {}
 rows = []
 for g in GEOS:
     for h, t in enumerate(P.FIXINGS, start=1):
@@ -73,7 +75,7 @@ for g in GEOS:
 for k, e in bu.stage1.items():
     eqs[f"EA-stage1/{k}"] = {"name": e.name, "coef": e.coef, "stats": e.stats}
 eqs["power_link"] = bu.power_link
-(OUT / "equations.json").write_text(json.dumps(eqs, indent=1, ensure_ascii=False, default=float))
+(OUT / "equations.json").write_text(json.dumps(eqs, indent=1, ensure_ascii=False, default=float), encoding="utf-8")
 
 # 7. Données pour le dashboard
 hist = {}
@@ -104,10 +106,10 @@ dash = {
 }
 dash["combo_w"] = {g: [cw.get(g, {}).get(str(min(h, 12)), 1.0) for h in range(1, len(P.FIXINGS) + 1)] for g in GEOS}
 dash["market_ea"] = [3.76, 3.88, 4.23, 4.08, 3.64, 3.03, 3.21, 3.56, 3.21, 2.95, 2.36, 2.27, 2.50, 2.48]
-dash["market_note"] = "Fixings HICPxT saisis sur euro-inflation.vercel.app le 20/11/2026 (comparaison uniquement)"
+dash["market_note"] = "Fixings de marché HICPxT relevés le 20/11/2026 (comparaison uniquement)"
 bt = OUT / "backtest_summary.json"
 if bt.exists():
-    dash["backtest"] = json.loads(bt.read_text())
-(OUT / "dashboard_data.json").write_text(json.dumps(dash, ensure_ascii=False, default=float))
+    dash["backtest"] = json.loads(bt.read_text(encoding="utf-8"))
+(OUT / "dashboard_data.json").write_text(json.dumps(dash, ensure_ascii=False, default=float), encoding="utf-8")
 print(pd.DataFrame({g: [r["COMBINE"] for r in rows if r["geo"] == g] for g in GEOS}, index=[str(t) for t in P.FIXINGS]).round(2))
 print("OK →", OUT)

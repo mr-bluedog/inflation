@@ -12,7 +12,7 @@ Lis d'abord, dans cet ordre, sans rien coder :
 1. CLAUDE.md
 2. docs/PLAN_DASHBOARD.md (le plan complet : vues, architecture, contrat d'API, phases, chiffres témoins)
 3. euroinfl/MODELES.md (le modèle et les chiffres de référence)
-4. docs/DATA_DICTIONARY.md et, s'il existe, docs/euro-inflation-spec.md (le site dont on s'inspire pour l'UX)
+4. docs/DATA_DICTIONARY.md
 5. Le code du moteur : euroinfl/run_all.py, euroinfl/euroinfl/pipeline.py, sensitivity.py, backtest.py, data.py
 
 Puis exécute la PHASE 0 du plan :

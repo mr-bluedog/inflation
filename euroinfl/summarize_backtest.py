@@ -37,8 +37,8 @@ for g in x.index.get_level_values(0).unique():
         comb.append(round(rm(ww*e['BU']+(1-ww)*e['STAT']),3))
     summary['rmse'].setdefault('TOT_X_TBC',{}).setdefault(g,{})['COMBINE']=comb
 summary['combo_weights_BU']=w
-(OUT/'combo_weights.json').write_text(json.dumps(w,indent=1))
-(OUT/'backtest_summary.json').write_text(json.dumps(summary,indent=1,ensure_ascii=False))
+(OUT/'combo_weights.json').write_text(json.dumps(w,indent=1),encoding='utf-8')
+(OUT/'backtest_summary.json').write_text(json.dumps(summary,indent=1,ensure_ascii=False),encoding='utf-8')
 pd.set_option('display.width',250)
 for g in ['EA','IT','FR','DE','ES']:
     print(g,'w_BU',[w[g][str(h)] for h in range(1,13)])

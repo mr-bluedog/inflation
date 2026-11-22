@@ -6,7 +6,7 @@
       'rw'      : prix de gros figés au dernier niveau (proxy réaliste des futures, aucune info future) ;
       'perfect' : prix de gros réalisés (mesure la qualité de la TRANSMISSION, pas de la prévision des prix) ;
   - on prévoit T+1 … T+12 et on compare le glissement annuel au réalisé.
-h1 = premier mois non publié (≈ « h+0 » du site Euro Inflation).
+h1 = premier mois non publié (« h+0 » dans la convention des fixings de marché).
 Modèles comparés : BU (structurel), STAT (saisonnalité + AR, sans driver), NAÏF (glissement annuel inchangé).
 """
 from __future__ import annotations

@@ -18,7 +18,7 @@
 | Horizon `h` | `h = 1` pour `2026-11` (premier mois non publié) … `h = 14` pour `2027-12` | poids de combinaison plafonnés à `h = 12` |
 | Unités | `yoy` en **%** ; `contrib_pp` en **pp** ; `bp` en **points de base de glissement annuel** ; `level_pct` en **% de niveau** | à répéter dans `meta.units` |
 | Codes de sous-indice | voir §0.1 | enum `Item` |
-| **Encodage** | CSV : **UTF-8**. `equations.json` et `dashboard_data.json` : **cp1252** sous Windows (écrits par `Path.write_text()` sans `encoding`, avec `ensure_ascii=False`). `backtest_summary.json`, `combo_weights.json` : ASCII. `market_inputs.json` : UTF-8 (lu en cp1252 par le moteur, sans effet sur les nombres, seuls les `_doc` sont abîmés). | lecteur JSON robuste : essai UTF-8 puis repli cp1252. Recommandation : lancer le moteur avec `$env:PYTHONUTF8=1` pour obtenir de l'UTF-8 partout, sans toucher au code. |
+| **Encodage** | Toutes les sorties sont en **UTF-8** depuis le 22/11/2026 : le moteur précise `encoding="utf-8"` à chaque lecture et écriture de fichier (auparavant `equations.json` et `dashboard_data.json` étaient écrits en cp1252 sous Windows). | le lecteur JSON du backend garde un repli cp1252 pour d'anciennes sorties. |
 | Fins de ligne | JSON réécrits sous Windows en CRLF | sans effet |
 
 ### 0.1 Sous-indices (`item`) et libellés FR (`data.LABELS`)
@@ -164,7 +164,7 @@ EA,CP0452,ttf,0.111456,0.174191,0.196041,0.202684,ttf[0-2]=0.112; ttf[3-11]=0.05
 EA,SERV,wage_m,-0.137348,0.377006,,,wage_m[1-6]=0.377,0.8862,0.1824,123
 ```
 
-## 7. `out/equations.json` — 44 clés (⚠ cp1252)
+## 7. `out/equations.json` — 44 clés
 
 - `"{geo}/{item}"` pour 5 geo × 8 items (`CP0722`, `CP0453`, `CP0452`, `CP0451`, `FOOD_P_X_TBC`, `FOOD_NP`, `IGD_NNRG`, `SERV`) :
   ```json
@@ -182,7 +182,7 @@ EA,SERV,wage_m,-0.137348,0.377006,,,wage_m[1-6]=0.377,0.8862,0.1824,123
 - `"power_link"` : `{"power_de": 0.6821, "power_fr": 0.7705}`, élasticité contemporaine électricité de gros / TTF.
 - **La formule n'est pas stockée** : le backend la reconstruit à partir des clés (`driver[a-b]` → « moyenne des Δlog driver de t−a à t−b ») selon la forme générale de MODELES §3.
 
-## 8. `out/dashboard_data.json` (⚠ cp1252) — agrégat pour l'ancien simulateur
+## 8. `out/dashboard_data.json` — agrégat pour l'ancien simulateur
 
 | Clé | Forme | Contenu |
 |---|---|---|

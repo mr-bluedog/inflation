@@ -1,7 +1,7 @@
 {
  "_doc": "Fixings HICPxT de marché (glissement annuel, %), pour COMPARAISON uniquement : jamais injectés dans le modèle. Lu par le backend du dashboard. null = pas de cotation.",
  "asof": "2026-11-20",
- "source": "Fixings HICPxT saisis sur euro-inflation.vercel.app le 20/11/2026 (comparaison uniquement)",
+ "source": "Fixings de marché HICPxT relevés le 20/11/2026 (comparaison uniquement)",
  "_origin": "Valeurs EA recopiées de euroinfl/run_all.py (dash['market_ea']) ; aucune cotation disponible pour IT, FR, DE, ES.",
  "fixings": {
   "EA": {

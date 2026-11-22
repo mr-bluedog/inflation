@@ -120,13 +120,13 @@ describe.skipIf(!HAS_DATA)('chiffres témoins à l’écran (export statique ré
 
   it('Méthodologie : rendu de MODELES.md avec sommaire', async () => {
     show(<Methodology />);
-    expect(await screen.findByRole('link', { name: /14\. Limites/ })).toHaveAttribute(
+    expect(await screen.findByRole('link', { name: /13\. Limites/ })).toHaveAttribute(
       'href',
-      '#14-limites-et-hypotheses-a-verifier-par-ordre-d-importance',
+      '#13-limites-et-hypotheses-a-verifier-par-ordre-d-importance',
     );
-    expect(screen.getByRole('heading', { level: 2, name: /^14\. Limites/ })).toHaveAttribute(
+    expect(screen.getByRole('heading', { level: 2, name: /^13\. Limites/ })).toHaveAttribute(
       'id',
-      '14-limites-et-hypotheses-a-verifier-par-ordre-d-importance',
+      '13-limites-et-hypotheses-a-verifier-par-ordre-d-importance',
     );
   });
 });

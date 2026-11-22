@@ -1,7 +1,7 @@
 {
  "_doc": "Entrées de marché du moteur. Courbes = prix par mois de LIVRAISON. Le niveau de gros utilisé pour le mois M est le contrat M+1 (convention 'front-month', identique à l'historique). Modifiez librement ce fichier.",
  "asof": "2026-11-20",
- "_curve_method": "Archive ICE du 4/11/2026 recalée par interpolation du log-ratio sur les cotations du 20/11/2026 (front et queue relevés sur le site). À remplacer par une extraction ICE complète si disponible.",
+ "_curve_method": "Archive ICE du 4/11/2026 recalée par interpolation du log-ratio sur les cotations du 20/11/2026 (front et queue relevés le 20/11/2026). À remplacer par une extraction ICE complète si disponible.",
  "eurusd": 1.099,
  "curves": {
   "gasoil_usd_t": {
@@ -84,7 +84,7 @@
   }
  },
  "recent_months": {
-  "_doc": "Moyennes mensuelles front-month ESTIMÉES (la base fournie s'arrête en juillet 2026). Sources : contrats échus et cotations relevées sur le site (Gasoil Sep/Oct ~1460 $/t, TTF Oct 74.9 puis Nov 98.6, Brent Nov 107.7 puis Dec 117.6). À vérifier/remplacer par les vraies moyennes.",
+  "_doc": "Moyennes mensuelles front-month ESTIMÉES (la base fournie s'arrête en juillet 2026). Sources : contrats échus et cotations de marché relevées en novembre 2026 (Gasoil Sep/Oct ~1460 $/t, TTF Oct 74.9 puis Nov 98.6, Brent Nov 107.7 puis Dec 117.6). À vérifier/remplacer par les vraies moyennes.",
   "2026-08": {
    "ttf": 62.0,
    "power_fr": 95.0,

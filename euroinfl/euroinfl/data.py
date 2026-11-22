@@ -27,7 +27,7 @@ COUNTRY_NAMES = {"EA": "Zone euro", "IT": "Italie", "FR": "France", "DE": "Allem
 
 
 def _read_wide(path: Path) -> dict[str, pd.DataFrame]:
-    lines = [l.strip() for l in path.read_text().splitlines() if l.strip()]
+    lines = [l.strip() for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
     head = lines[0]
     first, last = head.split("months ")[1].split("..")
     idx = pd.period_range(first, last, freq="M")
@@ -77,7 +77,7 @@ def load_user_db(path: str | Path | None = None) -> pd.DataFrame:
 
 
 def load_market_inputs() -> dict:
-    return json.loads((DATA / "market_inputs.json").read_text())
+    return json.loads((DATA / "market_inputs.json").read_text(encoding="utf-8"))
 
 
 def wholesale_history(db: pd.DataFrame, mkt: dict) -> pd.DataFrame:

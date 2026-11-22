@@ -8,14 +8,13 @@ Ce fichier est lu automatiquement par Claude Code à chaque session. Il décrit 
 
 ## Le projet en deux phrases
 Un moteur Python (`euroinfl/`) prévoit l'inflation HICPxT (hors tabac) mois par mois, sous-indice par sous-indice, à partir des prix de gros de l'énergie, des prix de production et des salaires, pour EA, IT, FR, DE, ES, fixings **Nov-26 → Dec-27**.
-On construit un **dashboard web** qui affiche ces prévisions, leur décomposition, les sensibilités aux chocs, le pass-through, les scénarios gasoil, le backtest et les inputs, inspiré du site de référence euro-inflation.vercel.app.
+On construit un **dashboard web** qui affiche ces prévisions, leur décomposition, les sensibilités aux chocs, le pass-through, les scénarios gasoil, le backtest et les inputs.
 
 ## Documents de référence (à lire avant de coder)
 | Fichier | Rôle |
 |---|---|
 | `euroinfl/MODELES.md` | **Spécification du modèle** : équations, élasticités, backtest, sensibilités, limites. Source de vérité des chiffres attendus. |
 | `docs/PLAN_DASHBOARD.md` | **Plan du dashboard** : vues, architecture, contrat d'API, phases, critères d'acceptation. |
-| `docs/euro-inflation-spec.md` | Description du site de référence (vues, API, conventions). Inspiration UX, ne pas copier ses chiffres. |
 | `docs/DATA_DICTIONARY.md` | Les 97 séries de la base CSV (codes, unités, dates de début/fin). |
 
 ## Arborescence cible
@@ -24,7 +23,7 @@ Inflation/
 ├── CLAUDE.md
 ├── PROMPT_CLAUDE_CODE.md      # prompt de lancement
 ├── data/raw/                  # base CSV brute (ne jamais modifier)
-├── docs/                      # plan, spec du site, dictionnaire de données
+├── docs/                      # plan, contrat de données, dictionnaire de données
 ├── euroinfl/                  # MOTEUR PYTHON EXISTANT (issu de euroinfl_moteur_inflation.zip)
 │   ├── euroinfl/              #   package : data.py, engine.py, pipeline.py, sensitivity.py, backtest.py
 │   ├── data/                  #   market_inputs.json, hicp_*_I25.csv, weights_2026.csv, CSV long

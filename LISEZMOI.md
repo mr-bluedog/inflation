@@ -2,9 +2,8 @@
 
 ## À faire avant de lancer Claude Code (2 minutes)
 
-1. **Moteur Python** : dézipper `euroinfl_moteur_inflation.zip` (livré le 22/11 dans la conversation « Document Markdown du site », probablement dans Téléchargements) **directement dans ce dossier**. On doit obtenir `Inflation/euroinfl/run_all.py`, `Inflation/euroinfl/MODELES.md`, `Inflation/euroinfl/euroinfl/…`.
-2. **Spec du site de référence** : copier `euro-inflation-spec.md` (même conversation) dans `Inflation/docs/`.
-3. Ouvrir un terminal dans `Inflation/`, lancer `claude`, coller le prompt de `PROMPT_CLAUDE_CODE.md`.
+1. **Moteur Python** : dézipper `euroinfl_moteur_inflation.zip` (livré le 22/11, probablement dans Téléchargements) **directement dans ce dossier**. On doit obtenir `Inflation/euroinfl/run_all.py`, `Inflation/euroinfl/MODELES.md`, `Inflation/euroinfl/euroinfl/…`.
+2. Ouvrir un terminal dans `Inflation/`, lancer `claude`, coller le prompt de `PROMPT_CLAUDE_CODE.md`.
 
 ## Contenu du dossier
 

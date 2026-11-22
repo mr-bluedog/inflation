@@ -31,7 +31,7 @@
 | Nov-27 | 2.38 | 1.85 | 1.71 | 2.44 | 2.35 | 2.50 |
 | Dec-27 | 2.35 | 1.62 | 1.70 | 2.45 | 2.36 | 2.48 |
 
-\* Fixings HICPxT saisis sur le site Euro Inflation le 20/11/2026 (pour comparaison uniquement, jamais utilisés par le modèle).
+\* Fixings de marché HICPxT relevés le 20/11/2026 (pour comparaison uniquement, jamais utilisés par le modèle).
 
 **Les 5 messages sur la transmission**
 1. **Carburants** : 30 % d'une hausse du gasoil (en €) passe dans le prix à la pompe, dont 2/3 le mois même et la quasi-totalité en 2 mois. Le reste du prix, ce sont des taxes fixes en €/L.
@@ -281,24 +281,9 @@ L'écart entre scénarios atteint 50 bp fin 2027. La forme de la courbe compte a
 
 ---
 
-## 13. Comparaison avec le site Euro Inflation (EA)
+## 13. Limites et hypothèses à vérifier (par ordre d'importance)
 
-| | Nov-26 | Jan-27 | Apr-27 | Jun-27 | Sep-27 | Dec-27 |
-|---|---|---|---|---|---|---|
-| Notre BU | 3.91 | 4.21 | 3.32 | 3.72 | 2.58 | 2.31 |
-| Notre combinaison | 3.93 | 4.14 | 3.21 | 3.65 | 2.59 | 2.35 |
-| Site BU PPI | 3.70 | 4.15 | 3.22 | 3.69 | 2.37 | 2.20 |
-| Site ML E5 | 3.72 | 4.22 | 3.16 | 3.34 | 1.96 | 1.82 |
-| Marché | 3.76 | 4.23 | 3.03 | 3.56 | 2.36 | 2.48 |
-
-- Les deux BU, estimés indépendamment, sont à ≤ 20 bp l'un de l'autre sauf sur Nov-26.
-- Notre ancrage est **octobre** (publié le 18/11), alors que le site reste ancré sur septembre : c'est un avantage d'un mois d'information.
-
----
-
-## 14. Limites et hypothèses à vérifier (par ordre d'importance)
-
-1. **Prix de gros août-novembre 2026 estimés.** La base s'arrête en juillet ; les valeurs proviennent des contrats échus relevés sur le site (`market_inputs.json → recent_months`). Remplacez-les par les vraies moyennes mensuelles.
+1. **Prix de gros août-novembre 2026 estimés.** La base s'arrête en juillet ; les valeurs proviennent des contrats échus et des cotations de marché relevés en novembre 2026 (`market_inputs.json → recent_months`). Remplacez-les par les vraies moyennes mensuelles.
 2. **Courbes au 20/11 reconstruites.** L'archive ICE du 4/11 est recalée sur les cotations front et queue du 20/11. Une extraction ICE complète est préférable.
 3. **Mesures fiscales et réglementaires non modélisées en prévision** : TRVE France de février 2027, éventuel retour de la taxe carburant allemande, boucliers. Les mois de ce type sont sous-pondérés à l'estimation, mais pas anticipés.
 4. **Espagne électricité** : pas de prix de gros espagnol dans la base, modèle faible. **France électricité** : réglementée, quasi déconnectée du marché.
@@ -308,7 +293,7 @@ L'écart entre scénarios atteint 50 bp fin 2027. La forme de la courbe compte a
 
 ---
 
-## 15. Utilisation
+## 14. Utilisation
 
 | Fichier | Contenu |
 |---|---|
