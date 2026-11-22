@@ -116,7 +116,7 @@ SPA, cache des fichiers). Variables : `VITE_DATA_MODE=api`, `VITE_API_BASE=https
 
 ### Mode statique : Vercel seul
 
-Mêmes réglages Vercel avec `VITE_DATA_MODE=static` (sans `VITE_API_BASE`). Le site lit
+Mêmes réglages Vercel, sans variable : `frontend/vercel.json` construit en **mode statique par défaut** (`VITE_DATA_MODE=api` pour le mode API). Le site lit
 `frontend/public/data/` (versionné, produit par `export_static.py`). Le simulateur fonctionne alors en
 approximation seule, et le bouton « Recalculer » est désactivé. Le build échoue si les données sont absentes.
 
