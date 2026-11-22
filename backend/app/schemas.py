@@ -306,3 +306,32 @@ class SeriesData(BaseModel):
 class Methodology(BaseModel):
     markdown: str
     source: str
+
+
+# ---------- /api/simulate
+class SimulateRequest(BaseModel):
+    scenario: str = "central"
+    shocks: dict[str, float] = Field(
+        default_factory=dict,
+        description="Curseurs : % de variation du niveau (ttf, gasoil, brent, eurusd, power_de, power_fr, "
+        "food_commo, nonfood_commo) ou pp/an (wages_pp)",
+        examples=[{"ttf": 20, "gasoil": -15}],
+    )
+    link_power: bool = Field(True, description="Électricité de gros entraînée par le gaz")
+
+
+class SimRow(BaseModel):
+    geo: str
+    item: str
+    fixing: str
+    base: float
+    shocked: float
+    delta_bp: float
+
+
+class SimulateData(BaseModel):
+    scenario: str
+    link_power: bool
+    shocks: dict[str, float]
+    engine_shocks: dict[str, float]
+    rows: list[SimRow]

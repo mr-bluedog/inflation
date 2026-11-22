@@ -24,6 +24,8 @@ import type {
   SensitivityRow,
   SeriesData,
   SeriesInfo,
+  SimulateData,
+  SimulateRequest,
 } from './types';
 
 export type DataMode = 'api' | 'static';
@@ -156,4 +158,31 @@ export interface ResponseTypes {
   seriesCatalog: SeriesInfo[];
   series: SeriesData;
   methodology: Methodology;
+}
+
+/** Recalcul exact par le moteur (mode API uniquement). */
+export async function postSimulate(
+  body: SimulateRequest,
+  signal?: AbortSignal,
+): Promise<Envelope<SimulateData>> {
+  if (DATA_MODE === 'static')
+    throw new ApiError('Recalcul exact indisponible en mode statique', 0, '/api/simulate');
+  const url = `${API_BASE}/api/simulate`;
+  const res = await fetch(url, {
+    method: 'POST',
+    signal,
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    let detail = res.statusText;
+    try {
+      const j = (await res.json()) as { detail?: unknown };
+      if (typeof j.detail === 'string') detail = j.detail;
+    } catch {
+      /* corps non JSON */
+    }
+    throw new ApiError(`Erreur ${res.status} sur /api/simulate : ${detail}`, res.status, url);
+  }
+  return (await res.json()) as Envelope<SimulateData>;
 }

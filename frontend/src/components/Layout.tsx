@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { DATA_MODE } from '../api/client';
 import { useMeta } from '../api/hooks';
 import { GEOS, MODELS, type Geo, type ModelKey } from '../api/types';
@@ -17,7 +17,8 @@ const THEMES: { value: ThemePref; label: string }[] = [
 export function Layout() {
   useThemeMode();
   const meta = useMeta();
-  const { geo, setGeo, model, setModel, theme, setTheme } = useApp();
+  const { geo, setGeo, model, setModel, theme, setTheme, simSearch, bumpRecalc } = useApp();
+  const navigate = useNavigate();
   const d = meta.data?.data;
   const geoNames = Object.fromEntries((d?.geos ?? []).map((g) => [g.code, g.name]));
 
@@ -85,12 +86,16 @@ export function Layout() {
         </span>
         <button
           className="btn"
-          disabled
+          disabled={DATA_MODE === 'static'}
           title={
             DATA_MODE === 'static'
               ? 'Indisponible en mode statique (pas de moteur)'
-              : 'Recalcul exact par le moteur : disponible avec le simulateur (phase 5)'
+              : 'Recalcul exact par le moteur des chocs du simulateur'
           }
+          onClick={() => {
+            navigate(`/simulateur${simSearch ? `?${simSearch}` : ''}`);
+            bumpRecalc();
+          }}
         >
           Recalculer
         </button>

@@ -245,3 +245,25 @@ export interface Methodology {
   markdown: string;
   source: string;
 }
+
+// ---------- POST /api/simulate
+export interface SimulateRequest {
+  scenario: string;
+  shocks: Record<string, number>;
+  link_power: boolean;
+}
+export interface SimRow {
+  geo: Geo;
+  item: Item;
+  fixing: string;
+  base: number;
+  shocked: number;
+  delta_bp: number;
+}
+export interface SimulateData {
+  scenario: string;
+  link_power: boolean;
+  shocks: Record<string, number>;
+  engine_shocks: Record<string, number>;
+  rows: SimRow[];
+}

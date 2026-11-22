@@ -136,6 +136,9 @@ UNITS = {
     "err": "pp",
     "index": "indice 2025 = 100",
     "gasoil_usd_t": "$/t",
+    "base": "%",
+    "shocked": "%",
+    "delta_bp": "bp",
 }
 
 __all__ = [

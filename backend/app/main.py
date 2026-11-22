@@ -376,3 +376,30 @@ def get_methodology():
 def health():
     s = get_store()
     return {"status": "ok", "run_id": s.run_id, "mode": "api"}
+
+
+# ------------------------------------------------------------------ simulateur (recalcul exact)
+@app.post("/api/simulate", response_model=Sch.Envelope[Sch.SimulateData], tags=["chocs"])
+def post_simulate(req: Sch.SimulateRequest):
+    from . import simulate as SIM
+
+    s = get_store()
+    if req.scenario not in C.P.GASOIL_SCENARIOS:
+        raise HTTPException(422, f"scénario inconnu : {req.scenario}")
+    errs = SIM.validate(req.shocks)
+    if errs:
+        raise HTTPException(422, " ; ".join(errs))
+    eng, rows = SIM.simulate(req.scenario, req.shocks, req.link_power)
+    notes = [
+        "Recalcul exact : Model.forecast(scenario, shocks) du moteur, modèle BU",
+        "Chocs permanents à partir de Dec-26 (salaires : dès Aug-26)",
+        "delta_bp = (choqué − base) × 100",
+    ]
+    data = {
+        "scenario": req.scenario,
+        "link_power": req.link_power,
+        "shocks": req.shocks,
+        "engine_shocks": eng,
+        "rows": rows,
+    }
+    return {"meta": meta(s, ["base", "shocked", "delta_bp"], model="BU", notes=notes), "data": data}

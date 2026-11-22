@@ -108,7 +108,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   Vue d'ensemble, Pays, Scénarios énergie, Méthodologie.
 - [x] **Phase 4 — Transmission (1 j)** — fait le 22/11/2026 : zoom Italie gaz (MODELES §11 vérifié à l'écran), profils 0-13 mois, élasticités, explorateur d'équations (étage 1 inclus) ; seul écart : énergie IT à 2 mois = 1,15 % (MODELES arrondit à 1,2)
   Pass-through, explorateur d'équations, élasticités.
-- [ ] **Phase 5 — Simulateur (1,5 j)**
+- [x] **Phase 5 — Simulateur (1,5 j)** — fait le 22/11/2026 : `POST /api/simulate` (identique à 1e-6 près à la matrice pré-calculée), mode instantané en ln(1+x)/ln(1,1), presets, URL partageable ; TTF +30 % IT Jun-27 : exact +72,1 bp, approximation +70,9 bp (x/10 : +77,3 bp)
   Mode linéaire, puis `POST /api/simulate` et mode exact ; presets ; décomposition par sous-indice ; URL partageable (chocs encodés dans la query string).
 - [ ] **Phase 6 — Backtest et Inputs (1 j)**
   Tables RMSE, graphe d'erreurs, poids ; courbes, mois estimés, explorateur des 97 séries.

@@ -1,7 +1,17 @@
 /** Hooks TanStack Query : un hook par route, clé de cache = [route, ...paramètres]. */
 import { useQueries, useQuery } from '@tanstack/react-query';
-import { fetchEnvelope, requests, type Request, type ResponseTypes } from './client';
-import { GEOS, type Envelope, type Geo, type HeadlineRow, type Item, type PassthroughRow } from './types';
+import { DATA_MODE, fetchEnvelope, postSimulate, requests, type Request, type ResponseTypes } from './client';
+import {
+  GEOS,
+  type Envelope,
+  type Geo,
+  type HeadlineRow,
+  type Item,
+  type PassthroughRow,
+  type SensitivityRow,
+  type SimulateData,
+  type SimulateRequest,
+} from './types';
 
 /** Headline des 5 pays (tableau de la vue d'ensemble). data = null tant qu'un pays manque. */
 export function useHeadlineAll() {
@@ -81,3 +91,31 @@ export const useSeriesCatalog = () =>
 export const useSeries = (code: string) =>
   useEnvelope<R['series']>(['series', code], requests.series(code), !!code);
 export const useMethodology = () => useEnvelope<R['methodology']>(['methodology'], requests.methodology());
+
+/** Sensibilités pré-calculées des 5 pays (tous chocs, tous sous-indices) pour le mode instantané. */
+export function useSensitivitiesAll() {
+  return useQueries({
+    queries: GEOS.map((geo) => ({
+      queryKey: ['sensitivities', geo, undefined, undefined],
+      queryFn: ({ signal }: { signal: AbortSignal }) =>
+        fetchEnvelope<SensitivityRow[]>(requests.sensitivities(geo), signal),
+    })),
+    combine: (res) => ({
+      isPending: res.some((r) => r.isPending),
+      error: res.find((r) => r.error)?.error ?? null,
+      data: res.every((r) => r.data)
+        ? (Object.fromEntries(GEOS.map((g, i) => [g, res[i]!.data!.data])) as Record<Geo, SensitivityRow[]>)
+        : null,
+    }),
+  });
+}
+
+/** Recalcul exact (POST /api/simulate). La clé change avec les chocs ; la requête obsolète est annulée. */
+export function useSimulate(body: SimulateRequest, enabled: boolean) {
+  return useQuery<Envelope<SimulateData>>({
+    queryKey: ['simulate', body.scenario, body.link_power, JSON.stringify(body.shocks)],
+    queryFn: ({ signal }) => postSimulate(body, signal),
+    enabled: enabled && DATA_MODE === 'api',
+    retry: false,
+  });
+}

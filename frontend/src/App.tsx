@@ -7,6 +7,7 @@ import { Overview } from './views/Overview';
 import { PassThrough } from './views/PassThrough';
 import { Placeholder } from './views/Placeholder';
 import { Scenarios } from './views/Scenarios';
+import { Simulator } from './views/Simulator';
 import { VIEWS } from './views/registry';
 
 /** Vues construites ; les autres affichent leur fiche (phase prévue, sources). */
@@ -14,6 +15,7 @@ const BUILT: Record<string, ReactElement> = {
   '/pays': <Country />,
   '/scenarios': <Scenarios />,
   '/pass-through': <PassThrough />,
+  '/simulateur': <Simulator />,
   '/methodologie': <Methodology />,
 };
 

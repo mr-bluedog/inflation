@@ -69,7 +69,7 @@ describe('layout', () => {
     expect(within(nav).getAllByRole('link')).toHaveLength(8);
     expect(await screen.findByText('HICP oct-26 · courbes 20/11/2026')).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 1, name: 'Backtest' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Recalculer' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Recalculer' })).toBeEnabled(); // mode API
   });
 
   it('le sélecteur de pays met à jour le store', async () => {

@@ -529,3 +529,95 @@ pre.formula {
   font-size: 12.5px;
   margin: 0 0 12px;
 }
+/* ---------- simulateur */
+.sim-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.sim-controls {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sim-results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.btn.small {
+  padding: 3px 8px;
+  font-size: 12px;
+}
+.slider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'lab val' 'rng rng';
+  gap: 2px 8px;
+  font-size: 13px;
+}
+.slider label {
+  grid-area: lab;
+  color: var(--ink-2);
+}
+.slider input[type='range'] {
+  grid-area: rng;
+  width: 100%;
+  accent-color: var(--accent);
+}
+.slider-value {
+  grid-area: val;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+.slider-value input {
+  width: 64px;
+  font: inherit;
+  font-size: 13px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+.hint {
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+.check {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.sim-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  border-top: 1px solid var(--grid);
+  padding-top: 10px;
+}
+@media (max-width: 1100px) {
+  .sim-layout {
+    grid-template-columns: 1fr;
+  }
+  .sim-controls {
+    position: static;
+  }
+}
