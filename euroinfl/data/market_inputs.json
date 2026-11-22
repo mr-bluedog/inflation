@@ -1,0 +1,127 @@
+{
+ "_doc": "Entrées de marché du moteur. Courbes = prix par mois de LIVRAISON. Le niveau de gros utilisé pour le mois M est le contrat M+1 (convention 'front-month', identique à l'historique). Modifiez librement ce fichier.",
+ "asof": "2026-11-20",
+ "_curve_method": "Archive ICE du 4/11/2026 recalée par interpolation du log-ratio sur les cotations du 20/11/2026 (front et queue relevés sur le site). À remplacer par une extraction ICE complète si disponible.",
+ "eurusd": 1.099,
+ "curves": {
+  "gasoil_usd_t": {
+   "2026-12": 1178.0,
+   "2027-01": 1144.592,
+   "2027-02": 1118.631,
+   "2027-03": 1092.831,
+   "2027-04": 1063.408,
+   "2027-05": 1035.321,
+   "2027-06": 1009.76,
+   "2027-07": 986.498,
+   "2027-08": 967.211,
+   "2027-09": 950.248,
+   "2027-10": 932.281,
+   "2027-11": 914.5,
+   "2027-12": 895.876
+  },
+  "ttf": {
+   "2026-12": 89.595,
+   "2027-01": 88.896,
+   "2027-02": 87.593,
+   "2027-03": 83.231,
+   "2027-04": 69.066,
+   "2027-05": 64.277,
+   "2027-06": 62.414,
+   "2027-07": 61.776,
+   "2027-08": 60.477,
+   "2027-09": 59.565,
+   "2027-10": 60.699,
+   "2027-11": 60.52,
+   "2027-12": 60.52,
+   "2028-01": 60.52
+  },
+  "brent_usd": {
+   "2027-01": 92.59,
+   "2027-02": 90.228,
+   "2027-03": 88.17,
+   "2027-04": 86.394,
+   "2027-05": 84.903,
+   "2027-06": 83.577,
+   "2027-07": 82.231,
+   "2027-08": 81.032,
+   "2027-09": 80.0,
+   "2027-10": 78.957,
+   "2027-11": 78.13,
+   "2027-12": 77.4,
+   "2028-01": 76.705
+  },
+  "power_fr": {
+   "2026-12": 163.0,
+   "2027-01": 163.0,
+   "2027-02": 163.0,
+   "2027-03": 163.0,
+   "2027-04": 163.0,
+   "2027-05": 163.0,
+   "2027-06": 163.0,
+   "2027-07": 163.0,
+   "2027-08": 163.0,
+   "2027-09": 163.0,
+   "2027-10": 163.0,
+   "2027-11": 163.0,
+   "2027-12": 163.0,
+   "2028-01": 163.0
+  },
+  "power_de": {
+   "2026-12": 154.0,
+   "2027-01": 154.0,
+   "2027-02": 154.0,
+   "2027-03": 154.0,
+   "2027-04": 154.0,
+   "2027-05": 154.0,
+   "2027-06": 154.0,
+   "2027-07": 154.0,
+   "2027-08": 154.0,
+   "2027-09": 154.0,
+   "2027-10": 154.0,
+   "2027-11": 154.0,
+   "2027-12": 154.0,
+   "2028-01": 154.0
+  }
+ },
+ "recent_months": {
+  "_doc": "Moyennes mensuelles front-month ESTIMÉES (la base fournie s'arrête en juillet 2026). Sources : contrats échus et cotations relevées sur le site (Gasoil Sep/Oct ~1460 $/t, TTF Oct 74.9 puis Nov 98.6, Brent Nov 107.7 puis Dec 117.6). À vérifier/remplacer par les vraies moyennes.",
+  "2026-08": {
+   "ttf": 62.0,
+   "power_fr": 95.0,
+   "power_de": 125.0,
+   "gasoil_usd_t": 1300.0,
+   "brent_usd": 95.0,
+   "eurusd": 1.14
+  },
+  "2026-09": {
+   "ttf": 72.0,
+   "power_fr": 120.0,
+   "power_de": 140.0,
+   "gasoil_usd_t": 1450.0,
+   "brent_usd": 105.0,
+   "eurusd": 1.13
+  },
+  "2026-10": {
+   "ttf": 86.0,
+   "power_fr": 150.0,
+   "power_de": 150.0,
+   "gasoil_usd_t": 1460.0,
+   "brent_usd": 113.0,
+   "eurusd": 1.115
+  },
+  "2026-11": {
+   "ttf": 88.0,
+   "power_fr": 163.0,
+   "power_de": 154.0,
+   "gasoil_usd_t": 1240.0,
+   "brent_usd": 96.0,
+   "eurusd": 1.11
+  }
+ },
+ "assumptions": {
+  "food_commo_monthly_pct": 0.0,
+  "nonfood_commo_monthly_pct": 0.0,
+  "wage_growth_yoy": null,
+  "_doc": "Hypothèses hors marché : matières premières (variation mensuelle %, 0 = plat), salaires négociés (% a/a ; null = dernier point du tracker BCE)."
+ }
+}

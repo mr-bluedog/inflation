@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulateur inflation HICPxT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Sofia+Sans+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE work : pupitre d'analyste, dense et sobre
+   IDEA la page « marchés » d'un quotidien financier : un chart maître, des curseurs de chocs, le chiffre qui bouge
+   PICTURE trajectoire HICPxT historique + prévision centrale + prévision choquée (vermillon), marché en points
+   COLOUR blanc, encre noire, vermillon #ff4a1c pour le choc ; nuit #120d0b
+   TYPE Sofia Sans Condensed 800 + Instrument Sans
+   LAYOUT laptop : contrôles à gauche (340px), chart + chiffres à droite ; téléphone : titre, chart, chiffres, contrôles */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#120d0b);--ink:light-dark(#111111,#f3ede9);--mute:light-dark(#6b6460,#a59a94);--rule:light-dark(#e4dfdc,#2e2622);--panel:light-dark(#f7f4f2,#1b1411);--acc:#ff4a1c;--acc2:light-dark(#b8330f,#ff8a6a);--base:light-dark(#111111,#f3ede9);--mkt:light-dark(#2f5bd9,#8fa9ff)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "Instrument Sans",system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(20px,3vw,40px) max(4vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2{font-family:"Sofia Sans Condensed","Arial Narrow",sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(30px,4.2vw,48px)}
+h2{font-size:clamp(24px,2.6vw,32px);margin-bottom:6px}
+p{margin:6px 0 0;max-width:70ch}
+.sub{color:var(--mute);font-size:15px}
+.top{display:grid;grid-template-columns:340px minmax(0,1fr);gap:28px;margin-top:18px}
+.ctrl{background:var(--panel);padding:16px;border-radius:6px;align-self:start}
+.seg{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.seg button{flex:1 1 auto;min-height:40px;padding:6px 10px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);font:600 14px "Instrument Sans",sans-serif;border-radius:4px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+label.sl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;margin:10px 0 2px;font-size:14px}
+label.sl b{font-variant-numeric:tabular-nums;white-space:nowrap}
+label.sl b.on{color:var(--acc2)}
+input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--acc);height:28px}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;margin:8px 0}
+.chk input{width:18px;height:18px;accent-color:var(--acc)}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.presets button{min-height:36px;padding:4px 10px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:4px;font:500 13px "Instrument Sans",sans-serif;cursor:pointer}
+.presets button:hover{border-color:var(--acc)}
+select{font:16px "Instrument Sans",sans-serif;padding:6px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--bg);color:var(--ink);min-height:40px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:0;border-top:2px solid var(--ink);margin-bottom:10px}
+.figs div{padding:8px 10px 6px 0}
+.figs span{display:block;font-size:13px;color:var(--mute)}
+.figs strong{font:800 clamp(26px,3vw,36px)/1.1 "Sofia Sans Condensed",sans-serif;white-space:nowrap}
+.figs .d strong{color:var(--acc2)}
+.fig{position:relative;min-height:360px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.fig.s{min-height:300px}
+.chartcol{display:flex;flex-direction:column}
+.chartcol #main{flex:1 1 auto}
+svg text{font:13px "Instrument Sans",sans-serif;fill:var(--mute);paint-order:stroke;stroke:var(--bg);stroke-width:4px}
+.leg{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--mute);margin-top:4px}
+.leg i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:6px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+.rule{border-top:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+th{font-weight:600;color:var(--mute);font-size:13px}
+td{font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.bar{display:grid;grid-template-columns:minmax(8em,13em) minmax(0,1fr) 5.5em;align-items:center;gap:8px;font-size:14px;padding:3px 0}
+.bar .tr{position:relative;height:16px}
+.bar .tr i{position:absolute;top:0;bottom:0;background:var(--acc)}
+.bar .tr i.neg{background:var(--mkt)}
+.bar .tr::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;border-left:1px solid var(--ink)}
+.bar b{text-align:right;font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+details{margin-top:8px}summary{cursor:pointer;font-weight:600}
+@media(max-width:900px){.top{grid-template-columns:minmax(0,1fr)}.ctrl{order:2}.two{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){table{font-size:13px}th,td{padding:5px 4px}.bar{grid-template-columns:7.5em minmax(0,1fr) 4.5em}}
+</style>
+</head>
+<body>
+<section class="band"><div class="wrap">
+  <h1 id="title">Chargement du modèle…</h1>
+  <p class="sub" id="lede">Prévision HICPxT par composante, avec chocs sur les prix de gros. Glissez les curseurs : tout se recalcule.</p>
+  <div class="top">
+    <div class="ctrl">
+      <div class="seg" id="geo" role="group" aria-label="Pays"></div>
+      <div class="seg" id="model" role="group" aria-label="Modèle">
+        <button data-v="comb" aria-pressed="true">Combinaison</button><button data-v="bu" aria-pressed="false">Structurel (BU)</button>
+      </div>
+      <label class="sl" for="fix">Fixing affiché</label>
+      <select id="fix"></select>
+      <div id="sliders"></div>
+      <label class="chk"><input type="checkbox" id="link" checked> Le gaz entraîne l'électricité de gros (élasticité 0,68 DE / 0,77 FR)</label>
+      <div class="presets">
+        <button data-p="gas50">Gaz +50 %</button><button data-p="oilm20">Pétrole −20 %</button><button data-p="eur10">Euro +10 %</button><button data-p="wage1">Salaires +1 pp</button><button data-p="reset">Réinitialiser</button>
+      </div>
+      <p class="note">Chocs permanents sur toute la courbe à partir de décembre 2026, appliqués aux sensibilités exactes du modèle (log-linéaires, additives).</p>
+    </div>
+    <div class="chartcol">
+      <div class="figs" id="figs"></div>
+      <div class="fig" id="main"><svg id="mainsvg" role="img" aria-label="Trajectoire HICPxT"></svg></div>
+      <div class="leg"><span><i style="background:var(--base)"></i>Historique et central</span><span><i style="background:var(--acc)"></i>Avec chocs</span><span id="legm"><i style="background:var(--mkt);height:8px;width:8px;border-radius:50%"></i>Fixings de marché (20/11)</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band rule"><div class="wrap two">
+  <div>
+    <h2 id="decT">D'où vient l'écart</h2>
+    <p class="sub">Impact du choc sur chaque composante (glissement annuel, pp) et sa contribution au HICPxT (bp), modèle structurel.</p>
+    <div id="dec" style="margin-top:12px"></div>
+  </div>
+  <div>
+    <h2>Prévision par composante</h2>
+    <p class="sub">Glissement annuel (%) au fixing sélectionné, central puis avec chocs.</p>
+    <div class="scroll"><table id="comp"></table></div>
+  </div>
+</div></section>
+
+<section class="band rule"><div class="wrap">
+  <h2 id="ptT">Vitesse de transmission</h2>
+  <p class="sub">Part d'un choc permanent de +10 % sur l'input retrouvée dans le niveau de chaque indice, mois après le début du choc (axe horizontal, en mois ; 1,0 = transmission totale).</p>
+  <div class="seg" id="ptdrv" role="group" aria-label="Input" style="margin-top:12px;max-width:760px"></div>
+  <div class="two">
+    <div><div class="fig s" id="pt"><svg id="ptsvg" role="img" aria-label="Profil de pass-through"></svg></div><div class="leg" id="ptleg"></div></div>
+    <div><h2 style="font-size:22px">Élasticités estimées</h2><div class="scroll"><table id="el"></table></div>
+    <p class="note">Somme des coefficients de retards ≤ 24 mois dans le régime actuel (depuis 2023), et avant 2023 quand un changement de régime est estimé.</p></div>
+  </div>
+</div></section>
+
+<section class="band rule"><div class="wrap two">
+  <div>
+    <h2>Forme de la courbe gasoil</h2>
+    <p class="sub">HICPxT selon six conventions de courbe (modèle structurel, sans autre choc).</p>
+    <div class="fig s" id="sc"><svg id="scsvg" role="img" aria-label="Scénarios gasoil"></svg></div><div class="leg" id="scleg"></div>
+  </div>
+  <div>
+    <h2>Qualité en backtest</h2>
+    <p class="sub" id="btsub">RMSE du glissement annuel HICPxT (pp), 82 origines 2019-2025, prix de gros figés à l'origine.</p>
+    <div class="scroll"><table id="bt"></table></div>
+    <p class="note">Le modèle structurel gagne à court terme et dans les chocs ; depuis 2023 le modèle statistique fait mieux au-delà de 6 mois, d'où la combinaison par horizon.</p>
+  </div>
+</div></section>
+
+<section class="band rule"><div class="wrap">
+  <p class="note" id="foot"></p>
+</div></section>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+const SL=[
+ {k:"ttf",lab:"Gaz TTF",min:-50,max:100,step:5,u:"%"},
+ {k:"gasoil",lab:"Gasoil ICE ($)",min:-50,max:100,step:5,u:"%"},
+ {k:"power_de",lab:"Électricité de gros DE",min:-50,max:100,step:5,u:"%"},
+ {k:"power_fr",lab:"Électricité de gros FR",min:-50,max:100,step:5,u:"%"},
+ {k:"eurusd",lab:"Euro contre dollar",min:-20,max:20,step:1,u:"%"},
+ {k:"food_commo",lab:"Matières premières alim.",min:-30,max:50,step:5,u:"%"},
+ {k:"nonfood_commo",lab:"Matières premières ind.",min:-30,max:50,step:5,u:"%"},
+ {k:"wages",lab:"Salaires négociés",min:-2,max:3,step:0.25,u:" pp"}];
+const ITEMS=["TOT_X_TBC","NRG","CP0722","CP0453","CP0452","CP0451","FOOD_P_X_TBC","FOOD_NP","IGD_NNRG","SERV"];
+const PT=[["ttf_power","Gaz (élec. entraînée)"],["ttf_only","Gaz seul"],["gasoil","Gasoil"],["power_de","Élec. DE"],["food_commo","Mat. prem. alim."],["wages","Salaires"]];
+const st={geo:"IT",model:"comb",fix:7,ptd:"ttf_power",v:Object.fromEntries(SL.map(s=>[s.k,0]))};
+let D=null;
+const fmt=(x,d=2)=>x==null||isNaN(x)?"–":x.toLocaleString("fr-FR",{minimumFractionDigits:d,maximumFractionDigits:d});
+const sgn=(x,d=1)=>(x>0?"+":x<0?"−":"")+fmt(Math.abs(x),d);
+const monthName=m=>{const [y,mm]=m.split("-");return ["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."][+mm-1]+" "+y};
+const short=m=>{const [y,mm]=m.split("-");return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+mm-1]+"-"+y.slice(2)};
+function scale(k,x){if(k==="wages")return x;return Math.log(1+x/100)/Math.log(1.1)}
+function shockBp(geo,item){
+  const n=D.fixings.length,out=new Array(n).fill(0),v=st.v,link=$("link").checked;
+  const add=(key,s)=>{if(!s)return;const a=D.sens[key][geo][item];for(let i=0;i<n;i++)out[i]+=s*a[i]};
+  add(link?"ttf_power":"ttf_only",scale("ttf",v.ttf));
+  add("gasoil",scale("gasoil",v.gasoil));add("power_de",scale("power_de",v.power_de));add("power_fr",scale("power_fr",v.power_fr));
+  add("eurusd",scale("eurusd",v.eurusd));add("food_commo",scale("food_commo",v.food_commo));add("nonfood_commo",scale("nonfood_commo",v.nonfood_commo));
+  add("wages",v.wages);
+  return out}
+function paths(geo){
+  const bu=D.forecast[geo].TOT_X_TBC,sh=shockBp(geo,"TOT_X_TBC");
+  const w=D.combo_w[geo];
+  const base=st.model==="comb"?D.combined[geo]:bu;
+  const shocked=base.map((b,i)=>b+(st.model==="comb"?w[i]:1)*sh[i]/100);
+  return {base,shocked,sh}}
+function svgLine(pts,x,y,cls){return pts.map((p,i)=>(i?"L":"M")+x(p[0]).toFixed(1)+" "+y(p[1]).toFixed(1)).join("")}
+function axisY(H,T,B,lo,hi,L,R,y,ticks){let s="";for(const t of ticks){const yy=y(t);s+=`<line x1="${L}" x2="${R}" y1="${yy}" y2="${yy}" stroke="var(--rule)"/><text x="${L-8}" y="${yy+4}" text-anchor="end" style="stroke-width:0">${fmt(t,t%1?1:0)}</text>`}return s}
+function niceTicks(lo,hi,n){const span=hi-lo,step=[0.25,0.5,1,2,5,10,20,50].find(s=>span/s<=n)||100;const a=[];for(let t=Math.ceil(lo/step)*step;t<=hi+1e-9;t+=step)a.push(+t.toFixed(4));return a}
+function drawMain(){
+  const s=$("mainsvg"),W=s.clientWidth,H=s.clientHeight;if(!W)return;
+  const g=st.geo,hist=D.history[g],p=paths(g);
+  const K=Math.max(0,hist.months.length-24),hm=hist.months.slice(K),hv=hist.TOT_X_TBC.slice(K),fm=D.fixings;
+  const all=[...hm,...fm],N=all.length;
+  const L=44,R=W-16,T=16,B=H-30;
+  const vals=[...hv,...p.base,...p.shocked,...(g==="EA"?D.market_ea:[])];
+  let lo=Math.min(...vals),hi=Math.max(...vals);const pad=(hi-lo)*0.08+0.1;lo-=pad;hi+=pad;
+  const x=i=>L+i*(R-L)/(N-1),y=v=>T+(hi-v)/(hi-lo)*(B-T);
+  let o=axisY(H,T,B,lo,hi,L,R,y,niceTicks(lo,hi,6));
+  const step=W<520?12:6;
+  all.forEach((m,i)=>{if(i%step===0)o+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle" style="stroke-width:0">${short(m)}</text>`});
+  const xl=x(hm.length-1);
+  o+=`<rect x="${xl}" y="${T}" width="${R-xl}" height="${B-T}" fill="var(--panel)"/>`;
+  o+=axisY(H,T,B,lo,hi,L,R,y,niceTicks(lo,hi,6)).replace(/<text[^>]*>[^<]*<\/text>/g,"");
+  if(lo<0&&hi>0)o+=`<line x1="${L}" x2="${R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--mute)"/>`;
+  o+=`<text x="${xl+6}" y="${T+14}">prévision →</text>`;
+  const hp=hv.map((v,i)=>[i,v]);
+  const bp=[[hm.length-1,hv[hv.length-1]],...p.base.map((v,i)=>[hm.length+i,v])];
+  const sp=[[hm.length-1,hv[hv.length-1]],...p.shocked.map((v,i)=>[hm.length+i,v])];
+  o+=`<path d="${svgLine(hp,x,y)}" fill="none" stroke="var(--base)" stroke-width="2.2"/>`;
+  o+=`<path d="${svgLine(bp,x,y)}" fill="none" stroke="var(--base)" stroke-width="2.2" stroke-dasharray="6 4"/>`;
+  const moved=p.sh.some(v=>Math.abs(v)>0.05);
+  if(moved)o+=`<path d="${svgLine(sp,x,y)}" fill="none" stroke="var(--acc)" stroke-width="3"/>`;
+  if(g==="EA")D.market_ea.forEach((v,i)=>{o+=`<circle cx="${x(hm.length+i)}" cy="${y(v)}" r="3.5" fill="var(--mkt)"/>`});
+  const fi=hm.length+st.fix,fv=moved?p.shocked[st.fix]:p.base[st.fix];
+  o+=`<line x1="${x(fi)}" x2="${x(fi)}" y1="${T}" y2="${B}" stroke="var(--mute)" stroke-dasharray="2 3"/>`;
+  o+=`<circle cx="${x(fi)}" cy="${y(fv)}" r="5" fill="${moved?"var(--acc)":"var(--base)"}"/>`;
+  const lx=Math.min(x(fi)+8,R-60);
+  o+=`<text x="${lx}" y="${y(fv)-10}" style="fill:var(--ink);font-weight:600">${fmt(fv)} %</text>`;
+  s.innerHTML=o}
+function drawProfile(){
+  const s=$("ptsvg"),W=s.clientWidth,H=s.clientHeight;if(!W)return;
+  const g=st.geo,P=D.profiles[st.ptd][g],k=st.ptd;
+  const series=[["CP0452","Gaz","var(--acc)"],["CP0451","Électricité","var(--mkt)"],["CP0722","Carburants","#c79a00"],["NRG","Énergie","var(--ink)"],["TOT_X_TBC","HICPxT","var(--mute)"],["FOOD_P_X_TBC","Alim. transformée","#2e9e6b"],["SERV","Services","#8a5cd1"]];
+  const div=k==="wages"?1:10;
+  const ser=series.map(([it,lab,c])=>[lab,c,P[it].map(v=>v/div)]).filter(d=>d[2].some(v=>Math.abs(v)>0.002));
+  const n=D.fixings.length;
+  const L=44,R=W-(W<520?12:110),T=12,B=H-28;
+  let lo=Math.min(0,...ser.flatMap(d=>d[2])),hi=Math.max(0.05,...ser.flatMap(d=>d[2]));hi+= (hi-lo)*0.06;
+  const x=i=>L+i*(R-L)/(n-1),y=v=>T+(hi-v)/(hi-lo)*(B-T);
+  let o="";for(const t of niceTicks(lo,hi,5)){o+=`<line x1="${L}" x2="${R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--rule)"/><text x="${L-8}" y="${y(t)+4}" text-anchor="end">${fmt(t,2)}</text>`}
+  for(let i=1;i<n;i+=W<520?4:2)o+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${i}</text>`;
+  ser.forEach(([lab,c,v])=>{o+=`<path d="${svgLine(v.map((a,i)=>[i,a]),x,y)}" fill="none" stroke="${c}" stroke-width="2.4"/>`});
+  if(W>=520){let last=-1e9;[...ser].sort((a,b)=>b[2][n-1]-a[2][n-1]).forEach(([lab,c,v])=>{let yy=Math.max(y(v[n-1]),last+15);last=yy;o+=`<text x="${R+6}" y="${yy+4}" style="fill:${c}">${lab}</text>`})}
+  s.innerHTML=o;
+  $("ptleg").innerHTML=W<520?ser.map(([l,c])=>`<span><i style="background:${c}"></i>${l}</span>`).join(""):(k==="wages"?"Salaires : variation du niveau en % pour +1 pp de croissance annuelle.":"");
+}
+function drawScen(){
+  const s=$("scsvg"),W=s.clientWidth,H=s.clientHeight;if(!W)return;
+  const g=st.geo,keys=Object.keys(D.scenarios),n=D.fixings.length;
+  const cols={central:"var(--ink)",flat:"var(--acc)",full:"var(--mkt)",flat3_trend:"var(--mute)",brent_crack:"#c79a00",brent_crack_full:"#2e9e6b"};
+  const vals=keys.flatMap(k=>D.scenarios[k][g]);let lo=Math.min(...vals),hi=Math.max(...vals);const pad=(hi-lo)*0.08+0.05;lo-=pad;hi+=pad;
+  const L=40,R=W-12,T=12,B=H-28,x=i=>L+i*(R-L)/(n-1),y=v=>T+(hi-v)/(hi-lo)*(B-T);
+  let o="";for(const t of niceTicks(lo,hi,5)){o+=`<line x1="${L}" x2="${R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--rule)"/><text x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmt(t,1)}</text>`}
+  D.fixings.forEach((m,i)=>{if(i%(W<520?4:3)===0)o+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${short(m)}</text>`});
+  keys.forEach(k=>{if(k==="flat3_trend")return;o+=`<path d="${svgLine(D.scenarios[k][g].map((v,i)=>[i,v]),x,y)}" fill="none" stroke="${cols[k]}" stroke-width="${k==="central"?3:2}"/>`});
+  s.innerHTML=o;
+  const lab={central:"Central",flat:"Front constant",full:"Courbe ICE",brent_crack:"Brent + crack (gel)",brent_crack_full:"Brent futures + crack"};
+  $("scleg").innerHTML=Object.keys(lab).map(k=>`<span><i style="background:${cols[k]}"></i>${lab[k]}</span>`).join("");
+}
+function renderSliders(){
+  $("sliders").innerHTML=SL.map(s=>`<label class="sl" for="s_${s.k}"><span>${s.lab}</span><b id="v_${s.k}">0${s.u}</b><input type="range" id="s_${s.k}" min="${s.min}" max="${s.max}" step="${s.step}" value="${st.v[s.k]}"></label>`).join("");
+  SL.forEach(s=>{$("s_"+s.k).addEventListener("input",e=>{st.v[s.k]=+e.target.value;update()})})}
+function syncSliders(){SL.forEach(s=>{$("s_"+s.k).value=st.v[s.k];const b=$("v_"+s.k);const v=st.v[s.k];b.textContent=(v>0?"+":v<0?"−":"")+fmt(Math.abs(v),s.k==="wages"?2:0).replace(/,00$/,"")+s.u;b.className=v?"on":""})}
+function update(){
+  syncSliders();
+  const g=st.geo,i=st.fix,p=paths(g),m=D.fixings[i],name=D.geo_names[g];
+  const d=p.shocked[i]-p.base[i];
+  const any=Object.values(st.v).some(v=>v);
+  $("title").textContent=any?`${name} : ${fmt(p.shocked[i])} % en ${monthName(m)}, ${sgn(d*100)} bp sous vos chocs`:`${name} : inflation hors tabac à ${fmt(p.base[i])} % en ${monthName(m)}`;
+  const peak=p.base.reduce((a,v,j)=>v>p.base[a]?j:a,0);
+  $("figs").innerHTML=`<div><span>Central ${short(m)}</span><strong>${fmt(p.base[i])} %</strong></div><div class="d"><span>Avec chocs</span><strong>${fmt(p.shocked[i])} %</strong></div><div class="d"><span>Écart</span><strong>${sgn(d*100)} bp</strong></div><div><span>Pic central</span><strong>${fmt(p.base[peak])} %</strong></div>`+(g==="EA"?`<div><span>Marché ${short(m)}</span><strong>${fmt(D.market_ea[i])} %</strong></div>`:`<div><span>Dernier publié (oct. 26)</span><strong>${fmt(D.history[g].TOT_X_TBC.at(-1))} %</strong></div>`);
+  $("legm").style.display=g==="EA"?"":"none";
+  // décomposition
+  const W=D.weights[g],rows=[["NRG","CP0722"],["NRG","CP0453"],["NRG","CP0452"],["NRG","CP0451"],[null,"FOOD_P_X_TBC"],[null,"FOOD_NP"],[null,"IGD_NNRG"],[null,"SERV"]];
+  const sumE=["CP0722","CP0453","CP0452","CP0451"].reduce((a,k)=>a+W.energy[k],0);
+  const contrib=rows.map(([par,it])=>{const dy=shockBp(g,it)[i]/100;const w=par?W.top.NRG*W.energy[it]/sumE:W.top[it];return [it,dy,w*dy*100]});
+  const tot=shockBp(g,"TOT_X_TBC")[i];
+  const mx=Math.max(0.5,...contrib.map(c=>Math.abs(c[2])),Math.abs(tot));
+  $("decT").textContent=any?`D'où viennent les ${sgn(tot)} bp`:"D'où vient l'écart";
+  $("dec").innerHTML=any?contrib.map(([it,dy,c])=>`<div class="bar"><span>${D.labels[it]}<br><small class="sub">${sgn(dy,2)} pp</small></span><span class="tr"><i class="${c<0?"neg":""}" style="${c<0?`right:50%;width:${50*Math.abs(c)/mx}%`:`left:50%;width:${50*c/mx}%`}"></i></span><b>${sgn(c)} bp</b></div>`).join("")+`<div class="bar" style="border-top:1px solid var(--ink);margin-top:4px;padding-top:6px"><span><b>HICPxT</b></span><span class="tr"><i class="${tot<0?"neg":""}" style="${tot<0?`right:50%;width:${50*Math.abs(tot)/mx}%`:`left:50%;width:${50*tot/mx}%`}"></i></span><b>${sgn(tot)} bp</b></div><p class="note">Contribution = poids 2026 × écart de glissement ; l'écart au total vient du chaînage annuel.${st.model==="comb"?` En mode combinaison, le titre applique ${fmt(D.combo_w[g][i]*100,0)} % de cet effet (poids du BU à cet horizon).`:""}</p>`:`<p class="note">Aucun choc actif : choisissez un préréglage ou déplacez un curseur.</p>`;
+  $("comp").innerHTML=`<thead><tr><th>Composante</th><th>Poids</th><th>Central BU</th><th>Avec chocs</th></tr></thead><tbody>`+ITEMS.map(it=>{const b=D.forecast[g][it][i],sh=b+shockBp(g,it)[i]/100;const w=it==="TOT_X_TBC"?1:it==="NRG"||!it.startsWith("CP")?W.top[it]:W.top.NRG*W.energy[it];return `<tr${it==="TOT_X_TBC"||it==="NRG"?' style="font-weight:600"':""}><td>${it.startsWith("CP")?"&nbsp;&nbsp;":""}${D.labels[it]}</td><td>${fmt(w*100,1)} %</td><td>${fmt(b)}</td><td${Math.abs(sh-b)>0.005?' style="color:var(--acc2)"':""}>${fmt(sh)}</td></tr>`}).join("")+"</tbody>";
+  // élasticités
+  const el=D.elasticities.filter(r=>r.geo===g);
+  const dn={gasoil_eur:"gasoil €",ttf:"TTF",power_de:"élec. DE",power_fr:"élec. FR",ppi_energy:"PPI énergie",ppi_food:"PPI alim.",ppi_interm:"PPI interm.",wage_m:"salaires"};
+  $("el").innerHTML=`<thead><tr><th>Indice ← input</th><th>Actuel</th><th>Avant 2023</th><th>R²</th></tr></thead><tbody>`+el.map(r=>`<tr><td>${D.labels[r.item]} ← ${dn[r.driver]||r.driver}</td><td>${fmt(r.sum_current,2)}</td><td>${r.sum_old_regime==null?"–":fmt(r.sum_old_regime,2)}</td><td>${fmt(r.r2,2)}</td></tr>`).join("")+"</tbody>";
+  $("ptT").textContent=`Vitesse de transmission — ${name}`;
+  // backtest
+  const bt=D.backtest.rmse.TOT_X_TBC[g],hs=[0,2,5,11];
+  const names={BU:"Structurel (BU)",STAT:"Statistique",NAIF:"Naïf (g.a. inchangé)",BU_perfect:"BU, prix de gros parfaits",COMBINE:"Combinaison"};
+  $("bt").innerHTML=`<thead><tr><th>Modèle</th>${hs.map(h=>`<th>h${h+1}</th>`).join("")}</tr></thead><tbody>`+["COMBINE","BU","STAT","NAIF","BU_perfect"].filter(k=>bt[k]).map(k=>`<tr><td>${names[k]}</td>${hs.map(h=>`<td>${fmt(bt[k][h],2)}</td>`).join("")}</tr>`).join("")+"</tbody>";
+  drawMain();drawProfile();drawScen();
+}
+function presets(p){for(const s of SL)st.v[s.k]=0;if(p==="gas50")st.v.ttf=50;if(p==="oilm20")st.v.gasoil=-20;if(p==="eur10")st.v.eurusd=10;if(p==="wage1")st.v.wages=1;update()}
+function seg(id,items,key){$(id).innerHTML=items.map(([v,l])=>`<button data-v="${v}" aria-pressed="${st[key]===v}">${l}</button>`).join("");
+  $(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;st[key]=b.dataset.v;[...$(id).children].forEach(c=>c.setAttribute("aria-pressed",c===b));update()})}
+fetch("dashboard_data.json").then(r=>r.json()).then(d=>{
+  D=d;
+  seg("geo",D.geos.map(g=>[g,D.geo_names[g]]),"geo");
+  $("model").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;st.model=b.dataset.v;[...$("model").children].forEach(c=>c.setAttribute("aria-pressed",c===b));update()});
+  seg("ptdrv",PT,"ptd");
+  $("fix").innerHTML=D.fixings.map((m,i)=>`<option value="${i}"${i===st.fix?" selected":""}>${short(m)}</option>`).join("");
+  $("fix").addEventListener("change",e=>{st.fix=+e.target.value;update()});
+  $("link").addEventListener("change",update);
+  document.querySelectorAll(".presets button").forEach(b=>b.addEventListener("click",()=>presets(b.dataset.p)));
+  renderSliders();
+  st.v.ttf=10;
+  $("foot").textContent=`Données : Eurostat HICP (I25, ECOICOP v2) jusqu'à ${D.last_obs} ; courbes ICE au ${D.asof} (archive du 4/11 recalée sur les cotations du 20/11) ; prix de gros août-novembre 2026 estimés. ${D.market_note}. Prévisions conditionnelles, pas des probabilités ; voir MODELES.md pour les équations et les limites.`;
+  update();
+  const ro=new ResizeObserver(()=>{drawMain();drawProfile();drawScen()});ro.observe($("main"));ro.observe($("pt"));ro.observe($("sc"));
+}).catch(err=>{$("title").textContent="Données indisponibles";$("lede").textContent=String(err)});
+}
+</script>
+</body>
+</html>

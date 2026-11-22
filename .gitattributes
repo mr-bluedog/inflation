@@ -1,0 +1,5 @@
+# Données : versionnées telles quelles (pas de conversion de fins de ligne)
+data/** -text
+euroinfl/data/** -text
+euroinfl/out/** -text
+*.csv -text
