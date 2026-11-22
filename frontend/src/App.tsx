@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { Country } from './views/Country';
 import { Methodology } from './views/Methodology';
 import { Overview } from './views/Overview';
+import { PassThrough } from './views/PassThrough';
 import { Placeholder } from './views/Placeholder';
 import { Scenarios } from './views/Scenarios';
 import { VIEWS } from './views/registry';
@@ -12,6 +13,7 @@ import { VIEWS } from './views/registry';
 const BUILT: Record<string, ReactElement> = {
   '/pays': <Country />,
   '/scenarios': <Scenarios />,
+  '/pass-through': <PassThrough />,
   '/methodologie': <Methodology />,
 };
 

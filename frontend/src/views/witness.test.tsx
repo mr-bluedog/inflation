@@ -14,6 +14,8 @@ import { waterfallSteps } from './country/logic';
 import { Country } from './Country';
 import { Methodology } from './Methodology';
 import { Overview } from './Overview';
+import { PassThrough } from './PassThrough';
+import { parseBuckets } from './passthrough/logic';
 import { Scenarios } from './Scenarios';
 
 vi.mock('../charts/Chart', () => ({ Chart: () => null })); // pas de canvas dans jsdom
@@ -28,19 +30,24 @@ function fileFor(url: string): string {
   const u = new URL(url, 'http://x');
   const p = u.searchParams;
   const route = u.pathname.replace(/^\/api\//, '');
-  if (route === 'history') return `history/${p.get('geo')}/${p.get('item')}.json`;
+  if (route === 'history' || route === 'passthrough') return `${route}/${p.get('geo')}/${p.get('item')}.json`;
   if (['headline', 'components', 'scenarios', 'sensitivities'].includes(route))
     return `${route}/${p.get('geo')}.json`;
-  return `${route}.json`;
+  if (route === 'equations') return 'equations/index.json';
+  return `${route}.json`; // equations/IT/CP0452, elasticities, meta…
 }
 
 function serveExport() {
   globalThis.fetch = vi.fn(async (input: string | URL | Request) => {
     const url = String(input);
     const body = JSON.parse(readFileSync(resolve(DATA, fileFor(url)), 'utf-8'));
-    const from = new URL(url, 'http://x').searchParams.get('from');
+    const q = new URL(url, 'http://x').searchParams;
+    const from = q.get('from');
+    const shock = q.get('shock');
     if (from && Array.isArray(body.data))
       body.data = body.data.filter((r: { period: string }) => r.period >= from);
+    if (shock && Array.isArray(body.data))
+      body.data = body.data.filter((r: { shock: string }) => r.shock === shock);
     return new Response(JSON.stringify(body));
   }) as typeof fetch;
 }
@@ -115,6 +122,66 @@ describe.skipIf(!HAS_DATA)('chiffres témoins à l’écran (export statique ré
       'id',
       '14-limites-et-hypotheses-a-verifier-par-ordre-d-importance',
     );
+  });
+});
+
+describe.skipIf(!HAS_DATA)('pass-through : MODELES §11 à l’écran (export réel)', () => {
+  beforeEach(() => {
+    serveExport();
+    useApp.setState({ geo: 'EA', model: 'COMBINE', fixing: null });
+  });
+
+  it('zoom Italie gaz : niveaux à 2 / 5 / 11 mois', async () => {
+    show(<PassThrough />);
+    const t = await screen.findByRole('table', { name: 'Zoom Italie gaz : variation du niveau des indices' });
+    const c = (label: string) =>
+      within(row(t, label))
+        .getAllByRole('cell')
+        .slice(1)
+        .map((x) => x.textContent);
+    const s = (v: string) => `+${v}${NB}%`;
+    // MODELES §11 (1 décimale) : gaz 2,4 / 3,5 / 4,4 ; élec 1,5 / 2,7 / 3,9 ; énergie 1,2 / 1,8 / 2,4 ; HICPxT 0,15 / 0,22 / 0,31
+    expect(c('Gaz IT')).toEqual([s('2,39'), s('3,48'), s('4,44')]);
+    expect(c('Électricité IT')).toEqual([s('1,53'), s('2,74'), s('3,91')]);
+    expect(c('Énergie IT')).toEqual([s('1,15'), s('1,76'), s('2,40')]); // 1,1467 : MODELES écrit 1,2
+    expect(c('HICPxT Italie')).toEqual([s('0,15'), s('0,22'), s('0,31')]);
+    expect(c('HICPxT Zone euro')).toEqual([s('0,03'), s('0,05'), s('0,08')]);
+    // étapes : élasticités gaz 0,49 (avant 2023 0,15) et électricité 0,42
+    expect(screen.getByText(/TTF → gaz de détail/).parentElement?.textContent).toContain(
+      'total 0,49 (avant 2023 : 0,15)',
+    );
+    expect(screen.getByText(/électricité de détail/).parentElement?.textContent).toContain('élasticité 0,42');
+  });
+
+  it("explorateur d'équations : gaz italien", async () => {
+    useApp.setState({ geo: 'IT' });
+    show(<PassThrough />);
+    const t = await screen.findByRole('table', { name: "Termes de l'équation" });
+    const gamma = within(t)
+      .getAllByRole('row')
+      .find((r) => r.textContent?.includes('t−0 … t−1') && r.textContent.includes('γ'))!;
+    expect(
+      within(gamma)
+        .getAllByRole('cell')
+        .map((x) => x.textContent)
+        .slice(3),
+    ).toEqual(['+0,252', '6,4']);
+    const pt = screen.getByRole('table', { name: 'Pass-through du régime actuel' });
+    expect(
+      within(pt)
+        .getAllByRole('cell')
+        .map((x) => x.textContent),
+    ).toEqual(['Gaz TTF', '0,49', '0,15']);
+  });
+});
+
+describe('parseBuckets', () => {
+  it('lit les fenêtres du moteur', () => {
+    expect(parseBuckets('ttf[0-1]=0.252; ttf[2-4]=0.118; power_de[12-23]=-0.000')).toEqual([
+      { driver: 'ttf', lo: 0, hi: 1, value: 0.252 },
+      { driver: 'ttf', lo: 2, hi: 4, value: 0.118 },
+      { driver: 'power_de', lo: 12, hi: 23, value: -0 },
+    ]);
   });
 });
 

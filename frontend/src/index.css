@@ -509,3 +509,23 @@ button.linklike {
   cursor: pointer;
   text-decoration: underline dotted;
 }
+.steps {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--ink-2);
+}
+.steps b {
+  color: var(--ink);
+}
+pre.formula {
+  background: var(--plane);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+  font-size: 12.5px;
+  margin: 0 0 12px;
+}

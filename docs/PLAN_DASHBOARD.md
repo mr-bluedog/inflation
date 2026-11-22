@@ -106,7 +106,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   Vite + React + TS, layout (barre latérale, en-tête, sélecteurs globaux), thème, client API typé (types générés depuis l'OpenAPI ou écrits à la main), formatage (`fmtPct`, `fmtBp`, `fmtFixing`).
 - [x] **Phase 3 — Vues lecture (2 j)** — fait le 22/11/2026 : Vue d'ensemble, Pays, Scénarios énergie, Méthodologie ; chiffres témoins vérifiés à l'écran (`witness.test.tsx` sur l'export réel) ; « indicatif » = Oct-27 → Dec-27 (au-delà de h+10, h+0 = Nov-26)
   Vue d'ensemble, Pays, Scénarios énergie, Méthodologie.
-- [ ] **Phase 4 — Transmission (1 j)**
+- [x] **Phase 4 — Transmission (1 j)** — fait le 22/11/2026 : zoom Italie gaz (MODELES §11 vérifié à l'écran), profils 0-13 mois, élasticités, explorateur d'équations (étage 1 inclus) ; seul écart : énergie IT à 2 mois = 1,15 % (MODELES arrondit à 1,2)
   Pass-through, explorateur d'équations, élasticités.
 - [ ] **Phase 5 — Simulateur (1,5 j)**
   Mode linéaire, puis `POST /api/simulate` et mode exact ; presets ; décomposition par sous-indice ; URL partageable (chocs encodés dans la query string).

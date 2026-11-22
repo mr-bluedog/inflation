@@ -1,7 +1,7 @@
 /** Hooks TanStack Query : un hook par route, clé de cache = [route, ...paramètres]. */
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { fetchEnvelope, requests, type Request, type ResponseTypes } from './client';
-import { GEOS, type Envelope, type Geo, type HeadlineRow, type Item } from './types';
+import { GEOS, type Envelope, type Geo, type HeadlineRow, type Item, type PassthroughRow } from './types';
 
 /** Headline des 5 pays (tableau de la vue d'ensemble). data = null tant qu'un pays manque. */
 export function useHeadlineAll() {
@@ -16,6 +16,24 @@ export function useHeadlineAll() {
       error: res.find((r) => r.error)?.error ?? null,
       data: res.every((r) => r.data)
         ? (Object.fromEntries(GEOS.map((g, i) => [g, res[i]!.data!.data])) as Record<Geo, HeadlineRow[]>)
+        : null,
+    }),
+  });
+}
+
+/** Profils de pass-through de plusieurs couples pays × sous-indice pour un même choc (zoom Italie gaz). */
+export function usePassthroughMany(pairs: readonly (readonly [Geo, Item])[], shock: string) {
+  return useQueries({
+    queries: pairs.map(([geo, item]) => ({
+      queryKey: ['passthrough', geo, item, shock],
+      queryFn: ({ signal }: { signal: AbortSignal }) =>
+        fetchEnvelope<PassthroughRow[]>(requests.passthrough(geo, item, shock), signal),
+    })),
+    combine: (res) => ({
+      isPending: res.some((r) => r.isPending),
+      error: res.find((r) => r.error)?.error ?? null,
+      data: res.every((r) => r.data)
+        ? Object.fromEntries(pairs.map(([g, i], k) => [`${g}/${i}`, res[k]!.data!.data]))
         : null,
     }),
   });

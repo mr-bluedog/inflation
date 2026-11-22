@@ -15,7 +15,7 @@ import {
 import { CanvasRenderer } from 'echarts/renderers';
 import type { EChartsOption } from 'echarts';
 import { useThemeMode } from '../useThemeMode';
-import { baseOption } from './base';
+import { baseOption, mergeOption } from './base';
 
 echarts.use([
   LineChart,
@@ -40,7 +40,7 @@ interface Props {
 
 export function Chart({ option, height = 320, ariaLabel }: Props) {
   const mode = useThemeMode();
-  const merged = { ...baseOption(mode), ...option } as EChartsOption;
+  const merged = mergeOption(baseOption(mode), option);
   return (
     <div role="img" aria-label={ariaLabel}>
       <ReactEChartsCore

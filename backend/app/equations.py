@@ -95,7 +95,9 @@ def describe(geo: str, item: str, raw: dict, elasticity_rows: list[dict]) -> dic
 
 def formula(item: str, terms: list[dict], has_rho: bool, has_easter: bool, drift: float | None) -> str:
     """Forme générale de MODELES §3, instanciée avec les termes réellement estimés."""
-    parts = [f"s_mois{' (dérive ' + format(drift, '.2f') + ' %/mois)' if drift is not None else ''}"]
+    parts = [
+        f"s_mois{' (dérive ' + format(drift, '.2f').replace('.', ',') + ' %/mois)' if drift is not None else ''}"
+    ]
     if has_rho:
         parts.append("ρ·y(t−1)")
     i = 0

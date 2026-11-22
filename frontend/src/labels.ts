@@ -42,3 +42,53 @@ export function monthRange(from: string, to: string): string[] {
   }
   return out;
 }
+
+/** Drivers des équations (libellés courts d'interface ; unités dans /api/inputs/market). */
+export const DRIVER_SHORT: Record<string, string> = {
+  ttf: 'Gaz TTF',
+  power_de: 'Électricité de gros DE',
+  power_fr: 'Électricité de gros FR',
+  gasoil_eur: 'Gasoil (€)',
+  gasoil_usd_t: 'Gasoil ($)',
+  ppi_energy: 'PPI énergie',
+  ppi_food: 'PPI alimentaire',
+  ppi_interm: 'PPI biens intermédiaires',
+  wage_m: 'Salaires négociés',
+  food_commo: 'Mat. prem. alimentaires',
+  nonfood_commo: 'Mat. prem. industrielles',
+};
+
+/** Équations de l'étage 1 (prix de production zone euro). */
+export const STAGE1_ITEMS: Record<string, string> = {
+  ppi_energy: 'PPI énergie',
+  ppi_food: 'PPI alimentaire',
+  ppi_interm: 'PPI biens intermédiaires',
+};
+
+export const MONTHS_SHORT = [
+  'jan',
+  'fév',
+  'mar',
+  'avr',
+  'mai',
+  'juin',
+  'juil',
+  'aoû',
+  'sep',
+  'oct',
+  'nov',
+  'déc',
+];
+
+/** Libellés courts des chocs pré-calculés (légendes) ; le libellé complet vient de /api/meta. */
+export const SHOCK_SHORT: Record<string, string> = {
+  ttf_power: 'TTF (élec. entraînée)',
+  ttf_only: 'TTF seul',
+  power_de: 'Élec. de gros DE',
+  power_fr: 'Élec. de gros FR',
+  gasoil: 'Gasoil ($)',
+  eurusd: 'Euro vs $',
+  food_commo: 'Mat. prem. alim.',
+  nonfood_commo: 'Mat. prem. ind.',
+  wages: 'Salaires (+1 pp/an)',
+};

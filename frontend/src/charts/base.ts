@@ -18,6 +18,7 @@ export function baseOption(mode: Mode): EChartsOption {
     },
     tooltip: {
       trigger: 'axis',
+      confine: true,
       backgroundColor: ink.surface,
       borderColor: ink.border,
       textStyle: { color: ink.primary, fontFamily: MARKS.fontFamily },
@@ -52,4 +53,20 @@ export function axes(
       axisLabel: { color: ink.muted, formatter: (v: number) => String(v).replace('.', ',') },
     },
   };
+}
+
+const DEEP_KEYS = ['tooltip', 'legend', 'grid', 'textStyle'] as const;
+
+/** Fusionne les options d'une vue sur la base : tooltip, legend, grid et textStyle sont fusionnés un niveau
+ * plus profond (la vue précise, la base garde couleurs, police et confinement). */
+export function mergeOption(base: EChartsOption, option: EChartsOption): EChartsOption {
+  const out: Record<string, unknown> = { ...base, ...option };
+  for (const k of DEEP_KEYS) {
+    const b = base[k];
+    const o = option[k];
+    if (b && o && !Array.isArray(b) && !Array.isArray(o) && typeof b === 'object' && typeof o === 'object') {
+      out[k] = { ...b, ...o };
+    }
+  }
+  return out as EChartsOption;
 }
