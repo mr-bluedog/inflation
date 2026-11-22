@@ -221,6 +221,8 @@ Ce fichier est redondant avec les CSV. Le backend lit les CSV (source primaire) 
 | `err` | float | `fc − act`, pp |
 | `model` | str | `BU`, `BU_perfect`, `STAT`, `NAIF` (pas de COMBINE ligne à ligne) |
 
+105 lignes ont `fc` et `err` vides : `BU_perfect` aux origines 2025-08 → 2025-10 pour h = 10-12, faute de prix de gros réalisés après 2026-07. `summarize_backtest.py` les ignore (moyenne sans NaN).
+
 ```
 origin,geo,item,h,fc,act,err,model
 2019-01,EA,TOT_X_TBC,1,1.323228,1.399218,-0.075990,BU

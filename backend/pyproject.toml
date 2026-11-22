@@ -1,0 +1,14 @@
+[tool.black]
+line-length = 110
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "UP042"]  # longueur gérée par black ; Enum(str) gardé pour pydantic
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

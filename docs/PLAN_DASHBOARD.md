@@ -78,6 +78,17 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
 | `GET /api/inputs/series` / `GET /api/inputs/series/{code}` | catalogue des 97 séries / valeurs d'une série |
 | `GET /api/methodology` | markdown de MODELES.md |
 
+### 4.1 Ajustements validés en phase 0 (implémentés en phase 1)
+- Fixings en ISO `YYYY-MM` dans l'API ; `/api/meta.fixings` fournit aussi `label` (`Nov-26`), `h` et `indicative` (h > 10).
+- `market` / `gap_bp` = `null` hors EA ; fixings marché dans `euroinfl/data/market_fixings.json` (comparaison uniquement).
+- `/api/components` : modèle BU ; ligne `item = CHAIN_RESIDUAL` (= HICPxT − Σ contributions).
+- `/api/history` lue depuis `load_hicp()` (niveaux 2015-01 → 2026-10, g.a. en niveaux sur t−12 exact).
+- `/api/passthrough?geo&item[&shock]` : profils 0-13 mois (borne des 14 fixings).
+- `/api/equations` (index + `power_link`) et `/api/equations/{geo}/{item}` (aussi `EA-stage1/ppi_*`) : formule reconstruite, termes β/γ avec t-stats, saisonnalité effective.
+- `/api/backtest` : RMSE `period = all | post2023`, biais depuis 2023, poids ; `/api/backtest/errors?geo&item&h&model` pour le graphe par origine.
+- Simulateur (phase 5) : curseurs `ttf, gasoil, brent, eurusd, power_de, power_fr, food_commo, nonfood_commo, wages_pp` (voir `/api/meta.sim_inputs`) ; approximation instantanée en `ln(1+x)/ln(1,1) × bp(+10 %)` (linéaire pour les salaires) ; `link_power` multiplie l'électricité par `ttf^β`.
+- Lecteur JSON UTF-8 puis cp1252 (JSON du moteur écrits en cp1252 sous Windows).
+
 ### 4.3 Simulateur : deux vitesses
 - **Linéaire instantané (front)** : impact = Σ_chocs (choc% / 10) × sensibilité_bp(+10 %). Valable car le modèle est linéaire en log (MODELES §10 : +20 % ≈ 2× l'effet, chocs additifs). Étiquette visible « approximation linéaire ».
 - **Exact (back)** : `Model.forecast(scenario, shocks={…})` du moteur ; renvoie les trajectoires complètes. Débounce 600 ms, annulation des requêtes obsolètes. Afficher l'écart linéaire vs exact quand les deux sont disponibles.
@@ -89,7 +100,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
 
 - [x] **Phase 0 — Inventaire et socle (½ j)** — fait le 22/11/2026, voir `docs/DATA_CONTRACT.md` (chiffres témoins tous conformes)
   Dézipper/vérifier `euroinfl/`, lancer `run_all.py`, lister chaque fichier de `out/` avec ses colonnes réelles et écrire `docs/DATA_CONTRACT.md` (schéma exact de chaque fichier). Repérer où sont stockés les fixings marché et l'historique HICP. Lancer le backtest pour produire `backtest_errors.csv`. `git init`, `.gitignore`, premier commit.
-- [ ] **Phase 1 — Backend lecture (1 j)**
+- [x] **Phase 1 — Backend lecture (1 j)** — fait le 22/11/2026 : 17 routes GET, 43 tests pytest (témoins §7 inclus), `export_static.py` (272 fichiers, 6,9 Mo)
   FastAPI, chargement de `out/` au démarrage, toutes les routes GET du §4, schémas pydantic, tests pytest qui vérifient les chiffres témoins (§7). `export_static.py`.
 - [ ] **Phase 2 — Frontend socle (1 j)**
   Vite + React + TS, layout (barre latérale, en-tête, sélecteurs globaux), thème, client API typé (types générés depuis l'OpenAPI ou écrits à la main), formatage (`fmtPct`, `fmtBp`, `fmtFixing`).
