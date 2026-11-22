@@ -43,6 +43,8 @@ def test_meta(get):
     assert len(d["fixings"]) == 14
     assert d["fixings"][0] == {"period": "2026-11", "label": "Nov-26", "h": 1, "indicative": False}
     assert d["fixings"][-1]["label"] == "Dec-27" and d["fixings"][-1]["indicative"] is True
+    # « au-delà de h+10 » (h+0 = Nov-26) : Sep-27 = h+10 non indicatif, Oct-27 indicatif
+    assert [f["label"] for f in d["fixings"] if f["indicative"]] == ["Oct-27", "Nov-27", "Dec-27"]
     assert [s["key"] for s in d["shocks"]] == [
         "ttf_power",
         "ttf_only",

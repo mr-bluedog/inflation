@@ -1,7 +1,25 @@
 /** Hooks TanStack Query : un hook par route, clé de cache = [route, ...paramètres]. */
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { fetchEnvelope, requests, type Request, type ResponseTypes } from './client';
-import type { Envelope, Geo, Item } from './types';
+import { GEOS, type Envelope, type Geo, type HeadlineRow, type Item } from './types';
+
+/** Headline des 5 pays (tableau de la vue d'ensemble). data = null tant qu'un pays manque. */
+export function useHeadlineAll() {
+  return useQueries({
+    queries: GEOS.map((geo) => ({
+      queryKey: ['headline', geo],
+      queryFn: ({ signal }: { signal: AbortSignal }) =>
+        fetchEnvelope<HeadlineRow[]>(requests.headline(geo), signal),
+    })),
+    combine: (res) => ({
+      isPending: res.some((r) => r.isPending),
+      error: res.find((r) => r.error)?.error ?? null,
+      data: res.every((r) => r.data)
+        ? (Object.fromEntries(GEOS.map((g, i) => [g, res[i]!.data!.data])) as Record<Geo, HeadlineRow[]>)
+        : null,
+    }),
+  });
+}
 
 function useEnvelope<T>(key: readonly unknown[], req: Request, enabled = true) {
   return useQuery<Envelope<T>>({

@@ -91,7 +91,7 @@ export function seriesColor(family: Family, key: string, mode: Mode): string {
 export function neutralColor(role: 'history' | 'market' | 'residual', mode: Mode): string {
   if (role === 'history') return INK[mode].muted;
   if (role === 'market') return INK[mode].secondary;
-  return INK[mode].axis;
+  return INK[mode].muted; // résidu de chaînage (barres seulement : pas de confusion avec l'historique)
 }
 
 /** Pôles divergents bleu ↔ rouge, point milieu gris (heatmap de l'écart au marché). */
@@ -99,6 +99,22 @@ export const DIVERGING: Record<Mode, { neg: string; mid: string; pos: string }> 
   light: { neg: '#2a78d6', mid: '#f0efec', pos: '#e34948' },
   dark: { neg: '#3987e5', mid: '#383835', pos: '#e66767' },
 };
+
+function hexToRgb(h: string): [number, number, number] {
+  const n = parseInt(h.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
+/** Couleur divergente pour v ∈ [−max, +max] : bleu (négatif) ↔ gris (0) ↔ rouge (positif), interpolée. */
+export function divergingColor(v: number, max: number, mode: Mode): string {
+  const { neg, mid, pos } = DIVERGING[mode];
+  const t = Math.max(-1, Math.min(1, v / max));
+  const a = hexToRgb(mid);
+  const b = hexToRgb(t < 0 ? neg : pos);
+  const k = Math.abs(t) * 0.75; // jamais la teinte pleine : le texte (encre) reste lisible
+  const c = a.map((x, i) => Math.round(x + (b[i]! - x) * k));
+  return `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
+}
 
 /** Spécifications de tracé (skill dataviz : traits fins, repères ≥ 8 px). */
 export const MARKS = {

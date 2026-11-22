@@ -3,8 +3,8 @@
  * Séparateur décimal français (virgule), espace insécable avant l'unité, vrai signe moins (−).
  */
 
-const NBSP = ' ';
-const MINUS = '−';
+const NBSP = String.fromCharCode(0x00a0); // espace insécable
+const MINUS = String.fromCharCode(0x2212); // signe moins typographique
 const DASH = '—';
 const MONTHS_FIXING = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const MONTHS_FR = [

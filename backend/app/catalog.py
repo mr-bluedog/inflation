@@ -23,7 +23,9 @@ ALL_ITEMS = ["TOT_X_TBC", "NRG", *ENERGY_ITEMS, *CORE]
 FIXINGS = [str(t) for t in P.FIXINGS]
 LAST_OBS = str(P.LAST_OBS)
 REGIME_START = P.REG
-INDICATIVE_AFTER_H = 10  # plan §6 : fixings au-delà de h+10 = « indicatif »
+# plan §6 : fixings au-delà de h+10 = « indicatif ». h+k suit la convention du site (h+0 = premier fixing),
+# notre h commence à 1 : h+10 = h 11 (Sep-27) ; indicatifs = h ≥ 12 (Oct-27 → Dec-27).
+INDICATIVE_AFTER_H = 11
 CHAIN_RESIDUAL = "CHAIN_RESIDUAL"
 
 _MONTHS_FR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]

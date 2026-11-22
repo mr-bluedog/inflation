@@ -104,7 +104,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   FastAPI, chargement de `out/` au démarrage, toutes les routes GET du §4, schémas pydantic, tests pytest qui vérifient les chiffres témoins (§7). `export_static.py`.
 - [x] **Phase 2 — Frontend socle (1 j)** — fait le 22/11/2026 : layout 8 vues, palette validée (`theme.ts`), client typé api/statique, 12 tests vitest ; vérifié dans le navigateur (clair/sombre, 375 px, mode statique)
   Vite + React + TS, layout (barre latérale, en-tête, sélecteurs globaux), thème, client API typé (types générés depuis l'OpenAPI ou écrits à la main), formatage (`fmtPct`, `fmtBp`, `fmtFixing`).
-- [ ] **Phase 3 — Vues lecture (2 j)**
+- [x] **Phase 3 — Vues lecture (2 j)** — fait le 22/11/2026 : Vue d'ensemble, Pays, Scénarios énergie, Méthodologie ; chiffres témoins vérifiés à l'écran (`witness.test.tsx` sur l'export réel) ; « indicatif » = Oct-27 → Dec-27 (au-delà de h+10, h+0 = Nov-26)
   Vue d'ensemble, Pays, Scénarios énergie, Méthodologie.
 - [ ] **Phase 4 — Transmission (1 j)**
   Pass-through, explorateur d'équations, élasticités.

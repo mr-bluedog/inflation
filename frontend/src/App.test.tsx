@@ -64,11 +64,11 @@ describe('layout', () => {
   beforeEach(mockFetch);
 
   it('affiche les 8 vues et la date des données', async () => {
-    renderAt('/pays');
+    renderAt('/backtest');
     const nav = screen.getByRole('navigation');
     expect(within(nav).getAllByRole('link')).toHaveLength(8);
     expect(await screen.findByText('HICP oct-26 · courbes 20/11/2026')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 1, name: 'Pays' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Backtest' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Recalculer' })).toBeDisabled();
   });
 
