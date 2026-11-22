@@ -110,7 +110,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   Pass-through, explorateur d'équations, élasticités.
 - [x] **Phase 5 — Simulateur (1,5 j)** — fait le 22/11/2026 : `POST /api/simulate` (identique à 1e-6 près à la matrice pré-calculée), mode instantané en ln(1+x)/ln(1,1), presets, URL partageable ; TTF +30 % IT Jun-27 : exact +72,1 bp, approximation +70,9 bp (x/10 : +77,3 bp)
   Mode linéaire, puis `POST /api/simulate` et mode exact ; presets ; décomposition par sous-indice ; URL partageable (chocs encodés dans la query string).
-- [ ] **Phase 6 — Backtest et Inputs (1 j)**
+- [x] **Phase 6 — Backtest et Inputs (1 j)** — fait le 22/11/2026 : RMSE (toute période / depuis 2023, MODELES §9 vérifié à l'écran), erreurs par origine, poids de combinaison, biais ; courbes et mois estimés, explorateur des 97 séries
   Tables RMSE, graphe d'erreurs, poids ; courbes, mois estimés, explorateur des 97 séries.
 - [ ] **Phase 7 — Finition et déploiement (1 j)**
   Responsive, mode sombre, états de chargement/erreur, export CSV/PNG des graphes, Dockerfile backend, déploiement Railway + Vercel, README.

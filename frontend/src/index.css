@@ -621,3 +621,21 @@ pre.formula {
     position: static;
   }
 }
+/* ---------- inputs */
+.series-list {
+  max-height: 560px;
+  overflow-y: auto;
+}
+table.data tr.selected td {
+  background: var(--hover);
+}
+input.search {
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  min-width: 220px;
+}

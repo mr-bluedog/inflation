@@ -1,7 +1,9 @@
 import type { ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { Backtest } from './views/Backtest';
 import { Country } from './views/Country';
+import { Inputs } from './views/Inputs';
 import { Methodology } from './views/Methodology';
 import { Overview } from './views/Overview';
 import { PassThrough } from './views/PassThrough';
@@ -16,6 +18,8 @@ const BUILT: Record<string, ReactElement> = {
   '/scenarios': <Scenarios />,
   '/pass-through': <PassThrough />,
   '/simulateur': <Simulator />,
+  '/backtest': <Backtest />,
+  '/inputs': <Inputs />,
   '/methodologie': <Methodology />,
 };
 

@@ -6,6 +6,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import type { ReactElement } from 'react';
 import type { ComponentRow } from '../api/types';
@@ -13,6 +14,8 @@ import { useApp } from '../store';
 import { waterfallSteps } from './country/logic';
 import { Country } from './Country';
 import { Methodology } from './Methodology';
+import { Backtest } from './Backtest';
+import { Inputs } from './Inputs';
 import { Overview } from './Overview';
 import { PassThrough } from './PassThrough';
 import { parseBuckets } from './passthrough/logic';
@@ -34,6 +37,7 @@ function fileFor(url: string): string {
   if (['headline', 'components', 'scenarios', 'sensitivities'].includes(route))
     return `${route}/${p.get('geo')}.json`;
   if (route === 'equations') return 'equations/index.json';
+  if (route === 'backtest/errors') return `backtest/errors/${p.get('geo')}.json`;
   return `${route}.json`; // equations/IT/CP0452, elasticities, meta…
 }
 
@@ -46,6 +50,8 @@ function serveExport() {
     const shock = q.get('shock');
     if (from && Array.isArray(body.data))
       body.data = body.data.filter((r: { period: string }) => r.period >= from);
+    const h = q.get('h');
+    if (h && Array.isArray(body.data)) body.data = body.data.filter((r: { h: number }) => r.h === Number(h));
     if (shock && Array.isArray(body.data))
       body.data = body.data.filter((r: { shock: string }) => r.shock === shock);
     return new Response(JSON.stringify(body));
@@ -172,6 +178,51 @@ describe.skipIf(!HAS_DATA)('pass-through : MODELES §11 à l’écran (export r�
         .getAllByRole('cell')
         .map((x) => x.textContent),
     ).toEqual(['Gaz TTF', '0,49', '0,15']);
+  });
+});
+
+describe.skipIf(!HAS_DATA)('backtest et inputs à l’écran (export réel)', () => {
+  beforeEach(() => {
+    serveExport();
+    useApp.setState({ geo: 'EA', model: 'COMBINE', fixing: null });
+  });
+
+  it('RMSE EA (MODELES §9) toute période puis depuis 2023', async () => {
+    show(<Backtest />);
+    const t = await screen.findByRole('table', { name: 'RMSE par pays et par modèle' });
+    // lignes de la zone euro : de « EA » (1re ligne) jusqu'au pays suivant ; colonnes : Pays, Modèle, h1, h3, h6, h12
+    const eaRows = (table: HTMLElement) => {
+      const rows = within(table).getAllByRole('row').slice(1);
+      const end = rows.findIndex((r, i) => i > 0 && within(r).getAllByRole('cell')[0]!.textContent !== '');
+      return rows.slice(0, end);
+    };
+    const cells = (model: string) =>
+      within(eaRows(t).find((r) => within(r).getAllByRole('cell')[1]!.textContent === model)!)
+        .getAllByRole('cell')
+        .slice(2)
+        .map((c) => c.textContent);
+    expect(cells('Bottom-up (BU)')).toEqual(['0,36', '0,75', '1,41', '2,98']);
+    expect(cells('Statistique (STAT)')).toEqual(['0,42', '0,93', '1,70', '3,29']);
+    await userEvent.click(screen.getByRole('button', { name: 'Depuis 2023' }));
+    const t2 = await screen.findByRole('table', { name: 'RMSE par pays et par modèle' });
+    const bu = within(t2)
+      .getAllByRole('row')
+      .find((r) => r.textContent?.startsWith('EABottom-up'))!;
+    expect(within(bu).getAllByRole('cell')[2]!.textContent).toBe('0,22');
+  });
+
+  it('mois récents estimés (market_inputs.json)', async () => {
+    show(<Inputs />);
+    const t = await screen.findByRole('table', { name: 'Mois récents estimés' });
+    const rows = within(t).getAllByRole('row').slice(1);
+    expect(rows.map((r) => within(r).getAllByRole('cell')[0]!.textContent)).toEqual([
+      'Aug-26 ⚠',
+      'Sep-26 ⚠',
+      'Oct-26 ⚠',
+      'Nov-26 ⚠',
+    ]);
+    expect(within(rows[3]!).getAllByRole('cell')[4]!.textContent).toBe(`1${NB}240`);
+    expect(await screen.findByText(/97 séries/)).toBeInTheDocument();
   });
 });
 

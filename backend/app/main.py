@@ -295,6 +295,10 @@ def get_backtest_errors(
 
 
 # ------------------------------------------------------------------ inputs
+# prix de gros : seuls ces drivers ont des mois récents ESTIMÉS (market_inputs.json → recent_months)
+WHOLESALE = {"ttf", "power_fr", "power_de", "gasoil_usd_t", "gasoil_eur", "brent_usd", "eurusd"}
+
+
 @app.get("/api/inputs/market", response_model=Sch.Envelope[Sch.MarketInputs], tags=["inputs"])
 def get_market_inputs():
     s = get_store()
@@ -321,7 +325,7 @@ def get_market_inputs():
             "unit": C.DRIVER_LABELS[k][1],
             "months": d["months"],
             "values": d["values"],
-            "estimated_months": [m for m in d["months"] if m in est],
+            "estimated_months": [m for m in d["months"] if m in est and k in WHOLESALE],
         }
         for k, d in s.dashboard["drivers"].items()
     ]
