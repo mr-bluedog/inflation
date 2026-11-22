@@ -265,6 +265,12 @@ origin,geo,item,h,fc,act,err,model
 
 ## 11. Où sont les fixings marché
 
+> Mise à jour du 22/11/2026 : les fixings sont dans `euroinfl/data/market_fixings.json`, au format
+> `{asof, source, indices: {EA: {label, comparable_geo: "EA"}, FR: {label, comparable_geo: null}},
+> asof_by_index, fixings: {EA: {fixing: %}, FR: {…}}}`, saisis depuis la vue Inputs. Seuls les indices dont
+> `comparable_geo` vaut le pays produisent `market` / `gap_bp` dans `/api/headline`. Le paragraphe ci-dessous
+> décrit l'état initial du zip.
+
 - **Uniquement zone euro**, **codés en dur** dans `euroinfl/run_all.py` (`dash["market_ea"] = [3.76, 3.88, 4.23, …, 2.48]`), recopiés dans `dashboard_data.json → market_ea` et dans le tableau de MODELES §1.
 - Aucun fixing marché pour IT, FR, DE, ES ; aucun fichier d'entrée dédié.
 - Marché EA Jan-27 = **4,23** ✓.

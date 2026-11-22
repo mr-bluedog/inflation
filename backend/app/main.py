@@ -8,9 +8,10 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 
+from . import admin as ADM
 from . import catalog as C
 from . import config
 from . import equations as EQ
@@ -87,7 +88,9 @@ def get_meta():
             "market_fixings_asof": s.market_fixings.get("asof", ""),
         },
         market_note=s.market_fixings.get("source", ""),
-        market_geos=[g for g, v in s.market_fixings.get("fixings", {}).items() if v],
+        market_geos=[
+            g for g in C.GEOS if s.comparable_key(g) and s.market_fixings["fixings"].get(s.comparable_key(g))
+        ],
     )
     return {"meta": meta(s), "data": data}
 
@@ -411,3 +414,76 @@ def post_simulate(req: Sch.SimulateRequest):
         "rows": rows,
     }
     return {"meta": meta(s, ["base", "shocked", "delta_bp"], model="BU", notes=notes), "data": data}
+
+
+# ------------------------------------------------------------------ écritures : market data et fixings
+def reload_all() -> None:
+    """Recharge les sorties du moteur et les entrées après une écriture (et le modèle du simulateur)."""
+    from . import simulate as SIM
+
+    get_store.cache_clear()
+    SIM.model.cache_clear()
+    SIM._base.cache_clear()
+    get_store()
+
+
+@app.get("/api/admin/status", tags=["administration"])
+def admin_status(request: Request):
+    import os
+
+    token = bool(os.environ.get("ADMIN_TOKEN"))
+    local = (request.client.host if request.client else "") in ADM.LOCAL_HOSTS
+    return {"write_enabled": token or local, "token_required": token}
+
+
+@app.get("/api/inputs/fixings", response_model=Sch.Envelope[Sch.FixingsData], tags=["inputs"])
+def get_fixings():
+    s = get_store()
+    mf = s.market_fixings
+    indices = mf.get("indices", {"EA": {"label": "HICPxT zone euro", "comparable_geo": "EA"}})
+    series = [
+        {
+            "key": k,
+            "label": meta["label"],
+            "comparable_geo": meta.get("comparable_geo"),
+            "asof": mf.get("asof_by_index", {}).get(k, mf.get("asof")),
+            "values": [{"fixing": f, "value": mf.get("fixings", {}).get(k, {}).get(f)} for f in C.FIXINGS],
+        }
+        for k, meta in indices.items()
+    ]
+    notes = [
+        "Fixings de marché : comparaison uniquement, jamais utilisés par le modèle",
+        "IPC France hors tabac (Insee) : indice différent de l'IHPC hors tabac prévu, pas d'écart calculé",
+    ]
+    return {
+        "meta": meta(s, ["market"], notes=notes),
+        "data": {"source": mf.get("source", ""), "series": series},
+    }
+
+
+@app.put("/api/inputs/fixings", tags=["administration"], dependencies=[Depends(ADM.require_admin)])
+def put_fixings(req: Sch.FixingsUpdate):
+    ADM.save_fixings(req.key, req.asof, req.values, reload_all)
+    return get_fixings()
+
+
+@app.post("/api/inputs/market/refresh", tags=["administration"], dependencies=[Depends(ADM.require_admin)])
+def post_refresh():
+    from .marketdata.sources import SourceError
+
+    try:
+        p = ADM.refresh()
+    except SourceError as e:
+        raise HTTPException(502, f"source de marché indisponible : {e}") from e
+    return {"meta": meta(get_store()), "data": p}
+
+
+@app.get("/api/inputs/market/proposal", tags=["administration"])
+def get_proposal():
+    return {"meta": meta(get_store()), "data": ADM.proposal()}
+
+
+@app.post("/api/inputs/market/apply", tags=["administration"], dependencies=[Depends(ADM.require_admin)])
+def post_apply():
+    res = ADM.apply_proposal(reload_all)
+    return {"meta": meta(get_store()), "data": res}

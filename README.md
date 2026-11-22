@@ -52,6 +52,36 @@ cd backend; ..\.venv\Scripts\python.exe export_static.py
 5. Vérifier : `pytest` (backend) et `npm run test` (frontend) contrôlent les chiffres témoins du plan §7. S'ils
    échouent après une mise à jour volontaire des entrées, mettre à jour les valeurs attendues en connaissance de cause.
 
+## Market data : rafraîchissement et fixings
+
+**Inputs de marché** (prix de l'énergie, EUR/USD) : vue *Inputs* → « Rafraîchir depuis les sources publiques »,
+ou `python backend/refresh_market.py`. Une **proposition** est construite puis affichée avec ses écarts ;
+rien n'est appliqué sans validation (« Appliquer », ou `refresh_market.py --apply`) : l'ancien
+`market_inputs.json` est archivé dans `euroinfl/data/vintages/`, le moteur est relancé et l'export statique
+régénéré.
+
+| Input | Source publique | Limite |
+|---|---|---|
+| EUR/USD | BCE (taux de référence) | officiel |
+| TTF | NYMEX via Yahoo Finance (front) | courbe : forme précédente recalée sur le front |
+| Brent | NYMEX via Yahoo Finance (front + contrats mensuels) | API non officielle |
+| Gasoil | **proxy** : ULSD NYMEX × ratio ICE/ULSD (12 mois) | le gasoil ICE n'est pas public |
+| Électricité DE, FR | Energy-Charts, day-ahead (CC BY 4.0, Bundesnetzagentur / SMARD.de) | spot ≠ contrat front ; courbe à terme conservée |
+
+Le mois en cours est une moyenne partielle. Bloomberg remplacera ces sources (module
+`backend/app/marketdata/`).
+
+**Fixings de marché** (EA HICPxT, FR IPC hors tabac) : non publics, **saisis** dans la vue *Inputs*. Les
+fixings France portent sur l'IPC hors tabac de l'Insee, pas sur l'IHPC prévu : ils sont affichés sans calcul
+d'écart. Les fixings ne sont jamais utilisés par le modèle.
+
+**Écritures protégées** : définir `ADMIN_TOKEN` sur le serveur (le dashboard demande alors le jeton). Sans
+`ADMIN_TOKEN`, les écritures ne sont acceptées qu'en local. Sur Railway, le disque est éphémère : monter un
+volume sur `euroinfl/` (ou recommiter les inputs) pour conserver les mises à jour.
+
+Les tests de chiffres témoins valent pour le millésime d'inputs du 20/11/2026 : après une mise à jour appliquée,
+ils sont ignorés (avec un message) au lieu d'échouer.
+
 ## Tests et qualité
 
 ```powershell
@@ -76,6 +106,7 @@ racine, car l'API importe `euroinfl/`) et surveille `/api/health`. Variables d'e
 | `FRONTEND_ORIGINS` | `https://inflation.vercel.app` | origines autorisées (CORS), séparées par des virgules |
 | `FRONTEND_ORIGIN_REGEX` | `https://.*-monequipe\.vercel\.app` | facultatif : prévisualisations Vercel |
 | `PORT` | fourni par Railway | port d'écoute |
+| `ADMIN_TOKEN` | longue chaîne aléatoire | autorise le rafraîchissement des inputs et la saisie des fixings |
 
 Test local de l'image : `docker build -f backend/Dockerfile -t inflation-api .` puis
 `docker run -p 8000:8000 inflation-api`.

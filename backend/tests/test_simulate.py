@@ -1,6 +1,7 @@
 """POST /api/simulate : le recalcul exact retrouve les sensibilités pré-calculées du moteur (choc +10 %)."""
 
 import pytest
+from conftest import reference_inputs
 
 
 def _post(client, body):
@@ -23,6 +24,7 @@ def _pick(rows, geo, fixing, item="TOT_X_TBC"):
         ({"eurusd": 10}, True, "EA", "2027-06", -17.7),
     ],
 )
+@reference_inputs
 def test_matches_witness(client, shocks, link, geo, fixing, expected):
     d = _post(client, {"scenario": "central", "shocks": shocks, "link_power": link})["data"]
     assert _pick(d["rows"], geo, fixing)["delta_bp"] == pytest.approx(expected, abs=0.05)
@@ -72,6 +74,7 @@ def test_validation(client, body):
     assert client.post("/api/simulate", json=body).status_code == 422
 
 
+@reference_inputs
 def test_ttf_30_exact_vs_log_approx(client, get):
     """Phase 5 : écart linéaire / exact pour TTF +30 % (élec. entraînée). L'approximation log
     ln(1,3)/ln(1,1) × bp(+10 %) reste à ~1,2 bp de l'exact sur IT Jun-27 ; « x/10 » en serait à ~5 bp."""

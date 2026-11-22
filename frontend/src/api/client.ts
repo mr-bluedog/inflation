@@ -26,6 +26,7 @@ import type {
   SeriesInfo,
   SimulateData,
   SimulateRequest,
+  FixingsData,
 } from './types';
 
 export type DataMode = 'api' | 'static';
@@ -138,6 +139,7 @@ export const requests = {
     staticFile: `inputs/series/${code}.json`,
   }),
   methodology: (): Request => ({ path: '/api/methodology', staticFile: 'methodology.json' }),
+  fixings: (): Request => ({ path: '/api/inputs/fixings', staticFile: 'inputs/fixings.json' }),
 };
 
 /** Type de la donnée renvoyée par chaque requête nommée. */
@@ -158,6 +160,7 @@ export interface ResponseTypes {
   seriesCatalog: SeriesInfo[];
   series: SeriesData;
   methodology: Methodology;
+  fixings: FixingsData;
 }
 
 /** Recalcul exact par le moteur (mode API uniquement). */
@@ -185,4 +188,61 @@ export async function postSimulate(
     throw new ApiError(`Erreur ${res.status} sur /api/simulate : ${detail}`, res.status, url);
   }
   return (await res.json()) as Envelope<SimulateData>;
+}
+
+// ------------------------------------------------------------------ écritures (mode API, jeton d'administration)
+const TOKEN_KEY = 'inflation-admin-token';
+
+/** Jeton conservé pour la session du navigateur seulement (confort ; jamais dans l'URL). */
+export function getAdminToken(): string {
+  try {
+    return window.sessionStorage.getItem(TOKEN_KEY) ?? '';
+  } catch {
+    return '';
+  }
+}
+export function setAdminToken(t: string) {
+  try {
+    if (t) window.sessionStorage.setItem(TOKEN_KEY, t);
+    else window.sessionStorage.removeItem(TOKEN_KEY);
+  } catch {
+    /* stockage indisponible : le jeton reste à ressaisir */
+  }
+}
+
+export async function adminCall<T>(
+  path: string,
+  method: 'POST' | 'PUT',
+  body?: unknown,
+): Promise<Envelope<T>> {
+  if (DATA_MODE === 'static') throw new ApiError('Écriture impossible en mode statique', 0, path);
+  const url = `${API_BASE}${path}`;
+  const token = getAdminToken();
+  const res = await fetch(url, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      ...(token ? { 'X-Admin-Token': token } : {}),
+    },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  if (!res.ok) {
+    let detail = res.statusText;
+    try {
+      const j = (await res.json()) as { detail?: unknown };
+      if (typeof j.detail === 'string') detail = j.detail;
+      else if (j.detail) detail = JSON.stringify(j.detail);
+    } catch {
+      /* corps non JSON */
+    }
+    throw new ApiError(`Erreur ${res.status} : ${detail}`, res.status, url);
+  }
+  return (await res.json()) as Envelope<T>;
+}
+
+export async function getJson<T>(path: string): Promise<T> {
+  const res = await fetch(`${API_BASE}${path}`, { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new ApiError(`Erreur ${res.status} sur ${path}`, res.status, path);
+  return (await res.json()) as T;
 }

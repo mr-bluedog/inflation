@@ -1,6 +1,6 @@
 /** Inputs : courbes de marché, mois estimés, base de séries. Affichage des entrées du moteur, sans transformation. */
 import type { EChartsOption } from 'echarts';
-import type { Curve, DriverPath, SeriesData, SeriesInfo } from '../../api/types';
+import type { Curve, DiffRow, DriverPath, SeriesData, SeriesInfo } from '../../api/types';
 import { axes } from '../../charts/base';
 import { fmtFixing, fmtNum } from '../../format';
 import { INK, MARKS, neutralColor, seriesColor, type Mode } from '../../theme';
@@ -112,4 +112,21 @@ export function seriesOption(s: SeriesData, mode: Mode): EChartsOption {
       },
     ],
   };
+}
+
+// ------------------------------------------------------------------ mise à jour de la market data
+export const SECTION_LABEL: Record<DiffRow['section'], string> = {
+  scalar: 'Valeur plate',
+  recent: 'Moyennes mensuelles récentes',
+  curve: 'Courbes à terme (mois de livraison)',
+};
+
+/** Lignes qui changent vraiment (écart >= threshold %, ou valeur ajoutée / retirée), groupées par section. */
+export function changedRows(rows: DiffRow[], threshold = 0.05): Record<DiffRow['section'], DiffRow[]> {
+  const out: Record<DiffRow['section'], DiffRow[]> = { scalar: [], recent: [], curve: [] };
+  for (const r of rows) {
+    const added = (r.current === null) !== (r.proposed === null);
+    if (added || (r.change_pct !== null && Math.abs(r.change_pct) >= threshold)) out[r.section].push(r);
+  }
+  return out;
 }

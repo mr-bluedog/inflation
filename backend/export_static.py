@@ -41,6 +41,7 @@ def targets(client: TestClient) -> list[tuple[str, str]]:
         ("/api/backtest", "backtest.json"),
         ("/api/inputs/market", "inputs/market.json"),
         ("/api/inputs/series", "inputs/series.json"),
+        ("/api/inputs/fixings", "inputs/fixings.json"),
         ("/api/methodology", "methodology.json"),
     ]
     for g in C.GEOS:

@@ -1,13 +1,20 @@
-import { useHeadline, useHeadlineAll, useHistory, useMeta } from '../api/hooks';
+import { useFixings, useHeadline, useHeadlineAll, useHistory, useMeta } from '../api/hooks';
 import { GEOS, type Geo } from '../api/types';
 import { Chart } from '../charts/Chart';
 import { QueryState } from '../components/QueryState';
 import { StatTile } from '../components/StatTile';
-import { fmtBp, fmtFixing, fmtMonthFr, fmtPct } from '../format';
+import { fmtBp, fmtDateFr, fmtFixing, fmtMonthFr, fmtPct } from '../format';
 import { useApp } from '../store';
 import { divergingColor, INK } from '../theme';
 import { useThemeMode } from '../useThemeMode';
-import { fixingTable, HISTORY_FROM, kpis, modelTitle, trajectoryOption } from './overview/logic';
+import {
+  fixingTable,
+  HISTORY_FROM,
+  kpis,
+  modelTitle,
+  otherMarketFor,
+  trajectoryOption,
+} from './overview/logic';
 
 const GAP_SCALE_BP = 30; // saturation de la carte de chaleur (bp)
 
@@ -20,6 +27,8 @@ export function Overview() {
   const headline = useHeadline(geo);
   const history = useHistory(geo, 'TOT_X_TBC', HISTORY_FROM);
   const all = useHeadlineAll();
+  const fixings = useFixings();
+  const other = otherMarketFor(fixings.data?.data, geo);
 
   const m = meta.data?.data;
   const geoName = (g: Geo) => m?.geos.find((x) => x.code === g)?.name ?? g;
@@ -60,11 +69,17 @@ export function Overview() {
               />
               <StatTile
                 label={`Marché ${k.next ? fmtFixing(k.next.fixing) : ''}`}
-                value={<span className="num">{fmtPct(k.next?.market)}</span>}
+                value={
+                  <span className="num">
+                    {fmtPct(k.next?.market ?? (k.next ? other?.values.get(k.next.fixing) : null))}
+                  </span>
+                }
                 sub={
-                  k.next?.market == null
-                    ? 'Pas de cotation pour ce pays'
-                    : 'Fixing HICPxT saisi le 20/11/2026'
+                  k.next?.market != null
+                    ? `Fixing HICPxT relevé le ${fmtDateFr(m?.dates.market_fixings_asof ?? '')}`
+                    : other && k.next && other.values.has(k.next.fixing)
+                      ? `${other.label} : indice différent, pas d'écart calculé`
+                      : 'Pas de cotation pour ce pays'
                 }
               />
               <StatTile
@@ -95,7 +110,7 @@ export function Overview() {
                   <Chart
                     ariaLabel={`Trajectoire HICPxT ${geoName(geo)} : historique et 14 fixings`}
                     height={360}
-                    option={trajectoryOption(hi.data, hl.data, model, mode, indicativeFrom)}
+                    option={trajectoryOption(hi.data, hl.data, model, mode, indicativeFrom, other)}
                   />
                   <div className="card-foot">
                     Historique : Eurostat (vintage {m?.dates.hicp_vintage}), glissement calculé en niveaux sur

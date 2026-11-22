@@ -4,6 +4,7 @@ import json
 import math
 
 import pytest
+from conftest import _mi, reference_fixings, reference_inputs
 
 from app import config
 from app.store import read_json
@@ -34,7 +35,7 @@ def test_envelope(get, url):
     j = get(url)
     assert set(j) == {"meta", "data"}
     m = j["meta"]
-    assert m["asof"] == "2026-11-20" and m["last_obs"] == "2026-10" and len(m["run_id"]) == 12
+    assert m["asof"] == _mi["asof"] and m["last_obs"] == "2026-10" and len(m["run_id"]) == 12
 
 
 def test_meta(get):
@@ -62,6 +63,7 @@ def test_meta(get):
         assert sum(d["weights"][g]["top"].values()) == pytest.approx(1.0)
 
 
+@reference_fixings
 def test_market_fixings_match_engine(get):
     """Le fichier market_fixings.json reprend exactement les valeurs codées dans run_all.py."""
     dash = read_json(config.OUT_DIR / "dashboard_data.json")
@@ -119,6 +121,7 @@ def test_sensitivity_full_matrix(get):
     assert all(r["bp"] == 0 for r in nov)  # chocs dès Dec-26
 
 
+@reference_inputs
 def test_passthrough_it_gas_zoom(get):
     """MODELES §11 : gaz de détail IT +2,4 / +3,5 / +4,4 % à 2 / 5 / 11 mois (TTF +10 %, élec. entraînée)."""
     rows = {r["months"]: r for r in get("/api/passthrough?geo=IT&item=CP0452&shock=ttf_power")["data"]}
@@ -127,6 +130,7 @@ def test_passthrough_it_gas_zoom(get):
     assert round(tot[11]["level_pct"], 2) == 0.31
 
 
+@reference_inputs
 def test_equation_it_gas(get):
     d = get("/api/equations/IT/CP0452")["data"]
     assert d["regime_active"] is True and d["regime_start"] == "2023-01" and d["drift"] == 0.15
@@ -144,6 +148,7 @@ def test_equation_stage1_and_404(client, get):
     assert client.get("/api/headline?geo=XX").status_code == 422
 
 
+@reference_inputs
 def test_scenarios(get):
     rows = get("/api/scenarios?geo=EA")["data"]
     assert len(rows) == 6 * 3 * 14

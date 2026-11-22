@@ -89,6 +89,16 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
 - Simulateur (phase 5) : curseurs `ttf, gasoil, brent, eurusd, power_de, power_fr, food_commo, nonfood_commo, wages_pp` (voir `/api/meta.sim_inputs`) ; approximation instantanée en `ln(1+x)/ln(1,1) × bp(+10 %)` (linéaire pour les salaires) ; `link_power` multiplie l'électricité par `ttf^β`.
 - Lecteur JSON UTF-8 puis cp1252 (JSON du moteur écrits en cp1252 sous Windows).
 
+### 4.2 Market data et fixings (ajout du 22/11/2026)
+| Route | Rôle |
+|---|---|
+| `GET /api/inputs/fixings` | fixings de marché saisis : EA HICPxT (comparé) et FR IPC hors tabac (affiché, non comparé) |
+| `PUT /api/inputs/fixings` | saisie d'une courbe de fixings (jeton) ; archive l'ancien fichier |
+| `POST /api/inputs/market/refresh` | proposition d'inputs depuis les sources publiques (jeton) |
+| `GET /api/inputs/market/proposal` | proposition en attente + écarts ligne à ligne |
+| `POST /api/inputs/market/apply` | applique, archive, relance le moteur, recharge l'API (jeton) |
+| `GET /api/admin/status` | écritures autorisées ? jeton exigé ? |
+
 ### 4.3 Simulateur : deux vitesses
 - **Linéaire instantané (front)** : impact = Σ_chocs (choc% / 10) × sensibilité_bp(+10 %). Valable car le modèle est linéaire en log (MODELES §10 : +20 % ≈ 2× l'effet, chocs additifs). Étiquette visible « approximation linéaire ».
 - **Exact (back)** : `Model.forecast(scenario, shocks={…})` du moteur ; renvoie les trajectoires complètes. Débounce 600 ms, annulation des requêtes obsolètes. Afficher l'écart linéaire vs exact quand les deux sont disponibles.

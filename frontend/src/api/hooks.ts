@@ -1,6 +1,14 @@
 /** Hooks TanStack Query : un hook par route, clé de cache = [route, ...paramètres]. */
 import { useQueries, useQuery } from '@tanstack/react-query';
-import { DATA_MODE, fetchEnvelope, postSimulate, requests, type Request, type ResponseTypes } from './client';
+import {
+  DATA_MODE,
+  fetchEnvelope,
+  getJson,
+  postSimulate,
+  requests,
+  type Request,
+  type ResponseTypes,
+} from './client';
 import {
   GEOS,
   type Envelope,
@@ -11,6 +19,8 @@ import {
   type SensitivityRow,
   type SimulateData,
   type SimulateRequest,
+  type AdminStatus,
+  type MarketProposal,
 } from './types';
 
 /** Headline des 5 pays (tableau de la vue d'ensemble). data = null tant qu'un pays manque. */
@@ -116,6 +126,27 @@ export function useSimulate(body: SimulateRequest, enabled: boolean) {
     queryKey: ['simulate', body.scenario, body.link_power, JSON.stringify(body.shocks)],
     queryFn: ({ signal }) => postSimulate(body, signal),
     enabled: enabled && DATA_MODE === 'api',
+    retry: false,
+  });
+}
+
+export const useFixings = () => useEnvelope<R['fixings']>(['fixings'], requests.fixings());
+
+/** Écritures autorisées ? (mode API seulement ; en statique : jamais). */
+export function useAdminStatus() {
+  return useQuery<AdminStatus>({
+    queryKey: ['adminStatus'],
+    queryFn: () => getJson<AdminStatus>('/api/admin/status'),
+    enabled: DATA_MODE === 'api',
+    retry: false,
+  });
+}
+
+export function useProposal() {
+  return useQuery<Envelope<MarketProposal | null>>({
+    queryKey: ['proposal'],
+    queryFn: () => getJson<Envelope<MarketProposal | null>>('/api/inputs/market/proposal'),
+    enabled: DATA_MODE === 'api',
     retry: false,
   });
 }

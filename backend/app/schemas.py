@@ -335,3 +335,28 @@ class SimulateData(BaseModel):
     shocks: dict[str, float]
     engine_shocks: dict[str, float]
     rows: list[SimRow]
+
+
+# ---------- fixings de marché (saisie)
+class FixingValue(BaseModel):
+    fixing: str
+    value: float | None
+
+
+class FixingSeries(BaseModel):
+    key: str
+    label: str
+    comparable_geo: str | None
+    asof: str | None
+    values: list[FixingValue]
+
+
+class FixingsData(BaseModel):
+    source: str
+    series: list[FixingSeries]
+
+
+class FixingsUpdate(BaseModel):
+    key: str = Field(description="EA (HICPxT zone euro) ou FR (IPC France hors tabac)")
+    asof: str = Field(description="Date du relevé, AAAA-MM-JJ")
+    values: dict[str, float | None] = Field(description="{fixing 'AAAA-MM': glissement annuel en %, ou null}")

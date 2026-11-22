@@ -267,3 +267,44 @@ export interface SimulateData {
   engine_shocks: Record<string, number>;
   rows: SimRow[];
 }
+
+// ---------- fixings de marché (saisie) et mise à jour de la market data
+export interface FixingSeries {
+  key: 'EA' | 'FR' | string;
+  label: string;
+  comparable_geo: Geo | null;
+  asof: string | null;
+  values: { fixing: string; value: number | null }[];
+}
+export interface FixingsData {
+  source: string;
+  series: FixingSeries[];
+}
+export interface AdminStatus {
+  write_enabled: boolean;
+  token_required: boolean;
+}
+export interface DiffRow {
+  section: 'scalar' | 'recent' | 'curve';
+  key: string;
+  label: string;
+  unit: string;
+  period: string | null;
+  current: number | null;
+  proposed: number | null;
+  change_pct: number | null;
+}
+export interface MarketProposal {
+  created: string;
+  warnings: string[];
+  gasoil_ratio: number | null;
+  inputs: { asof: string; eurusd: number; _sources?: Record<string, string> };
+  diff: DiffRow[];
+}
+export interface ApplyResult {
+  applied: boolean;
+  archived: string | null;
+  asof: string;
+  static_exported: boolean;
+  engine_log: string;
+}

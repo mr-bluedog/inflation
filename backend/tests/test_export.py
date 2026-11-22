@@ -1,8 +1,11 @@
 import json
 
+from conftest import reference_fixings
+
 from export_static import export
 
 
+@reference_fixings
 def test_export_static_identical_to_api(tmp_path, client):
     m = export(tmp_path)
     assert m["mode"] == "static" and m["n_files"] > 200

@@ -5,7 +5,9 @@ import { QueryState } from '../components/QueryState';
 import { StatTile } from '../components/StatTile';
 import { fmtDateFr, fmtFixing, fmtMonthFr, fmtNum, fmtPct } from '../format';
 import { useThemeMode } from '../useThemeMode';
+import { FixingsEditor } from './inputs/FixingsEditor';
 import { driverOption, filterSeries, lastEstimated, seriesOption } from './inputs/logic';
+import { MarketUpdate } from './inputs/MarketUpdate';
 
 const RECENT_COLS: { key: string; label: string; unit: string; digits: number }[] = [
   { key: 'ttf', label: 'TTF', unit: '€/MWh', digits: 1 },
@@ -30,6 +32,9 @@ export function Inputs() {
           ), hypothèses hors marché, et base de données macro.
         </p>
       </div>
+
+      <MarketUpdate />
+      <FixingsEditor />
 
       <QueryState q={mkt}>
         {(env) => {

@@ -1,10 +1,25 @@
 /** Vue d'ensemble : transformations pures (aucun recalcul de prévision, uniquement des sélections). */
 import type { EChartsOption } from 'echarts';
-import type { Geo, HeadlineRow, HistoryRow, ModelKey } from '../../api/types';
+import type { FixingsData, Geo, HeadlineRow, HistoryRow, ModelKey } from '../../api/types';
 import { axes } from '../../charts/base';
 import { fmtFixing, fmtMonthFr, fmtPct } from '../../format';
 import { MODEL_LABEL, monthRange } from '../../labels';
 import { INK, MARKS, neutralColor, seriesColor, type Mode } from '../../theme';
+
+/** Fixings de marché d'un AUTRE indice que celui prévu (ex. IPC France hors tabac) : affichés, jamais comparés. */
+export interface OtherMarket {
+  label: string;
+  values: Map<string, number>;
+}
+
+export function otherMarketFor(fx: FixingsData | undefined, geo: string): OtherMarket | null {
+  const s = fx?.series.find((x) => x.key === geo && x.comparable_geo !== geo);
+  if (!s) return null;
+  const values = new Map(
+    s.values.filter((v) => v.value !== null).map((v) => [v.fixing, v.value as number] as [string, number]),
+  );
+  return values.size ? { label: s.label, values } : null;
+}
 
 export const HISTORY_FROM = '2019-01';
 export const ZOOM_FROM = '2024-01'; // zoom initial (l'historique depuis 2019 reste accessible)
@@ -50,6 +65,7 @@ export function trajectoryOption(
   model: ModelKey,
   mode: Mode,
   indicativeFrom: string | null,
+  other: OtherMarket | null = null,
 ): EChartsOption {
   const last = headline[headline.length - 1]?.fixing ?? '2027-12';
   const months = monthRange(HISTORY_FROM, last);
@@ -113,6 +129,19 @@ export function trajectoryOption(
         lineStyle: { width: MARKS.lineWidth, type: 'dashed', color: neutralColor('market', mode) },
         itemStyle: { color: neutralColor('market', mode) },
       },
+      ...(other
+        ? [
+            {
+              name: `Marché ${other.label} (indice différent)`,
+              type: 'line' as const,
+              data: months.map((p) => other.values.get(p) ?? null),
+              symbol: 'diamond',
+              symbolSize: 6,
+              lineStyle: { width: 1, type: 'dotted' as const, color: neutralColor('market', mode) },
+              itemStyle: { color: neutralColor('market', mode) },
+            },
+          ]
+        : []),
     ],
   };
 }

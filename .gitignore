@@ -14,3 +14,8 @@ Thumbs.db
 frontend/dist-static/
 .claude/
 !.env.example
+
+# Market data : proposition en attente et archives locales des inputs remplacés
+euroinfl/data/market_inputs.proposed.json
+euroinfl/data/vintages/
+euroinfl/data/*.tmp

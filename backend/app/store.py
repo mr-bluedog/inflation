@@ -69,8 +69,18 @@ class DataStore:
     def asof(self) -> str:
         return self.market_inputs["asof"]
 
+    def comparable_key(self, geo: str) -> str | None:
+        """Clé des fixings de marché comparables à la prévision du pays (même indice), ou None.
+        Ex. les fixings France portent sur l'IPC hors tabac (Insee), pas sur l'IHPC prévu : non comparables.
+        """
+        for key, meta in self.market_fixings.get("indices", {"EA": {"comparable_geo": "EA"}}).items():
+            if meta.get("comparable_geo") == geo:
+                return key
+        return None
+
     def market(self, geo: str, fixing: str) -> float | None:
-        return self.market_fixings.get("fixings", {}).get(geo, {}).get(fixing)
+        key = self.comparable_key(geo)
+        return None if key is None else self.market_fixings.get("fixings", {}).get(key, {}).get(fixing)
 
 
 def _hicp_vintage() -> str:

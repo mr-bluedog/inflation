@@ -24,7 +24,11 @@ import { Scenarios } from './Scenarios';
 vi.mock('../charts/Chart', () => ({ Chart: () => null })); // pas de canvas dans jsdom
 
 const DATA = resolve(__dirname, '../../public/data');
-const HAS_DATA = existsSync(resolve(DATA, 'meta.json'));
+// Chiffres témoins valables pour le millésime d'inputs de référence (20/11/2026) : ignorés après une mise à jour.
+const REF_ASOF = '2026-11-20';
+const HAS_DATA =
+  existsSync(resolve(DATA, 'meta.json')) &&
+  JSON.parse(readFileSync(resolve(DATA, 'meta.json'), 'utf-8')).meta.asof === REF_ASOF;
 const NB = String.fromCharCode(0x00a0);
 const pct = (s: string) => `${s}${NB}%`;
 

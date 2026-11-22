@@ -2,6 +2,7 @@
 publiés à 0,1 bp près)."""
 
 import pytest
+from conftest import reference_fixings, reference_inputs
 
 
 def _by_fixing(rows, key="fixing"):
@@ -18,12 +19,14 @@ def _by_fixing(rows, key="fixing"):
         ("DE", "2027-06", 3.08),
     ],
 )
+@reference_inputs
 def test_combine(get, geo, fixing, expected):
     rows = _by_fixing(get(f"/api/headline?geo={geo}")["data"])
     assert rows[fixing]["COMBINE"] == pytest.approx(expected, abs=0.01)
     assert round(rows[fixing]["COMBINE"], 2) == expected
 
 
+@reference_fixings
 def test_market_ea_jan27(get):
     rows = _by_fixing(get("/api/headline?geo=EA")["data"])
     assert rows["2027-01"]["market"] == 4.23
@@ -38,6 +41,7 @@ def test_market_ea_jan27(get):
         ("wages", "EA", "2027-12", 16.2),
     ],
 )
+@reference_inputs
 def test_sensitivities(get, shock, geo, fixing, expected):
     rows = get(f"/api/sensitivities?geo={geo}&shock={shock}&item=TOT_X_TBC")["data"]
     assert len(rows) == 14

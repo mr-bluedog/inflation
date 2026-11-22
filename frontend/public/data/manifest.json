@@ -1,10 +1,10 @@
 {
  "mode": "static",
- "run_id": "9a80795c9fbd",
+ "run_id": "4cc6886dfd8f",
  "asof": "2026-11-20",
  "last_obs": "2026-10",
- "n_files": 272,
- "bytes": 6935589,
+ "n_files": 273,
+ "bytes": 6937160,
  "files": [
   {
    "route": "/api/meta",
@@ -29,6 +29,10 @@
   {
    "route": "/api/inputs/series",
    "file": "inputs/series.json"
+  },
+  {
+   "route": "/api/inputs/fixings",
+   "file": "inputs/fixings.json"
   },
   {
    "route": "/api/methodology",

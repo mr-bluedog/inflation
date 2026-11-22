@@ -1,8 +1,20 @@
 {
- "_doc": "Fixings HICPxT de marché (glissement annuel, %), pour COMPARAISON uniquement : jamais injectés dans le modèle. Lu par le backend du dashboard. null = pas de cotation.",
+ "_doc": "Fixings de marché HICP (glissement annuel, %), pour COMPARAISON uniquement : jamais injectés dans le modèle. Saisis dans le dashboard (vue Inputs) ou à la main. Un fixing absent = pas de cotation.",
  "asof": "2026-11-20",
  "source": "Fixings de marché HICPxT relevés le 20/11/2026 (comparaison uniquement)",
- "_origin": "Valeurs EA recopiées de euroinfl/run_all.py (dash['market_ea']) ; aucune cotation disponible pour IT, FR, DE, ES.",
+ "indices": {
+  "EA": {
+   "label": "HICPxT zone euro (hors tabac)",
+   "comparable_geo": "EA"
+  },
+  "FR": {
+   "label": "IPC France hors tabac (Insee)",
+   "comparable_geo": null
+  }
+ },
+ "asof_by_index": {
+  "EA": "2026-11-20"
+ },
  "fixings": {
   "EA": {
    "2026-11": 3.76,
@@ -17,8 +29,9 @@
    "2027-08": 2.95,
    "2027-09": 2.36,
    "2027-10": 2.27,
-   "2027-11": 2.50,
+   "2027-11": 2.5,
    "2027-12": 2.48
-  }
+  },
+  "FR": {}
  }
 }
