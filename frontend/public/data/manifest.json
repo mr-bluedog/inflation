@@ -1,0 +1,1098 @@
+{
+ "mode": "static",
+ "run_id": "696df94daaa3",
+ "asof": "2026-11-20",
+ "last_obs": "2026-10",
+ "n_files": 272,
+ "bytes": 6936254,
+ "files": [
+  {
+   "route": "/api/meta",
+   "file": "meta.json"
+  },
+  {
+   "route": "/api/elasticities",
+   "file": "elasticities.json"
+  },
+  {
+   "route": "/api/equations",
+   "file": "equations/index.json"
+  },
+  {
+   "route": "/api/backtest",
+   "file": "backtest.json"
+  },
+  {
+   "route": "/api/inputs/market",
+   "file": "inputs/market.json"
+  },
+  {
+   "route": "/api/inputs/series",
+   "file": "inputs/series.json"
+  },
+  {
+   "route": "/api/methodology",
+   "file": "methodology.json"
+  },
+  {
+   "route": "/api/headline?geo=EA",
+   "file": "headline/EA.json"
+  },
+  {
+   "route": "/api/components?geo=EA",
+   "file": "components/EA.json"
+  },
+  {
+   "route": "/api/sensitivities?geo=EA",
+   "file": "sensitivities/EA.json"
+  },
+  {
+   "route": "/api/scenarios?geo=EA",
+   "file": "scenarios/EA.json"
+  },
+  {
+   "route": "/api/backtest/errors?geo=EA&item=TOT_X_TBC",
+   "file": "backtest/errors/EA.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=TOT_X_TBC&from=2015-01",
+   "file": "history/EA/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=TOT_X_TBC",
+   "file": "passthrough/EA/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=NRG&from=2015-01",
+   "file": "history/EA/NRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=NRG",
+   "file": "passthrough/EA/NRG.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=CP0722&from=2015-01",
+   "file": "history/EA/CP0722.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=CP0722",
+   "file": "passthrough/EA/CP0722.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=CP0453&from=2015-01",
+   "file": "history/EA/CP0453.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=CP0453",
+   "file": "passthrough/EA/CP0453.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=CP0452&from=2015-01",
+   "file": "history/EA/CP0452.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=CP0452",
+   "file": "passthrough/EA/CP0452.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=CP0451&from=2015-01",
+   "file": "history/EA/CP0451.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=CP0451",
+   "file": "passthrough/EA/CP0451.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=FOOD_P_X_TBC&from=2015-01",
+   "file": "history/EA/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=FOOD_P_X_TBC",
+   "file": "passthrough/EA/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=FOOD_NP&from=2015-01",
+   "file": "history/EA/FOOD_NP.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=FOOD_NP",
+   "file": "passthrough/EA/FOOD_NP.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=IGD_NNRG&from=2015-01",
+   "file": "history/EA/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=IGD_NNRG",
+   "file": "passthrough/EA/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/history?geo=EA&item=SERV&from=2015-01",
+   "file": "history/EA/SERV.json"
+  },
+  {
+   "route": "/api/passthrough?geo=EA&item=SERV",
+   "file": "passthrough/EA/SERV.json"
+  },
+  {
+   "route": "/api/headline?geo=IT",
+   "file": "headline/IT.json"
+  },
+  {
+   "route": "/api/components?geo=IT",
+   "file": "components/IT.json"
+  },
+  {
+   "route": "/api/sensitivities?geo=IT",
+   "file": "sensitivities/IT.json"
+  },
+  {
+   "route": "/api/scenarios?geo=IT",
+   "file": "scenarios/IT.json"
+  },
+  {
+   "route": "/api/backtest/errors?geo=IT&item=TOT_X_TBC",
+   "file": "backtest/errors/IT.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=TOT_X_TBC&from=2015-01",
+   "file": "history/IT/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=TOT_X_TBC",
+   "file": "passthrough/IT/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=NRG&from=2015-01",
+   "file": "history/IT/NRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=NRG",
+   "file": "passthrough/IT/NRG.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=CP0722&from=2015-01",
+   "file": "history/IT/CP0722.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=CP0722",
+   "file": "passthrough/IT/CP0722.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=CP0453&from=2015-01",
+   "file": "history/IT/CP0453.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=CP0453",
+   "file": "passthrough/IT/CP0453.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=CP0452&from=2015-01",
+   "file": "history/IT/CP0452.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=CP0452",
+   "file": "passthrough/IT/CP0452.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=CP0451&from=2015-01",
+   "file": "history/IT/CP0451.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=CP0451",
+   "file": "passthrough/IT/CP0451.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=FOOD_P_X_TBC&from=2015-01",
+   "file": "history/IT/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=FOOD_P_X_TBC",
+   "file": "passthrough/IT/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=FOOD_NP&from=2015-01",
+   "file": "history/IT/FOOD_NP.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=FOOD_NP",
+   "file": "passthrough/IT/FOOD_NP.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=IGD_NNRG&from=2015-01",
+   "file": "history/IT/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=IGD_NNRG",
+   "file": "passthrough/IT/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/history?geo=IT&item=SERV&from=2015-01",
+   "file": "history/IT/SERV.json"
+  },
+  {
+   "route": "/api/passthrough?geo=IT&item=SERV",
+   "file": "passthrough/IT/SERV.json"
+  },
+  {
+   "route": "/api/headline?geo=FR",
+   "file": "headline/FR.json"
+  },
+  {
+   "route": "/api/components?geo=FR",
+   "file": "components/FR.json"
+  },
+  {
+   "route": "/api/sensitivities?geo=FR",
+   "file": "sensitivities/FR.json"
+  },
+  {
+   "route": "/api/scenarios?geo=FR",
+   "file": "scenarios/FR.json"
+  },
+  {
+   "route": "/api/backtest/errors?geo=FR&item=TOT_X_TBC",
+   "file": "backtest/errors/FR.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=TOT_X_TBC&from=2015-01",
+   "file": "history/FR/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=TOT_X_TBC",
+   "file": "passthrough/FR/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=NRG&from=2015-01",
+   "file": "history/FR/NRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=NRG",
+   "file": "passthrough/FR/NRG.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=CP0722&from=2015-01",
+   "file": "history/FR/CP0722.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=CP0722",
+   "file": "passthrough/FR/CP0722.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=CP0453&from=2015-01",
+   "file": "history/FR/CP0453.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=CP0453",
+   "file": "passthrough/FR/CP0453.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=CP0452&from=2015-01",
+   "file": "history/FR/CP0452.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=CP0452",
+   "file": "passthrough/FR/CP0452.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=CP0451&from=2015-01",
+   "file": "history/FR/CP0451.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=CP0451",
+   "file": "passthrough/FR/CP0451.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=FOOD_P_X_TBC&from=2015-01",
+   "file": "history/FR/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=FOOD_P_X_TBC",
+   "file": "passthrough/FR/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=FOOD_NP&from=2015-01",
+   "file": "history/FR/FOOD_NP.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=FOOD_NP",
+   "file": "passthrough/FR/FOOD_NP.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=IGD_NNRG&from=2015-01",
+   "file": "history/FR/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=IGD_NNRG",
+   "file": "passthrough/FR/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/history?geo=FR&item=SERV&from=2015-01",
+   "file": "history/FR/SERV.json"
+  },
+  {
+   "route": "/api/passthrough?geo=FR&item=SERV",
+   "file": "passthrough/FR/SERV.json"
+  },
+  {
+   "route": "/api/headline?geo=DE",
+   "file": "headline/DE.json"
+  },
+  {
+   "route": "/api/components?geo=DE",
+   "file": "components/DE.json"
+  },
+  {
+   "route": "/api/sensitivities?geo=DE",
+   "file": "sensitivities/DE.json"
+  },
+  {
+   "route": "/api/scenarios?geo=DE",
+   "file": "scenarios/DE.json"
+  },
+  {
+   "route": "/api/backtest/errors?geo=DE&item=TOT_X_TBC",
+   "file": "backtest/errors/DE.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=TOT_X_TBC&from=2015-01",
+   "file": "history/DE/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=TOT_X_TBC",
+   "file": "passthrough/DE/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=NRG&from=2015-01",
+   "file": "history/DE/NRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=NRG",
+   "file": "passthrough/DE/NRG.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=CP0722&from=2015-01",
+   "file": "history/DE/CP0722.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=CP0722",
+   "file": "passthrough/DE/CP0722.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=CP0453&from=2015-01",
+   "file": "history/DE/CP0453.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=CP0453",
+   "file": "passthrough/DE/CP0453.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=CP0452&from=2015-01",
+   "file": "history/DE/CP0452.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=CP0452",
+   "file": "passthrough/DE/CP0452.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=CP0451&from=2015-01",
+   "file": "history/DE/CP0451.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=CP0451",
+   "file": "passthrough/DE/CP0451.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=FOOD_P_X_TBC&from=2015-01",
+   "file": "history/DE/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=FOOD_P_X_TBC",
+   "file": "passthrough/DE/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=FOOD_NP&from=2015-01",
+   "file": "history/DE/FOOD_NP.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=FOOD_NP",
+   "file": "passthrough/DE/FOOD_NP.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=IGD_NNRG&from=2015-01",
+   "file": "history/DE/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=IGD_NNRG",
+   "file": "passthrough/DE/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/history?geo=DE&item=SERV&from=2015-01",
+   "file": "history/DE/SERV.json"
+  },
+  {
+   "route": "/api/passthrough?geo=DE&item=SERV",
+   "file": "passthrough/DE/SERV.json"
+  },
+  {
+   "route": "/api/headline?geo=ES",
+   "file": "headline/ES.json"
+  },
+  {
+   "route": "/api/components?geo=ES",
+   "file": "components/ES.json"
+  },
+  {
+   "route": "/api/sensitivities?geo=ES",
+   "file": "sensitivities/ES.json"
+  },
+  {
+   "route": "/api/scenarios?geo=ES",
+   "file": "scenarios/ES.json"
+  },
+  {
+   "route": "/api/backtest/errors?geo=ES&item=TOT_X_TBC",
+   "file": "backtest/errors/ES.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=TOT_X_TBC&from=2015-01",
+   "file": "history/ES/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=TOT_X_TBC",
+   "file": "passthrough/ES/TOT_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=NRG&from=2015-01",
+   "file": "history/ES/NRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=NRG",
+   "file": "passthrough/ES/NRG.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=CP0722&from=2015-01",
+   "file": "history/ES/CP0722.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=CP0722",
+   "file": "passthrough/ES/CP0722.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=CP0453&from=2015-01",
+   "file": "history/ES/CP0453.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=CP0453",
+   "file": "passthrough/ES/CP0453.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=CP0452&from=2015-01",
+   "file": "history/ES/CP0452.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=CP0452",
+   "file": "passthrough/ES/CP0452.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=CP0451&from=2015-01",
+   "file": "history/ES/CP0451.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=CP0451",
+   "file": "passthrough/ES/CP0451.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=FOOD_P_X_TBC&from=2015-01",
+   "file": "history/ES/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=FOOD_P_X_TBC",
+   "file": "passthrough/ES/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=FOOD_NP&from=2015-01",
+   "file": "history/ES/FOOD_NP.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=FOOD_NP",
+   "file": "passthrough/ES/FOOD_NP.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=IGD_NNRG&from=2015-01",
+   "file": "history/ES/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=IGD_NNRG",
+   "file": "passthrough/ES/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/history?geo=ES&item=SERV&from=2015-01",
+   "file": "history/ES/SERV.json"
+  },
+  {
+   "route": "/api/passthrough?geo=ES&item=SERV",
+   "file": "passthrough/ES/SERV.json"
+  },
+  {
+   "route": "/api/equations/EA/CP0722",
+   "file": "equations/EA/CP0722.json"
+  },
+  {
+   "route": "/api/equations/EA/CP0453",
+   "file": "equations/EA/CP0453.json"
+  },
+  {
+   "route": "/api/equations/EA/CP0452",
+   "file": "equations/EA/CP0452.json"
+  },
+  {
+   "route": "/api/equations/EA/CP0451",
+   "file": "equations/EA/CP0451.json"
+  },
+  {
+   "route": "/api/equations/EA/FOOD_P_X_TBC",
+   "file": "equations/EA/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/equations/EA/FOOD_NP",
+   "file": "equations/EA/FOOD_NP.json"
+  },
+  {
+   "route": "/api/equations/EA/IGD_NNRG",
+   "file": "equations/EA/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/equations/EA/SERV",
+   "file": "equations/EA/SERV.json"
+  },
+  {
+   "route": "/api/equations/IT/CP0722",
+   "file": "equations/IT/CP0722.json"
+  },
+  {
+   "route": "/api/equations/IT/CP0453",
+   "file": "equations/IT/CP0453.json"
+  },
+  {
+   "route": "/api/equations/IT/CP0452",
+   "file": "equations/IT/CP0452.json"
+  },
+  {
+   "route": "/api/equations/IT/CP0451",
+   "file": "equations/IT/CP0451.json"
+  },
+  {
+   "route": "/api/equations/IT/FOOD_P_X_TBC",
+   "file": "equations/IT/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/equations/IT/FOOD_NP",
+   "file": "equations/IT/FOOD_NP.json"
+  },
+  {
+   "route": "/api/equations/IT/IGD_NNRG",
+   "file": "equations/IT/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/equations/IT/SERV",
+   "file": "equations/IT/SERV.json"
+  },
+  {
+   "route": "/api/equations/FR/CP0722",
+   "file": "equations/FR/CP0722.json"
+  },
+  {
+   "route": "/api/equations/FR/CP0453",
+   "file": "equations/FR/CP0453.json"
+  },
+  {
+   "route": "/api/equations/FR/CP0452",
+   "file": "equations/FR/CP0452.json"
+  },
+  {
+   "route": "/api/equations/FR/CP0451",
+   "file": "equations/FR/CP0451.json"
+  },
+  {
+   "route": "/api/equations/FR/FOOD_P_X_TBC",
+   "file": "equations/FR/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/equations/FR/FOOD_NP",
+   "file": "equations/FR/FOOD_NP.json"
+  },
+  {
+   "route": "/api/equations/FR/IGD_NNRG",
+   "file": "equations/FR/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/equations/FR/SERV",
+   "file": "equations/FR/SERV.json"
+  },
+  {
+   "route": "/api/equations/DE/CP0722",
+   "file": "equations/DE/CP0722.json"
+  },
+  {
+   "route": "/api/equations/DE/CP0453",
+   "file": "equations/DE/CP0453.json"
+  },
+  {
+   "route": "/api/equations/DE/CP0452",
+   "file": "equations/DE/CP0452.json"
+  },
+  {
+   "route": "/api/equations/DE/CP0451",
+   "file": "equations/DE/CP0451.json"
+  },
+  {
+   "route": "/api/equations/DE/FOOD_P_X_TBC",
+   "file": "equations/DE/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/equations/DE/FOOD_NP",
+   "file": "equations/DE/FOOD_NP.json"
+  },
+  {
+   "route": "/api/equations/DE/IGD_NNRG",
+   "file": "equations/DE/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/equations/DE/SERV",
+   "file": "equations/DE/SERV.json"
+  },
+  {
+   "route": "/api/equations/ES/CP0722",
+   "file": "equations/ES/CP0722.json"
+  },
+  {
+   "route": "/api/equations/ES/CP0453",
+   "file": "equations/ES/CP0453.json"
+  },
+  {
+   "route": "/api/equations/ES/CP0452",
+   "file": "equations/ES/CP0452.json"
+  },
+  {
+   "route": "/api/equations/ES/CP0451",
+   "file": "equations/ES/CP0451.json"
+  },
+  {
+   "route": "/api/equations/ES/FOOD_P_X_TBC",
+   "file": "equations/ES/FOOD_P_X_TBC.json"
+  },
+  {
+   "route": "/api/equations/ES/FOOD_NP",
+   "file": "equations/ES/FOOD_NP.json"
+  },
+  {
+   "route": "/api/equations/ES/IGD_NNRG",
+   "file": "equations/ES/IGD_NNRG.json"
+  },
+  {
+   "route": "/api/equations/ES/SERV",
+   "file": "equations/ES/SERV.json"
+  },
+  {
+   "route": "/api/equations/EA-stage1/ppi_energy",
+   "file": "equations/EA-stage1/ppi_energy.json"
+  },
+  {
+   "route": "/api/equations/EA-stage1/ppi_food",
+   "file": "equations/EA-stage1/ppi_food.json"
+  },
+  {
+   "route": "/api/equations/EA-stage1/ppi_interm",
+   "file": "equations/EA-stage1/ppi_interm.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_commodity_import_food_index",
+   "file": "inputs/series/ecb_commodity_import_food_index.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_commodity_import_nonenergy_index",
+   "file": "inputs/series/ecb_commodity_import_nonenergy_index.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_commodity_import_nonfood_index",
+   "file": "inputs/series/ecb_commodity_import_nonfood_index.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_ea_10y_yield",
+   "file": "inputs/series/ecb_ea_10y_yield.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_eer12_nominal",
+   "file": "inputs/series/ecb_eer12_nominal.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_euribor_3m",
+   "file": "inputs/series/ecb_euribor_3m.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_euro_stoxx_50",
+   "file": "inputs/series/ecb_euro_stoxx_50.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_loans_non_mfi_stock",
+   "file": "inputs/series/ecb_loans_non_mfi_stock.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_m1_stock",
+   "file": "inputs/series/ecb_m1_stock.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_m2_stock",
+   "file": "inputs/series/ecb_m2_stock.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_m3_stock",
+   "file": "inputs/series/ecb_m3_stock.json"
+  },
+  {
+   "route": "/api/inputs/series/ecb_negotiated_wages_yoy_current_vintage",
+   "file": "inputs/series/ecb_negotiated_wages_yoy_current_vintage.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_business_climate",
+   "file": "inputs/series/ecfin_business_climate.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_confidence",
+   "file": "inputs/series/ecfin_consumer_confidence.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_economy_expectations",
+   "file": "inputs/series/ecfin_consumer_economy_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_financial_expectations",
+   "file": "inputs/series/ecfin_consumer_financial_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_goods_price_expectations",
+   "file": "inputs/series/ecfin_consumer_goods_price_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_major_purchases_expectations",
+   "file": "inputs/series/ecfin_consumer_major_purchases_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_price_expectations",
+   "file": "inputs/series/ecfin_consumer_price_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_savings_expectations",
+   "file": "inputs/series/ecfin_consumer_savings_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_consumer_unemployment_expectations",
+   "file": "inputs/series/ecfin_consumer_unemployment_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_economic_sentiment",
+   "file": "inputs/series/ecfin_economic_sentiment.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_industry_employment_expectations",
+   "file": "inputs/series/ecfin_industry_employment_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_industry_production_expectations",
+   "file": "inputs/series/ecfin_industry_production_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_industry_selling_price_expectations",
+   "file": "inputs/series/ecfin_industry_selling_price_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_intermediate_goods_price_expectations",
+   "file": "inputs/series/ecfin_intermediate_goods_price_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/ecfin_retail_business_expectations",
+   "file": "inputs/series/ecfin_retail_business_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/es_construction_production_yoy",
+   "file": "inputs/series/es_construction_production_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_food_production_yoy",
+   "file": "inputs/series/es_food_production_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_import_ex_energy_yoy",
+   "file": "inputs/series/es_import_ex_energy_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_import_food_yoy",
+   "file": "inputs/series/es_import_food_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_import_manufacturing_yoy",
+   "file": "inputs/series/es_import_manufacturing_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_industrial_production_yoy",
+   "file": "inputs/series/es_industrial_production_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_capital_goods_index",
+   "file": "inputs/series/es_ppi_capital_goods_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_consumer_goods_index",
+   "file": "inputs/series/es_ppi_consumer_goods_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_durable_consumer_goods_index",
+   "file": "inputs/series/es_ppi_durable_consumer_goods_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_energy_index",
+   "file": "inputs/series/es_ppi_energy_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_energy_yoy",
+   "file": "inputs/series/es_ppi_energy_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_ex_energy_yoy",
+   "file": "inputs/series/es_ppi_ex_energy_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_food_yoy",
+   "file": "inputs/series/es_ppi_food_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_industry_index",
+   "file": "inputs/series/es_ppi_industry_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_industry_yoy",
+   "file": "inputs/series/es_ppi_industry_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_intermediate_goods_index",
+   "file": "inputs/series/es_ppi_intermediate_goods_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_manufacturing_index",
+   "file": "inputs/series/es_ppi_manufacturing_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_manufacturing_yoy",
+   "file": "inputs/series/es_ppi_manufacturing_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_ppi_non_durable_consumer_goods_index",
+   "file": "inputs/series/es_ppi_non_durable_consumer_goods_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_services_ppi_annual_yoy",
+   "file": "inputs/series/es_services_ppi_annual_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_services_ppi_index",
+   "file": "inputs/series/es_services_ppi_index.json"
+  },
+  {
+   "route": "/api/inputs/series/es_services_ppi_yoy",
+   "file": "inputs/series/es_services_ppi_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_services_production_yoy",
+   "file": "inputs/series/es_services_production_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_services_turnover_yoy",
+   "file": "inputs/series/es_services_turnover_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/es_tourism_nights_yoy",
+   "file": "inputs/series/es_tourism_nights_yoy.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_agri_food",
+   "file": "inputs/series/legacy_agri_food.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_carbon",
+   "file": "inputs/series/legacy_carbon.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_commodity",
+   "file": "inputs/series/legacy_commodity.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_core",
+   "file": "inputs/series/legacy_core.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_core_bbg",
+   "file": "inputs/series/legacy_core_bbg.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_crude_1m",
+   "file": "inputs/series/legacy_crude_1m.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_crude_6m",
+   "file": "inputs/series/legacy_crude_6m.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_crude_vol",
+   "file": "inputs/series/legacy_crude_vol.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_energy",
+   "file": "inputs/series/legacy_energy.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_eurcnh",
+   "file": "inputs/series/legacy_eurcnh.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_eurusd",
+   "file": "inputs/series/legacy_eurusd.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_expectations",
+   "file": "inputs/series/legacy_expectations.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_fao_food",
+   "file": "inputs/series/legacy_fao_food.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_food",
+   "file": "inputs/series/legacy_food.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_food_ppi",
+   "file": "inputs/series/legacy_food_ppi.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_gas_1m",
+   "file": "inputs/series/legacy_gas_1m.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_gas_6m",
+   "file": "inputs/series/legacy_gas_6m.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_gasoil_1m",
+   "file": "inputs/series/legacy_gasoil_1m.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_gasoil_6m",
+   "file": "inputs/series/legacy_gasoil_6m.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_goods",
+   "file": "inputs/series/legacy_goods.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_goods_bbg",
+   "file": "inputs/series/legacy_goods_bbg.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_headline",
+   "file": "inputs/series/legacy_headline.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_import_prices",
+   "file": "inputs/series/legacy_import_prices.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_jet_fuel",
+   "file": "inputs/series/legacy_jet_fuel.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_metal",
+   "file": "inputs/series/legacy_metal.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_pmi_composite",
+   "file": "inputs/series/legacy_pmi_composite.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_pmi_composite_long",
+   "file": "inputs/series/legacy_pmi_composite_long.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_pmi_manufacturing",
+   "file": "inputs/series/legacy_pmi_manufacturing.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_pmi_manufacturing_long",
+   "file": "inputs/series/legacy_pmi_manufacturing_long.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_pmi_prices",
+   "file": "inputs/series/legacy_pmi_prices.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_pmi_services",
+   "file": "inputs/series/legacy_pmi_services.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_pmi_services_long",
+   "file": "inputs/series/legacy_pmi_services_long.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_power_de",
+   "file": "inputs/series/legacy_power_de.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_power_fr",
+   "file": "inputs/series/legacy_power_fr.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_ppi",
+   "file": "inputs/series/legacy_ppi.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_ppi_ea",
+   "file": "inputs/series/legacy_ppi_ea.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_services",
+   "file": "inputs/series/legacy_services.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_ulc",
+   "file": "inputs/series/legacy_ulc.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_unemployment",
+   "file": "inputs/series/legacy_unemployment.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_wage_tracker",
+   "file": "inputs/series/legacy_wage_tracker.json"
+  },
+  {
+   "route": "/api/inputs/series/legacy_wages",
+   "file": "inputs/series/legacy_wages.json"
+  },
+  {
+   "route": "/api/inputs/series/oecd_ea19_cli",
+   "file": "inputs/series/oecd_ea19_cli.json"
+  },
+  {
+   "route": "/api/inputs/series/us_core_cpi_index",
+   "file": "inputs/series/us_core_cpi_index.json"
+  },
+  {
+   "route": "/api/inputs/series/us_cpi_index",
+   "file": "inputs/series/us_cpi_index.json"
+  },
+  {
+   "route": "/api/inputs/series/us_unemployment_rate",
+   "file": "inputs/series/us_unemployment_rate.json"
+  }
+ ]
+}

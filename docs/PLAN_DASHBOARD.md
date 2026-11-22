@@ -112,7 +112,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   Mode linéaire, puis `POST /api/simulate` et mode exact ; presets ; décomposition par sous-indice ; URL partageable (chocs encodés dans la query string).
 - [x] **Phase 6 — Backtest et Inputs (1 j)** — fait le 22/11/2026 : RMSE (toute période / depuis 2023, MODELES §9 vérifié à l'écran), erreurs par origine, poids de combinaison, biais ; courbes et mois estimés, explorateur des 97 séries
   Tables RMSE, graphe d'erreurs, poids ; courbes, mois estimés, explorateur des 97 séries.
-- [ ] **Phase 7 — Finition et déploiement (1 j)**
+- [ ] **Phase 7 — Finition et déploiement (1 j)** — finition faite le 22/11/2026 (vues à la demande, filet d'erreur, export CSV/PNG, revue 375 px et sombre, Dockerfile, `railway.json`, `vercel.json`, README) ; **reste : la mise en ligne Railway + Vercel** (comptes du propriétaire)
   Responsive, mode sombre, états de chargement/erreur, export CSV/PNG des graphes, Dockerfile backend, déploiement Railway + Vercel, README.
 - [ ] **Phase 8 (plus tard)** — Édition des inputs depuis l'UI puis relance de `run_all.py` en tâche de fond ; historisation des vintages ; ajout d'un modèle ML challenger ; vues Linkers / Auctions façon site de référence.
 

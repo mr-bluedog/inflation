@@ -19,3 +19,6 @@ FRONTEND_ORIGINS = [
     for o in os.environ.get("FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
     if o.strip()
 ]
+
+# Origines supplémentaires par expression régulière (ex. prévisualisations Vercel : https://.*-monequipe\.vercel\.app)
+FRONTEND_ORIGIN_REGEX = os.environ.get("FRONTEND_ORIGIN_REGEX") or None

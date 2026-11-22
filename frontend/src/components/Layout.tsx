@@ -1,4 +1,6 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Suspense } from 'react';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from './ErrorBoundary';
 import { DATA_MODE } from '../api/client';
 import { useMeta } from '../api/hooks';
 import { GEOS, MODELS, type Geo, type ModelKey } from '../api/types';
@@ -19,6 +21,7 @@ export function Layout() {
   const meta = useMeta();
   const { geo, setGeo, model, setModel, theme, setTheme, simSearch, bumpRecalc } = useApp();
   const navigate = useNavigate();
+  const location = useLocation();
   const d = meta.data?.data;
   const geoNames = Object.fromEntries((d?.geos ?? []).map((g) => [g.code, g.name]));
 
@@ -108,7 +111,12 @@ export function Layout() {
       </header>
 
       <main className="main">
-        <Outlet />
+        {/* clé = chemin : l'erreur d'une vue ne survit pas à la navigation */}
+        <ErrorBoundary key={location.pathname} label="La vue">
+          <Suspense fallback={<div className="state">Chargement de la vue…</div>}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
       </main>
     </div>
   );

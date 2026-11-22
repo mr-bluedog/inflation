@@ -9,6 +9,7 @@ export function baseOption(mode: Mode): EChartsOption {
     textStyle: { fontFamily: MARKS.fontFamily, color: ink.secondary },
     grid: { left: 48, right: 16, top: 56, bottom: 32, containLabel: true },
     legend: {
+      type: 'scroll', // une seule ligne : pas de chevauchement avec l'axe sur petit écran
       top: 0,
       left: 0,
       icon: 'roundRect',
@@ -69,4 +70,35 @@ export function mergeOption(base: EChartsOption, option: EChartsOption): ECharts
     }
   }
   return out as EChartsOption;
+}
+
+/** Tableau CSV (séparateur « ; », virgule décimale : Excel français) tiré d'une option ECharts à axe de catégories.
+ * Exporte exactement les valeurs tracées. null si le graphique n'a pas d'axe de catégories. */
+export function csvFromOption(option: EChartsOption): string | null {
+  const x = Array.isArray(option.xAxis) ? option.xAxis[0] : option.xAxis;
+  const cats = (x as { data?: unknown[] } | undefined)?.data;
+  const series = (Array.isArray(option.series) ? option.series : option.series ? [option.series] : []) as {
+    name?: string;
+    data?: unknown[];
+  }[];
+  const named = series.filter((s) => s.name && Array.isArray(s.data));
+  if (!Array.isArray(cats) || named.length === 0) return null;
+  const cell = (v: unknown) => {
+    const n = typeof v === 'object' && v !== null && 'value' in v ? (v as { value: unknown }).value : v;
+    return typeof n === 'number' && Number.isFinite(n) ? String(n).replace('.', ',') : '';
+  };
+  const esc = (s: string) => (/[;"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s);
+  const lines = [['', ...named.map((s) => s.name!)].map(esc).join(';')];
+  cats.forEach((c, i) => lines.push([esc(String(c)), ...named.map((s) => cell(s.data![i]))].join(';')));
+  return lines.join('\r\n');
+}
+
+export function fileSlug(label: string): string {
+  return label
+    .normalize('NFD')
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .slice(0, 60);
 }

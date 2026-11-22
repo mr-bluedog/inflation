@@ -64,11 +64,13 @@ export function Backtest() {
                   value={period}
                   onChange={setPeriod}
                   options={[
-                    { value: 'all', label: `Toute la période (${bt.origins.replace('..', ' → ')})` },
+                    { value: 'all', label: 'Toute la période' },
                     { value: 'post2023', label: 'Depuis 2023' },
                   ]}
                 />
-                <span className="legend-note">{bt.n_origins} origines</span>
+                <span className="legend-note">
+                  {bt.n_origins} origines, {bt.origins.replace('..', ' → ')}
+                </span>
               </div>
 
               <section className="card">

@@ -1,0 +1,15 @@
+# Contexte Docker de l'API : seuls backend/app, euroinfl/ et data/raw/ sont copiés (voir backend/Dockerfile)
+.git
+.claude
+.venv
+venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+frontend
+docs
+euroinfl/site
+backend/tests
+.env
+.env.*

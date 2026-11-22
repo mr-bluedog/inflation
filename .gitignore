@@ -9,8 +9,6 @@ frontend/dist/
 .DS_Store
 Thumbs.db
 
-# Mode statique : régénéré par backend/export_static.py
-frontend/public/data/
 .pytest_cache/
 .ruff_cache/
 frontend/dist-static/

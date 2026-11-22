@@ -184,3 +184,10 @@ def test_json_serializable_no_nan(client):
         txt = client.get(url).text
         assert "NaN" not in txt, url
         json.loads(txt)
+
+
+def test_cors(client):
+    r = client.get("/api/meta", headers={"Origin": "http://localhost:5173"})
+    assert r.headers.get("access-control-allow-origin") == "http://localhost:5173"
+    r = client.get("/api/meta", headers={"Origin": "https://site-malveillant.example"})
+    assert "access-control-allow-origin" not in r.headers

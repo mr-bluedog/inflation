@@ -47,13 +47,14 @@ Inflation/
 ## Commandes
 ```bash
 # Moteur
-cd euroinfl && pip install pandas numpy && python run_all.py        # ≈ 15 s → out/
-python run_backtest.py && python summarize_backtest.py              # ≈ 3 min (backtest_errors.csv n'est pas dans le zip)
+cd euroinfl && PYTHONUTF8=1 python run_all.py                          # ≈ 9 s → out/ (UTF-8 pour les JSON)
+python run_backtest.py && python summarize_backtest.py              # ≈ 1 min, puis relancer run_all.py
 
-# Backend (à créer)
-cd backend && pip install -r requirements.txt && uvicorn app.main:app --reload --port 8000
+# Backend
+cd backend && pip install -r requirements-dev.txt && uvicorn app.main:app --reload --port 8000
+python export_static.py && pytest -q                               # mode statique → frontend/public/data
 
-# Frontend (à créer)
+# Frontend
 cd frontend && npm install && npm run dev                          # http://localhost:5173
 npm run build && npm run test
 ```

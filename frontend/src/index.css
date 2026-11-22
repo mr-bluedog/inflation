@@ -209,6 +209,7 @@ table.data th {
 }
 .card-head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   gap: 12px;
@@ -221,6 +222,8 @@ table.data th {
 }
 .segmented {
   display: inline-flex;
+  max-width: 100%;
+  flex-wrap: wrap;
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
@@ -638,4 +641,25 @@ input.search {
   border-radius: 6px;
   padding: 4px 8px;
   min-width: 220px;
+}
+/* ---------- export des graphiques */
+.chart {
+  position: relative;
+}
+.chart-tools {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2px;
+  gap: 4px;
+  opacity: 0.35;
+  transition: opacity 0.15s;
+}
+.chart:hover .chart-tools,
+.chart-tools:focus-within {
+  opacity: 1;
+}
+@media (hover: none) {
+  .chart-tools {
+    opacity: 1;
+  }
 }
