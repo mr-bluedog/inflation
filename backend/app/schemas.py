@@ -250,8 +250,15 @@ class Curve(BaseModel):
 
 class RecentMonth(BaseModel):
     month: str
-    estimated: bool
     values: dict[str, float]
+    quality: dict[str, str] = Field(description="origine par driver : observe | proxy | estime")
+    partial: bool = Field(description="mois en cours : moyenne partielle")
+
+
+class RecentStatus(BaseModel):
+    month: str
+    quality: str
+    partial: bool
 
 
 class DriverPath(BaseModel):
@@ -260,7 +267,7 @@ class DriverPath(BaseModel):
     unit: str
     months: list[str]
     values: list[float | None]
-    estimated_months: list[str]
+    recent: list[RecentStatus] = Field(description="origine des mois postérieurs à la base de données")
 
 
 class MarketInputs(BaseModel):
@@ -269,6 +276,9 @@ class MarketInputs(BaseModel):
     curve_method: str | None
     recent_note: str | None
     curves: list[Curve]
+    curve_quality: dict[str, str]
+    refreshed: str | None
+    sources: dict[str, str]
     recent_months: list[RecentMonth]
     assumptions: dict[str, Any]
     drivers: list[DriverPath]

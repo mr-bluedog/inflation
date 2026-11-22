@@ -67,7 +67,12 @@ def test_proposal_follows_engine_conventions(current, ice):
     # mois récents : août → mois en cours, moyennes des sources
     months = [k for k in new["recent_months"] if not k.startswith("_")]
     assert months == ["2026-08", "2026-09", "2026-10", "2026-11"]
-    nov = new["recent_months"]["2026-11"]
+    nov = {k: v for k, v in new["recent_months"]["2026-11"].items() if not k.startswith("_")}
+    # origine enregistrée : observé (BCE, NYMEX), proxy (gasoil, électricité), mois en cours partiel
+    assert new["recent_months"]["2026-11"]["_quality"] == R.Q.RECENT_RULES
+    assert new["recent_months"]["2026-11"]["_partial"] is True
+    assert new["recent_months"]["2026-10"]["_partial"] is False
+    assert new["_curve_quality"] == R.Q.CURVE_RULES
     assert nov == {
         "ttf": 90.0,
         "power_de": 150.0,
@@ -225,3 +230,36 @@ def test_write_requires_token(client, sandbox, monkeypatch):
     ok = client.put("/api/inputs/fixings", json=body, headers={"X-Admin-Token": "secret-de-test"})
     assert ok.status_code == 200
     assert client.get("/api/admin/status").json() == {"write_enabled": True, "token_required": True}
+
+
+def test_quality_of_vintages(current):
+    """Origine des valeurs : jeu d'origine (saisi à la main) → estimé ; jeu rafraîchi → règles ; stockée → lue."""
+    from app.marketdata import quality as Q
+
+    q0 = Q.recent_quality(current)
+    assert set(q0) == {"2026-08", "2026-09", "2026-10", "2026-11"}
+    assert all(set(v["quality"].values()) == {"estime"} and not v["partial"] for v in q0.values())
+    assert set(Q.curve_quality(current).values()) == {"archive"}
+    refreshed = {**current, "_sources": {"_refreshed": "2026-11-22"}}
+    q1 = Q.recent_quality(refreshed)
+    assert q1["2026-11"]["partial"] and not q1["2026-10"]["partial"]
+    assert q1["2026-09"]["quality"]["ttf"] == "observe" and q1["2026-09"]["quality"]["power_de"] == "proxy"
+    assert Q.driver_quality(q1["2026-09"]["quality"], "gasoil_eur") == "proxy"  # dérivé : le moins fiable
+    assert Q.driver_quality(q1["2026-09"]["quality"], "ppi_energy") is None
+
+
+def test_engine_ignores_quality_keys(current, ice):
+    """Les clés d'origine (« _quality », « _partial », « _curve_quality ») n'influencent pas le moteur."""
+    from euroinfl.data import load_user_db
+    from euroinfl.pipeline import Model
+
+    new = R.build_proposal(current, ice, TODAY, FakeFetcher()).inputs
+    bare = json.loads(json.dumps(new))
+    bare.pop("_curve_quality")
+    for m, row in bare["recent_months"].items():
+        if not m.startswith("_"):
+            row.pop("_quality"), row.pop("_partial")
+    db = load_user_db(config.ENGINE_DATA_DIR / "euro_inflation_database_long.csv")
+    a = Model(db=db, mkt=new).fit().forecast("central").yoy("EA")
+    b = Model(db=db, mkt=bare).fit().forecast("central").yoy("EA")
+    assert (a - b).abs().max() == 0

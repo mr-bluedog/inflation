@@ -16,6 +16,7 @@ from . import catalog as C
 from . import config
 from . import equations as EQ
 from . import schemas as Sch
+from .marketdata import quality as Q
 from .store import DataStore, clean, get_store, records
 
 
@@ -319,36 +320,52 @@ def get_market_inputs():
         }
         for k, c in mi["curves"].items()
     ]
+    rq = Q.recent_quality(mi)
     recent = [
-        {"month": m, "estimated": True, "values": {k: v for k, v in r.items() if not k.startswith("_")}}
+        {
+            "month": m,
+            "values": {k: v for k, v in r.items() if not k.startswith("_")},
+            "quality": rq[m]["quality"],
+            "partial": rq[m]["partial"],
+        }
         for m, r in sorted(mi["recent_months"].items())
         if not m.startswith("_")
     ]
-    est = [r["month"] for r in recent]
-    drivers = [
-        {
-            "key": k,
-            "label": C.DRIVER_LABELS[k][0],
-            "unit": C.DRIVER_LABELS[k][1],
-            "months": d["months"],
-            "values": d["values"],
-            "estimated_months": [m for m in d["months"] if m in est and k in WHOLESALE],
-        }
-        for k, d in s.dashboard["drivers"].items()
-    ]
+    drivers = []
+    for k, d in s.dashboard["drivers"].items():
+        status = []
+        if k in WHOLESALE:
+            for m in d["months"]:
+                if m in rq:
+                    q = Q.driver_quality(rq[m]["quality"], k)
+                    if q:
+                        status.append({"month": m, "quality": q, "partial": rq[m]["partial"]})
+        drivers.append(
+            {
+                "key": k,
+                "label": C.DRIVER_LABELS[k][0],
+                "unit": C.DRIVER_LABELS[k][1],
+                "months": d["months"],
+                "values": d["values"],
+                "recent": status,
+            }
+        )
     data = {
         "asof": mi["asof"],
         "eurusd": mi["eurusd"],
         "curve_method": mi.get("_curve_method"),
         "recent_note": mi["recent_months"].get("_doc"),
         "curves": curves,
+        "curve_quality": Q.curve_quality(mi),
+        "refreshed": Q.refreshed_on(mi),
+        "sources": {k: v for k, v in (mi.get("_sources") or {}).items() if not k.startswith("_")},
         "recent_months": recent,
         "assumptions": mi["assumptions"],
         "drivers": drivers,
     }
     notes = [
         "Courbes par mois de livraison ; niveau du mois M = contrat M+1",
-        "recent_months : moyennes ESTIMÉES (base arrêtée en 2026-07)",
+        "recent_months : mois postérieurs à la base (2026-07) ; quality = observe | proxy | estime ; partial = mois en cours",
         "drivers : trajectoire du scénario central (historique + futur)",
     ]
     return {"meta": meta(s, notes=notes), "data": data}

@@ -1,13 +1,60 @@
 /** Inputs : courbes de marché, mois estimés, base de séries. Affichage des entrées du moteur, sans transformation. */
 import type { EChartsOption } from 'echarts';
-import type { Curve, DiffRow, DriverPath, SeriesData, SeriesInfo } from '../../api/types';
+import type {
+  Curve,
+  CurveQuality,
+  DiffRow,
+  DriverPath,
+  Quality,
+  RecentStatus,
+  SeriesData,
+  SeriesInfo,
+} from '../../api/types';
 import { axes } from '../../charts/base';
 import { fmtFixing, fmtNum } from '../../format';
 import { INK, MARKS, neutralColor, seriesColor, type Mode } from '../../theme';
 
-/** Fin de l'historique estimé = dernier mois de recent_months ; au-delà, courbes / hypothèses. */
+/** Fin des mois hors base de données = dernier mois de recent_months ; au-delà, courbes / hypothèses. */
 export function lastEstimated(recent: { month: string }[]): string | null {
   return recent.length ? recent[recent.length - 1]!.month : null;
+}
+
+export const QUALITY_LABEL: Record<Quality, string> = {
+  observe: 'observé',
+  proxy: 'proxy',
+  estime: 'estimé',
+};
+export const CURVE_QUALITY_LABEL: Record<CurveQuality, string> = {
+  observe: 'contrats cotés',
+  proxy: 'proxy (contrats d’un autre instrument)',
+  recale: 'forme précédente recalée sur le front du jour',
+  conserve: 'courbe précédente conservée (pas de contrats publics)',
+  archive: 'archive ICE recalée (jeu d’origine)',
+};
+
+/** Libellé d'un mois hors base : « observé », « proxy · partiel »… */
+export function statusLabel(s: Pick<RecentStatus, 'quality' | 'partial'>): string {
+  return QUALITY_LABEL[s.quality] + (s.partial ? ' · partiel' : '');
+}
+
+/** Libellé de la zone (court, pour tenir dans la zone grisée) : origines rencontrées sur la période.
+ * Le mois partiel est signalé dans l'infobulle, la tuile et le tableau. */
+export function areaLabel(recent: RecentStatus[]): string {
+  return [...new Set(recent.map((r) => r.quality))].map((q) => QUALITY_LABEL[q]).join(' / ');
+}
+
+/** Résumé de l'origine des mois hors base, par catégorie : { observé: [EUR/USD, TTF…], proxy: […] }. */
+export function qualitySummary(
+  rows: { quality: Record<string, Quality> }[],
+  labels: Record<string, string>,
+): Partial<Record<Quality, string[]>> {
+  const worst: Record<string, Quality> = {};
+  const rank: Record<Quality, number> = { observe: 0, proxy: 1, estime: 2 };
+  for (const r of rows)
+    for (const [k, q] of Object.entries(r.quality)) if (!worst[k] || rank[q] > rank[worst[k]!]) worst[k] = q;
+  const out: Partial<Record<Quality, string[]>> = {};
+  for (const [k, q] of Object.entries(worst)) (out[q] ??= []).push(labels[k] ?? k);
+  return out;
 }
 
 export function driverOption(
@@ -18,18 +65,28 @@ export function driverOption(
 ): EChartsOption {
   const ink = INK[mode];
   const months = d.months;
-  const est = new Set(d.estimated_months);
-  const firstEst = d.estimated_months[0];
+  const status = new Map(d.recent.map((r) => [r.month, r]));
+  // point creux = valeur qui n'est pas une moyenne complète observée (proxy, estimée ou mois partiel)
+  const hollow = (m: string) => {
+    const s = status.get(m);
+    return !!s && (s.quality !== 'observe' || s.partial);
+  };
+  const first = d.recent[0]?.month;
+  const last = d.recent[d.recent.length - 1]?.month;
   const futureFrom = lastEst ? months.find((m) => m > lastEst) : undefined;
   const curvePts = new Map((curve?.points ?? []).map((p) => [p.month, p.value]));
   const color = seriesColor('model', 'COMBINE', mode);
   const fmt = (v: unknown) =>
     typeof v === 'number' ? `${fmtNum(v, d.unit === '$ pour 1 €' ? 3 : 1)} ${d.unit}` : '—';
   const areas: object[] = [];
-  if (firstEst && lastEst)
+  if (first && last)
     areas.push([
-      { name: 'estimé', xAxis: months.indexOf(firstEst), itemStyle: { color: ink.neutral, opacity: 0.9 } },
-      { xAxis: months.indexOf(lastEst) },
+      {
+        name: areaLabel(d.recent),
+        xAxis: months.indexOf(first),
+        itemStyle: { color: ink.neutral, opacity: 0.9 },
+      },
+      { xAxis: months.indexOf(last) },
     ]);
   if (futureFrom)
     areas.push([
@@ -42,17 +99,26 @@ export function driverOption(
     ]);
   return {
     ...axes(mode, months.map(fmtFixing), d.unit),
-    tooltip: { trigger: 'axis', valueFormatter: fmt },
+    tooltip: {
+      trigger: 'axis',
+      formatter: (params) => {
+        const ps = Array.isArray(params) ? params : [params];
+        const m = months[ps[0]?.dataIndex ?? 0]!;
+        const s = status.get(m);
+        const lines = ps.map((p) => `${p.marker ?? ''}${p.seriesName} : <b>${fmt(p.value)}</b>`);
+        return `<b>${fmtFixing(m)}</b>${s ? ` · ${statusLabel(s)}` : ''}<br/>${lines.join('<br/>')}`;
+      },
+    },
     series: [
       {
         name: `${d.label} (niveau du mois utilisé par le moteur)`,
         type: 'line',
         data: d.values,
-        symbolSize: (_v: unknown, p: { dataIndex: number }) => (est.has(months[p.dataIndex]!) ? 9 : 5),
+        symbolSize: (_v: unknown, p: { dataIndex: number }) => (hollow(months[p.dataIndex]!) ? 9 : 5),
         symbol: 'circle',
         lineStyle: { width: MARKS.lineWidth, color },
         itemStyle: {
-          color: (p: { dataIndex: number }) => (est.has(months[p.dataIndex]!) ? ink.surface : color),
+          color: (p: { dataIndex: number }) => (hollow(months[p.dataIndex]!) ? ink.surface : color),
           borderColor: color,
           borderWidth: 2,
         },

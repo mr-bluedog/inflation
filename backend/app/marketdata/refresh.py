@@ -25,6 +25,7 @@ from typing import Protocol
 
 import pandas as pd
 
+from . import quality as Q
 from . import sources as SRC
 
 GAL_PER_BBL = 42.0
@@ -124,17 +125,22 @@ def build_proposal(current: dict, ice_gasoil_monthly: pd.Series, today: date, fe
     }
     rounding = {"eurusd": 4}
     recent: dict = {"_doc": ""}
+    old_quality = Q.recent_quality(current)
     for m in months:
-        row = {}
+        row, origin = {}, {}
         for k, s in monthly.items():
             if m in s.index:
                 row[k] = round(float(s[m]), rounding.get(k, 2))
-            else:  # pas de donnée publique pour ce mois : on garde la valeur en place
+                origin[k] = Q.RECENT_RULES[k]
+            else:  # pas de donnée publique pour ce mois : on garde la valeur en place (et son origine)
                 old = current["recent_months"].get(str(m), {}).get(k)
                 if old is not None:
                     row[k] = old
+                    origin[k] = old_quality.get(str(m), {}).get("quality", {}).get(k, Q.ESTIMATED)
                     warn.append(f"{LABELS[k]} {m} : pas de donnée publique, valeur précédente conservée")
         if row:
+            row["_quality"] = origin
+            row["_partial"] = m == this_month
             recent[str(m)] = row
     days = int((eur.index.to_period("M") == this_month).sum())
     if str(this_month) in recent:
@@ -164,9 +170,12 @@ def build_proposal(current: dict, ice_gasoil_monthly: pd.Series, today: date, fe
             if s.index.max().date() < recent_from:  # cotation périmée (contrat peu liquide) : écartée
                 continue
             out[str(d)] = round(float(s.iloc[-1]) * conv, 2)
+    curve_origin = Q.curve_quality(current)
+    curve_origin.update({"ttf": "recale", "power_de": "conserve", "power_fr": "conserve"})
     for k, c in (("brent_usd", brent_curve), ("gasoil_usd_t", gasoil_curve)):
         if len(c) >= 3:
             curves[k] = c
+            curve_origin[k] = Q.CURVE_RULES[k]
         else:
             warn.append(f"{LABELS[k]} : courbe publique incomplète, courbe précédente conservée")
 
@@ -188,6 +197,7 @@ def build_proposal(current: dict, ice_gasoil_monthly: pd.Series, today: date, fe
     )
     warn.append(f"Gasoil : proxy ULSD NYMEX × {ratio:.4f} (gasoil ICE non public)")
 
+    new["_curve_quality"] = curve_origin
     new["eurusd"] = round(float(eur.iloc[-1]), 4)
     new["asof"] = max(s.index.max() for s in (eur, ttf, brent)).date().isoformat()
     new["_curve_method"] = (

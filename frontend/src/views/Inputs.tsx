@@ -6,8 +6,25 @@ import { StatTile } from '../components/StatTile';
 import { fmtDateFr, fmtFixing, fmtMonthFr, fmtNum, fmtPct } from '../format';
 import { useThemeMode } from '../useThemeMode';
 import { FixingsEditor } from './inputs/FixingsEditor';
-import { driverOption, filterSeries, lastEstimated, seriesOption } from './inputs/logic';
+import {
+  CURVE_QUALITY_LABEL,
+  driverOption,
+  filterSeries,
+  lastEstimated,
+  QUALITY_LABEL,
+  qualitySummary,
+  seriesOption,
+} from './inputs/logic';
 import { MarketUpdate } from './inputs/MarketUpdate';
+
+const RECENT_LABELS: Record<string, string> = {
+  eurusd: 'EUR/USD',
+  ttf: 'TTF',
+  brent_usd: 'Brent',
+  gasoil_usd_t: 'gasoil',
+  power_de: 'électricité DE',
+  power_fr: 'électricité FR',
+};
 
 const RECENT_COLS: { key: string; label: string; unit: string; digits: number }[] = [
   { key: 'ttf', label: 'TTF', unit: '€/MWh', digits: 1 },
@@ -43,13 +60,19 @@ export function Inputs() {
           const d = m.drivers.find((x) => x.key === driver) ?? m.drivers[0]!;
           const curve = m.curves.find((c) => c.key === d.key);
           const a = m.assumptions;
+          const summary = qualitySummary(m.recent_months, RECENT_LABELS);
+          const partialMonth = m.recent_months.find((r) => r.partial)?.month ?? null;
           return (
             <>
               <div className="tiles">
                 <StatTile
                   label="Courbes au"
                   value={fmtDateFr(m.asof)}
-                  sub="Archive ICE recalée (voir note)"
+                  sub={
+                    m.refreshed
+                      ? `Sources publiques, rafraîchies le ${fmtDateFr(m.refreshed)}`
+                      : 'Archive ICE recalée (jeu d’origine)'
+                  }
                 />
                 <StatTile
                   label="EUR/USD"
@@ -57,12 +80,20 @@ export function Inputs() {
                   sub="Tenu plat sur tout l'horizon"
                 />
                 <StatTile
-                  label="Mois estimés"
-                  value={<span className="estimated">{m.recent_months.length} mois ⚠</span>}
+                  label={`Mois après la base de données${m.recent_months.length ? ` (${fmtMonthFr(m.recent_months[0]!.month)} → ${fmtMonthFr(lastEst!)})` : ''}`}
+                  value={
+                    <span className={summary.estime ? 'estimated' : ''}>
+                      {m.recent_months.length} mois{summary.estime ? ' ⚠' : ''}
+                    </span>
+                  }
                   sub={
-                    m.recent_months.length
-                      ? `${fmtMonthFr(m.recent_months[0]!.month)} → ${fmtMonthFr(lastEst!)}`
-                      : '—'
+                    <>
+                      {(['observe', 'proxy', 'estime'] as const)
+                        .filter((q) => summary[q])
+                        .map((q) => `${QUALITY_LABEL[q]} : ${summary[q]!.join(', ')}`)
+                        .join(' · ')}
+                      {partialMonth && ` · ${fmtMonthFr(partialMonth)} partiel`}
+                    </>
                   }
                 />
                 <StatTile
@@ -84,7 +115,7 @@ export function Inputs() {
               <section className="card">
                 <div className="card-head">
                   <h2>
-                    {d.label} ({d.unit}) : historique, mois estimés, courbe
+                    {d.label} ({d.unit}) : historique, mois récents, courbe
                   </h2>
                   <select aria-label="Driver" value={driver} onChange={(e) => setDriver(e.target.value)}>
                     {m.drivers.map((x) => (
@@ -101,8 +132,11 @@ export function Inputs() {
                 />
                 <div className="card-foot">
                   Trajectoire du scénario central telle qu'utilisée par le moteur (niveau du mois M = contrat
-                  de livraison M+1). Points creux et zone « estimé » : moyennes mensuelles estimées ; zone «
-                  courbe / hypothèse » : futur.{' '}
+                  de livraison M+1). Zone grisée : mois postérieurs à la base de données (juillet 2026),
+                  étiquetés selon leur origine ; point creux = valeur qui n'est pas une moyenne complète
+                  observée (proxy, estimée ou mois partiel). Zone « courbe / hypothèse » : futur.{' '}
+                  {m.curve_quality[d.key] &&
+                    `Courbe à terme : ${CURVE_QUALITY_LABEL[m.curve_quality[d.key]!]}. `}
                   {d.key === 'ppi_energy' &&
                     'Le PPI énergie est prolongé par le modèle (étage 1) après sa dernière publication. '}
                   {d.key === 'gasoil_usd_t' &&
@@ -113,11 +147,10 @@ export function Inputs() {
 
               <section className="card">
                 <div className="card-head">
-                  <h2>Moyennes mensuelles récentes (estimées)</h2>
-                  <span className="badge static">⚠ estimé</span>
+                  <h2>Moyennes mensuelles après la base de données</h2>
                 </div>
                 <div className="scroll-x">
-                  <table className="data" aria-label="Mois récents estimés">
+                  <table className="data" aria-label="Moyennes mensuelles après la base de données">
                     <thead>
                       <tr>
                         <th>Mois</th>
@@ -130,17 +163,35 @@ export function Inputs() {
                     </thead>
                     <tbody>
                       {m.recent_months.map((r) => (
-                        <tr key={r.month} className="estimated">
-                          <td>{fmtFixing(r.month)} ⚠</td>
-                          {RECENT_COLS.map((c) => (
-                            <td key={c.key}>{fmtNum(r.values[c.key], c.digits)}</td>
-                          ))}
+                        <tr key={r.month}>
+                          <td>
+                            {fmtFixing(r.month)}
+                            {r.partial && <span className="legend-note"> (partiel)</span>}
+                          </td>
+                          {RECENT_COLS.map((c) => {
+                            const q = r.quality[c.key];
+                            return (
+                              <td
+                                key={c.key}
+                                className={q && q !== 'observe' ? 'estimated' : ''}
+                                title={q ? QUALITY_LABEL[q] : undefined}
+                              >
+                                {q === 'proxy' && '≈ '}
+                                {fmtNum(r.values[c.key], c.digits)}
+                                {q === 'estime' && ' ⚠'}
+                              </td>
+                            );
+                          })}
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
-                <div className="card-foot">{m.recent_note}</div>
+                <div className="card-foot">
+                  Valeur sans marque : moyenne observée de l'instrument utilisé par le moteur · ≈ en italique
+                  : proxy (cotations d'un autre instrument) · ⚠ : estimée à la main · partiel : mois en cours.{' '}
+                  {m.recent_note}
+                </div>
               </section>
             </>
           );

@@ -66,3 +66,25 @@ describe('otherMarketFor', () => {
     expect(otherMarketFor(fx, 'IT')).toBeNull();
   });
 });
+
+describe('origine des mois après la base', () => {
+  it('résume par origine en retenant la moins fiable de chaque driver', async () => {
+    const { qualitySummary, areaLabel, statusLabel } = await import('./logic');
+    const rows = [
+      { quality: { eurusd: 'observe', gasoil_usd_t: 'proxy', ttf: 'observe' } as const },
+      { quality: { eurusd: 'observe', gasoil_usd_t: 'proxy', ttf: 'estime' } as const },
+    ];
+    expect(qualitySummary(rows, { eurusd: 'EUR/USD', gasoil_usd_t: 'gasoil', ttf: 'TTF' })).toEqual({
+      observe: ['EUR/USD'],
+      proxy: ['gasoil'],
+      estime: ['TTF'],
+    });
+    expect(
+      areaLabel([
+        { month: '2026-10', quality: 'observe', partial: false },
+        { month: '2026-11', quality: 'observe', partial: true },
+      ]),
+    ).toBe('observé');
+    expect(statusLabel({ quality: 'proxy', partial: true })).toBe('proxy · partiel');
+  });
+});

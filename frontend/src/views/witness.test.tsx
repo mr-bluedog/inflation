@@ -212,17 +212,18 @@ describe.skipIf(!HAS_DATA)('backtest et inputs à l’écran (export réel)', ()
     expect(within(bu).getAllByRole('cell')[2]!.textContent).toBe('0,22');
   });
 
-  it('mois récents estimés (market_inputs.json)', async () => {
+  it('mois après la base : millésime de référence, valeurs estimées à la main', async () => {
     show(<Inputs />);
-    const t = await screen.findByRole('table', { name: 'Mois récents estimés' });
+    const t = await screen.findByRole('table', { name: 'Moyennes mensuelles après la base de données' });
     const rows = within(t).getAllByRole('row').slice(1);
     expect(rows.map((r) => within(r).getAllByRole('cell')[0]!.textContent)).toEqual([
-      'Aug-26 ⚠',
-      'Sep-26 ⚠',
-      'Oct-26 ⚠',
-      'Nov-26 ⚠',
+      'Aug-26',
+      'Sep-26',
+      'Oct-26',
+      'Nov-26',
     ]);
-    expect(within(rows[3]!).getAllByRole('cell')[4]!.textContent).toBe(`1${NB}240`);
+    // jeu d'origine : toutes les valeurs sont des estimations (⚠)
+    expect(within(rows[3]!).getAllByRole('cell')[4]!.textContent).toBe(`1${NB}240 ⚠`);
     expect(await screen.findByText(/97 séries/)).toBeInTheDocument();
   });
 });

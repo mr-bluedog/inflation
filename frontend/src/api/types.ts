@@ -202,13 +202,22 @@ export interface Curve {
   unit: string;
   points: { month: string; value: number }[];
 }
+/** Origine d'une valeur de marché hors base : observée, proxy (autre instrument) ou estimée à la main. */
+export type Quality = 'observe' | 'proxy' | 'estime';
+export type CurveQuality = 'observe' | 'proxy' | 'recale' | 'conserve' | 'archive';
+export interface RecentStatus {
+  month: string;
+  quality: Quality;
+  partial: boolean;
+}
 export interface DriverPath {
   key: string;
   label: string;
   unit: string;
   months: string[];
   values: (number | null)[];
-  estimated_months: string[];
+  /** origine des mois postérieurs à la base de données */
+  recent: RecentStatus[];
 }
 export interface MarketInputs {
   asof: string;
@@ -216,7 +225,15 @@ export interface MarketInputs {
   curve_method: string | null;
   recent_note: string | null;
   curves: Curve[];
-  recent_months: { month: string; estimated: boolean; values: Record<string, number> }[];
+  curve_quality: Record<string, CurveQuality>;
+  refreshed: string | null;
+  sources: Record<string, string>;
+  recent_months: {
+    month: string;
+    values: Record<string, number>;
+    quality: Record<string, Quality>;
+    partial: boolean;
+  }[];
   assumptions: Record<string, unknown>;
   drivers: DriverPath[];
 }

@@ -177,6 +177,11 @@ def test_backtest_shapes(get):
 def test_inputs(get):
     d = get("/api/inputs/market")["data"]
     assert [r["month"] for r in d["recent_months"]] == ["2026-08", "2026-09", "2026-10", "2026-11"]
+    assert all(set(r["quality"]) == set(r["values"]) for r in d["recent_months"])
+    assert {q for r in d["recent_months"] for q in r["quality"].values()} <= {"observe", "proxy", "estime"}
+    gas = next(x for x in d["drivers"] if x["key"] == "gasoil_usd_t")
+    assert [s["month"] for s in gas["recent"]] == ["2026-08", "2026-09", "2026-10", "2026-11"]
+    assert next(x for x in d["drivers"] if x["key"] == "ppi_energy")["recent"] == []
     assert {c["key"] for c in d["curves"]} == {"gasoil_usd_t", "ttf", "brent_usd", "power_fr", "power_de"}
     cat = get("/api/inputs/series")["data"]
     assert len(cat) == 97
