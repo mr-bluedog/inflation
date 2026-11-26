@@ -1,10 +1,10 @@
 {
  "mode": "static",
- "run_id": "cd4a5a6e916b",
- "asof": "2026-11-20",
+ "run_id": "61fd524422b7",
+ "asof": "2026-11-26",
  "last_obs": "2026-10",
  "n_files": 274,
- "bytes": 6966755,
+ "bytes": 6992316,
  "files": [
   {
    "route": "/api/meta",

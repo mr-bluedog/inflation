@@ -1,55 +1,55 @@
 {
  "_doc": "Entrées de marché du moteur. Courbes = prix par mois de LIVRAISON. Le niveau de gros utilisé pour le mois M est le contrat M+1 (convention 'front-month', identique à l'historique). Modifiez librement ce fichier.",
- "asof": "2026-11-20",
- "_curve_method": "Rafraîchi le 2026-11-22 depuis des sources publiques (voir _sources). Brent et gasoil : contrats mensuels NYMEX (gasoil = proxy ULSD recalé) ; TTF : courbe précédente recalée sur le front ; électricité : courbe précédente conservée. À remplacer par Bloomberg.",
- "eurusd": 1.099,
+ "asof": "2026-11-26",
+ "_curve_method": "Rafraîchi le 2026-11-26 depuis des sources publiques (voir _sources). Brent et gasoil : contrats mensuels NYMEX (gasoil = proxy ULSD recalé) ; TTF : courbe précédente recalée sur le front ; électricité : courbe précédente conservée. À remplacer par Bloomberg.",
+ "eurusd": 1.0935,
  "curves": {
   "gasoil_usd_t": {
-   "2026-12": 1157.93,
-   "2027-01": 1135.99,
-   "2027-02": 1117.62,
-   "2027-03": 1093.94,
-   "2027-04": 1064.53,
-   "2027-05": 1038.11,
-   "2027-06": 1014.34,
-   "2027-07": 999.01,
-   "2027-08": 986.44,
-   "2027-09": 976.6,
-   "2027-10": 966.98,
-   "2027-11": 953.01,
-   "2027-12": 934.59,
-   "2028-01": 915.75
+   "2026-12": 1103.36,
+   "2027-01": 1086.5,
+   "2027-02": 1071.03,
+   "2027-03": 1049.45,
+   "2027-04": 1023.31,
+   "2027-05": 999.93,
+   "2027-06": 978.46,
+   "2027-07": 964.05,
+   "2027-08": 952.36,
+   "2027-09": 941.55,
+   "2027-10": 935.71,
+   "2027-11": 922.95,
+   "2027-12": 901.87,
+   "2028-01": 890.3
   },
   "ttf": {
-   "2026-12": 88.451,
-   "2027-01": 87.761,
-   "2027-02": 86.475,
-   "2027-03": 82.168,
-   "2027-04": 68.184,
-   "2027-05": 63.456,
-   "2027-06": 61.617,
-   "2027-07": 60.987,
-   "2027-08": 59.705,
-   "2027-09": 58.804,
-   "2027-10": 59.924,
-   "2027-11": 59.747,
-   "2027-12": 59.747,
-   "2028-01": 59.747
+   "2026-12": 87.303,
+   "2027-01": 86.622,
+   "2027-02": 85.353,
+   "2027-03": 81.102,
+   "2027-04": 67.299,
+   "2027-05": 62.632,
+   "2027-06": 60.817,
+   "2027-07": 60.195,
+   "2027-08": 58.93,
+   "2027-09": 58.041,
+   "2027-10": 59.146,
+   "2027-11": 58.972,
+   "2027-12": 58.972,
+   "2028-01": 58.972
   },
   "brent_usd": {
-   "2027-01": 92.57,
-   "2027-02": 89.95,
-   "2027-03": 87.73,
-   "2027-04": 85.89,
-   "2027-05": 84.37,
-   "2027-06": 83.05,
-   "2027-07": 81.86,
-   "2027-08": 80.77,
-   "2027-09": 79.78,
-   "2027-10": 78.88,
-   "2027-11": 78.08,
-   "2027-12": 77.35,
-   "2028-01": 76.67
+   "2027-01": 95.08,
+   "2027-02": 91.01,
+   "2027-03": 88.17,
+   "2027-04": 85.93,
+   "2027-05": 84.8,
+   "2027-06": 82.8,
+   "2027-07": 81.88,
+   "2027-08": 80.76,
+   "2027-09": 79.72,
+   "2027-10": 78.77,
+   "2027-11": 77.92,
+   "2027-12": 77.88,
+   "2028-01": 76.4
   },
   "power_fr": {
    "2026-12": 163.0,
@@ -85,14 +85,23 @@
   }
  },
  "recent_months": {
-  "_doc": "Moyennes mensuelles du contrat front, rafraîchies le 2026-11-22 depuis des sources publiques : TTF et Brent NYMEX (Yahoo Finance), EUR/USD BCE, électricité day-ahead Energy-Charts (proxy du front), gasoil = proxy ULSD NYMEX × 0.9445 (ratio ICE/ULSD sur 12 mois). Le mois en cours est partiel.",
+  "_doc": "Moyennes mensuelles du contrat front, rafraîchies le 2026-11-26 depuis des sources publiques : TTF et Brent NYMEX (Yahoo Finance), EUR/USD BCE, électricité day-ahead Energy-Charts (proxy du front), gasoil = proxy ULSD NYMEX × 0.9445 (ratio ICE/ULSD sur 12 mois). Le mois en cours est partiel.",
   "2026-08": {
    "ttf": 62.14,
    "power_de": 126.89,
    "power_fr": 122.8,
    "gasoil_usd_t": 1247.51,
    "brent_usd": 88.08,
-   "eurusd": 1.1593
+   "eurusd": 1.1593,
+   "_quality": {
+    "ttf": "observe",
+    "power_de": "proxy",
+    "power_fr": "proxy",
+    "gasoil_usd_t": "proxy",
+    "brent_usd": "observe",
+    "eurusd": "observe"
+   },
+   "_partial": false
   },
   "2026-09": {
    "ttf": 75.44,
@@ -100,7 +109,16 @@
    "power_fr": 143.3,
    "gasoil_usd_t": 1436.33,
    "brent_usd": 102.26,
-   "eurusd": 1.1513
+   "eurusd": 1.1513,
+   "_quality": {
+    "ttf": "observe",
+    "power_de": "proxy",
+    "power_fr": "proxy",
+    "gasoil_usd_t": "proxy",
+    "brent_usd": "observe",
+    "eurusd": "observe"
+   },
+   "_partial": false
   },
   "2026-10": {
    "ttf": 86.79,
@@ -108,15 +126,33 @@
    "power_fr": 166.02,
    "gasoil_usd_t": 1414.41,
    "brent_usd": 108.34,
-   "eurusd": 1.1202
+   "eurusd": 1.1202,
+   "_quality": {
+    "ttf": "observe",
+    "power_de": "proxy",
+    "power_fr": "proxy",
+    "gasoil_usd_t": "proxy",
+    "brent_usd": "observe",
+    "eurusd": "observe"
+   },
+   "_partial": false
   },
   "2026-11": {
-   "ttf": 87.45,
-   "power_de": 233.98,
-   "power_fr": 200.77,
-   "gasoil_usd_t": 1237.05,
-   "brent_usd": 95.17,
-   "eurusd": 1.1111
+   "ttf": 87.81,
+   "power_de": 154.0,
+   "power_fr": 163.0,
+   "gasoil_usd_t": 1207.5,
+   "brent_usd": 94.56,
+   "eurusd": 1.1084,
+   "_quality": {
+    "ttf": "observe",
+    "power_de": "estime",
+    "power_fr": "estime",
+    "gasoil_usd_t": "proxy",
+    "brent_usd": "observe",
+    "eurusd": "observe"
+   },
+   "_partial": true
   }
  },
  "assumptions": {
@@ -132,6 +168,15 @@
   "gasoil_usd_t": "Yahoo Finance, contrats NYMEX (non officiel) — PROXY ULSD (HO) × 0.9445",
   "power_de": "Energy-Charts (Fraunhofer ISE), day-ahead, CC BY 4.0, données Bundesnetzagentur / SMARD.de — zone DE-LU",
   "power_fr": "Energy-Charts (Fraunhofer ISE), day-ahead, CC BY 4.0, données Bundesnetzagentur / SMARD.de — zone FR",
-  "_refreshed": "2026-11-22"
- }
+  "wob": "Commission européenne, Weekly Oil Bulletin (prix à la pompe TTC et HT, relevé du lundi)",
+  "_refreshed": "2026-11-26"
+ },
+ "_curve_quality": {
+  "gasoil_usd_t": "proxy",
+  "ttf": "recale",
+  "brent_usd": "observe",
+  "power_fr": "conserve",
+  "power_de": "conserve"
+ },
+ "wob_last_week": "2026-11-23"
 }
