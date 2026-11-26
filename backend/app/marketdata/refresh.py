@@ -11,8 +11,12 @@ Règles par input (choix validés le 22/11/2026, en attendant Bloomberg) :
 - Brent : moyennes du front (BZ=F) ; courbe = contrats mensuels NYMEX (BZF27…) ;
 - Gasoil : PROXY. Le gasoil ICE n'est pas public : on prend l'ULSD NYMEX (HO, $/gal × 42 × 7,443 = $/t)
   multiplié par un ratio ICE / ULSD calibré sur les 12 derniers mois où l'ICE est connu (base de données) ;
-- Électricité DE, FR : moyennes mensuelles du day-ahead (proxy du contrat front, non public) ; la courbe à terme
-  en place est CONSERVÉE (le spot est trop volatil pour la remplacer : +52 % vs front observé en nov. 2026).
+- Électricité DE, FR : moyennes mensuelles du day-ahead (proxy du contrat front, non public) pour les mois
+  ÉCOULÉS ; le mois en cours prend le contrat M+1 de la courbe en place (un spot partiel de quelques semaines
+  créait un pic artificiel : 234 €/MWh en nov. 2026 contre 154 sur la courbe). La courbe à terme en place est
+  CONSERVÉE (le spot est trop volatil pour la remplacer : +52 % vs front observé en nov. 2026) ;
+- Prix à la pompe : historique du Weekly Oil Bulletin (Commission européenne), téléchargé à part
+  (admin.refresh) et appliqué avec la proposition.
 Le mois en cours est une moyenne partielle (signalée). Les hypothèses hors marché ne sont pas modifiées.
 """
 
@@ -68,6 +72,9 @@ class PublicFetcher:
 
     def power(self, bzn, start, end):
         return SRC.energy_charts_daily(bzn, start, end)
+
+    def wob_history(self) -> bytes:
+        return SRC.wob_history_xlsx()
 
 
 @dataclass
@@ -126,10 +133,23 @@ def build_proposal(current: dict, ice_gasoil_monthly: pd.Series, today: date, fe
     rounding = {"eurusd": 4}
     recent: dict = {"_doc": ""}
     old_quality = Q.recent_quality(current)
+    power_curve_month = {}
+    for k in ("power_de", "power_fr"):
+        c = current["curves"].get(k, {})
+        v = c.get(str(this_month + 1))
+        if v is not None:
+            power_curve_month[k] = float(v)
     for m in months:
         row, origin = {}, {}
         for k, s in monthly.items():
-            if m in s.index:
+            if m == this_month and k in power_curve_month:
+                # électricité, mois en cours : contrat M+1 de la courbe, pas un spot partiel
+                row[k] = round(power_curve_month[k], 2)
+                origin[k] = Q.ESTIMATED
+                warn.append(
+                    f"{LABELS[k]} {m} : mois en cours = contrat {this_month + 1} de la courbe (spot partiel écarté)"
+                )
+            elif m in s.index:
                 row[k] = round(float(s[m]), rounding.get(k, 2))
                 origin[k] = Q.RECENT_RULES[k]
             else:  # pas de donnée publique pour ce mois : on garde la valeur en place (et son origine)
@@ -212,6 +232,7 @@ def build_proposal(current: dict, ice_gasoil_monthly: pd.Series, today: date, fe
         "gasoil_usd_t": SRC.SOURCES["yahoo"] + f" — PROXY ULSD (HO) × {ratio:.4f}",
         "power_de": SRC.SOURCES["energy_charts"] + " — zone DE-LU",
         "power_fr": SRC.SOURCES["energy_charts"] + " — zone FR",
+        "wob": SRC.SOURCES["wob"],
     }
     new["_sources"] = {**srcs, "_refreshed": today.isoformat()}
     return Proposal(inputs=new, sources=srcs, warnings=warn, gasoil_ratio=ratio)

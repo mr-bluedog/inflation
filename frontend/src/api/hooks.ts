@@ -96,6 +96,7 @@ export const useBacktestErrors = (geo: Geo, h?: number, model?: string) =>
   useEnvelope<R['backtestErrors']>(['backtestErrors', geo, h, model], requests.backtestErrors(geo, h, model));
 export const useMarketInputs = () =>
   useEnvelope<R['marketInputs']>(['marketInputs'], requests.marketInputs());
+export const useMarketPaths = () => useEnvelope<R['marketPaths']>(['marketPaths'], requests.marketPaths());
 export const useSeriesCatalog = () =>
   useEnvelope<R['seriesCatalog']>(['seriesCatalog'], requests.seriesCatalog());
 export const useSeries = (code: string) =>

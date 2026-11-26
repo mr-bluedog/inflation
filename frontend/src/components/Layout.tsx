@@ -1,12 +1,14 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from './ErrorBoundary';
-import { DATA_MODE } from '../api/client';
+import { adminCall, DATA_MODE } from '../api/client';
 import { useMeta } from '../api/hooks';
 import { GEOS, MODELS, type Geo, type ModelKey } from '../api/types';
 import { fmtDateFr, fmtMonthShortFr } from '../format';
 import { useApp, type ThemePref } from '../store';
 import { useThemeMode } from '../useThemeMode';
+import { SCENARIO_SHORT } from '../views/market/logic';
 import { VIEWS } from '../views/registry';
 import { Segmented } from './Segmented';
 
@@ -23,8 +25,25 @@ const THEMES: { value: ThemePref; label: string }[] = [
 export function Layout() {
   useThemeMode();
   const meta = useMeta();
-  const { geo, setGeo, model, setModel, theme, setTheme, simSearch, bumpRecalc } = useApp();
+  const { geo, setGeo, model, setModel, theme, setTheme, energyScenario, setEnergyScenario } = useApp();
   const navigate = useNavigate();
+  const qc = useQueryClient();
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshErr, setRefreshErr] = useState<string | null>(null);
+  /** Interroge les sources publiques et prépare une proposition (rien n'est appliqué) : elle s'affiche dans Inputs. */
+  const refresh = async () => {
+    setRefreshing(true);
+    setRefreshErr(null);
+    navigate('/inputs');
+    try {
+      await adminCall('/api/inputs/market/refresh', 'POST');
+      await qc.invalidateQueries({ queryKey: ['proposal'] });
+    } catch (e) {
+      setRefreshErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setRefreshing(false);
+    }
+  };
   const location = useLocation();
   const d = meta.data?.data;
   const geoNames = Object.fromEntries((d?.geos ?? []).map((g) => [g.code, g.name]));
@@ -96,21 +115,39 @@ export function Layout() {
             options={MODELS.map((m) => ({ value: m, label: m }))}
           />
         </span>
+        <label className="field">
+          Scénario énergie
+          <select
+            aria-label="Scénario énergie"
+            value={energyScenario}
+            onChange={(e) => setEnergyScenario(e.target.value)}
+            title="Règle de projection du gasoil (et donc du gazole et du fioul à la pompe) ; les autres inputs suivent leur courbe à terme"
+          >
+            {(d?.scenarios ?? []).map((s) => (
+              <option key={s.key} value={s.key}>
+                {SCENARIO_SHORT[s.key] ?? s.label}
+              </option>
+            ))}
+          </select>
+        </label>
         <button
           className="btn"
-          disabled={DATA_MODE === 'static'}
+          disabled={DATA_MODE === 'static' || refreshing}
           title={
             DATA_MODE === 'static'
-              ? 'Indisponible en mode statique (pas de moteur)'
-              : 'Recalcul exact par le moteur des chocs du simulateur'
+              ? 'Indisponible en mode statique (pas de serveur) : rafraîchir en local puis publier'
+              : 'Interroge les sources publiques (BCE, NYMEX, Energy-Charts, Weekly Oil Bulletin) et prépare une proposition à valider'
           }
-          onClick={() => {
-            navigate(`/simulateur${simSearch ? `?${simSearch}` : ''}`);
-            bumpRecalc();
-          }}
+          onClick={() => void refresh()}
+          aria-busy={refreshing}
         >
-          Recalculer
+          {refreshing ? 'Interrogation des sources…' : 'Rafraîchir la market data'}
         </button>
+        {refreshErr && (
+          <span className="state error" role="alert" title={refreshErr}>
+            Échec du rafraîchissement
+          </span>
+        )}
         <Segmented<ThemePref>
           ariaLabel="Thème"
           value={theme}

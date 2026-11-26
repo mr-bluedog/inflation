@@ -30,14 +30,59 @@ export function levelAt(rows: PassthroughRow[] | undefined, months: number): num
   return rows?.find((r) => r.months === months)?.level_pct ?? null;
 }
 
-/** Fenêtres d'un champ « buckets » : 'ttf[0-1]=0.252; ttf[2-4]=0.118' → [{lo:0,hi:1,v:0.252}, …]. */
-export function parseBuckets(s: string): { driver: string; lo: number; hi: number; value: number }[] {
-  return s
-    .split(';')
-    .map((x) => x.trim())
-    .map((x) => /^(\w+)\[(\d+)-(\d+)\]=(-?[\d.]+)$/.exec(x))
-    .filter((m): m is RegExpExecArray => m !== null)
-    .map((m) => ({ driver: m[1]!, lo: Number(m[2]), hi: Number(m[3]), value: Number(m[4]) }));
+const MONTHS_FR = [
+  'janv.',
+  'févr.',
+  'mars',
+  'avr.',
+  'mai',
+  'juin',
+  'juil.',
+  'août',
+  'sept.',
+  'oct.',
+  'nov.',
+  'déc.',
+];
+
+/** '1/4/7/10' → 'janv., avr., juil., oct.' */
+export function resetMonthsLabel(months: string): string {
+  return months
+    .split('/')
+    .map((m) => MONTHS_FR[Number(m) - 1] ?? m)
+    .join(', ');
+}
+
+export interface BucketView {
+  driver: string;
+  lo: number;
+  hi: number;
+  value: number;
+  /** terme de révision à dates fixes : mois de révision '1/4/7/10' (sinon absent) */
+  months?: string;
+}
+
+/** Fenêtres d'un champ « buckets » : 'ttf[0-1]=0.252; ttf[révision 1/4/7/10 · moy. 1-6]=0.147'
+ * → [{lo:0,hi:1,value:0.252}, {lo:1,hi:6,value:0.147,months:'1/4/7/10'}]. */
+export function parseBuckets(s: string): BucketView[] {
+  const out: BucketView[] = [];
+  for (const x of s.split(';').map((y) => y.trim())) {
+    const m = /^(\w+)\[(\d+)-(\d+)\]=(-?[\d.]+)$/.exec(x);
+    if (m) {
+      out.push({ driver: m[1]!, lo: Number(m[2]), hi: Number(m[3]), value: Number(m[4]) });
+      continue;
+    }
+    const r = /^(\w+)\[révision ([\d/]+) · moy\. (\d+)-(\d+)\]=(-?[\d.]+)$/.exec(x);
+    if (r)
+      out.push({ driver: r[1]!, months: r[2]!, lo: Number(r[3]), hi: Number(r[4]), value: Number(r[5]) });
+  }
+  return out;
+}
+
+/** Libellé court d'une fenêtre : « 0-1 m » ou « révisions janv., avr., juil., oct. (moy. 1-6 m) ». */
+export function bucketWindow(b: BucketView): string {
+  const w = b.lo === b.hi ? `${b.lo} m` : `${b.lo}-${b.hi} m`;
+  return b.months ? `révisions ${resetMonthsLabel(b.months)} (moy. ${w})` : w;
 }
 
 export function elasticity(rows: ElasticityRow[], geo: string, item: string, driver: string) {
@@ -103,9 +148,12 @@ export interface TermView {
 
 export function termsView(eq: Equation): TermView[] {
   return eq.terms.map((t) => {
+    const reset = t.transform === 'reset';
     const kind =
       t.type === 'driver'
-        ? 'β (élasticité)'
+        ? reset
+          ? 'β (révision des contrats)'
+          : 'β (élasticité)'
         : t.type === 'regime'
           ? `γ (changement depuis ${eq.regime_start ?? '2023-01'})`
           : t.type === 'rho'
@@ -113,12 +161,14 @@ export function termsView(eq: Equation): TermView[] {
             : t.type === 'easter'
               ? 'δ (Pâques)'
               : t.type;
-    const window =
+    const lags =
       t.lag_from === null || t.lag_to === null
         ? ''
         : t.lag_from === t.lag_to
           ? `t−${t.lag_from}`
           : `t−${t.lag_from} … t−${t.lag_to}`;
+    const months = reset ? /révision ([\d/]+)/.exec(t.term)?.[1] : undefined;
+    const window = months ? `révisions ${resetMonthsLabel(months)} · moy. ${lags}` : lags;
     return {
       term: t.term,
       kind,

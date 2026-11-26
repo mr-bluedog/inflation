@@ -19,6 +19,7 @@ import pandas as pd
 from .data import (GEOS, CORE, ENERGY_ITEMS, load_hicp, load_weights, load_user_db,
                    load_market_inputs, wholesale_history)
 from .engine import Equation, Bucket
+from . import wob
 
 LAST_OBS = pd.Period("2026-10", "M")      # dernier HICP publié (Eurostat, 18/11/2026)
 HORIZON_END = pd.Period("2027-12", "M")
@@ -42,32 +43,62 @@ CONFIG = {
     # Dérive de fond imposée aux prix de détail de l'énergie (%/mois) hors variations du prix de gros :
     # coûts de réseau, marges, indexation des accises. None = estimée librement (déconseillé : la
     # moyenne historique contient la crise 2021-22 et biaise la prévision vers le haut).
-    "energy_drift": {"CP0722": 0.10, "CP0453": 0.10, "CP0452": 0.15, "CP0451": 0.15},
+    # Carburants et fioul : 0, toute la tendance (taxes, marges) est déjà dans le prix à la pompe WOB.
+    "energy_drift": {"CP0722": 0.0, "CP0453": 0.0, "CP0452": 0.15, "CP0451": 0.15},
     # Demi-vie (mois) de la pondération des observations pour les composantes core (None = égale).
     "half_life_core": 60,
     "half_life_energy": None,
+    # Prolongement du prix à la pompe (WOB) au-delà du dernier relevé :
+    #   ΔTTC (EUR/1 000 l) = (1 + TVA) × κ × Δ prix de gros (EUR/1 000 l)
+    # κ estimé 2010-2026 sur les prix hors taxes zone euro (somme des retards 0-1 mois) :
+    # gazole et fioul ≈ 1 pour 1 sur le gasoil, Euro-super 95 ≈ 1,3 × le Brent (marge de raffinage pro-cyclique).
+    "wob_passthrough": {"dsl": ("gasoil", 1.08), "heat": ("gasoil", 1.04), "e95": ("brent", 1.31)},
 }
-
-
-def gas_buckets(geo):
-    if geo == "IT":   # marché libre indexé mensuellement (PSV) : transmission rapide
-        return [Bucket("ttf", 0, 1, True), Bucket("ttf", 2, 4, True), Bucket("ttf", 5, 11, True)]
-    return [Bucket("ttf", 0, 2, True), Bucket("ttf", 3, 11, True), Bucket("ttf", 12, 23, True)]
 
 
 ELEC_DRIVER = {"EA": "power_de", "IT": "ttf", "FR": "power_fr", "DE": "power_de", "ES": "power_de"}
 
 
+# Gaz et électricité : calendrier de révision des contrats des clients finals, par pays.
+# (mois de révision, fenêtre de retards du prix de gros moyen [a, z], part indexée mensuellement oui/non)
+# Calendriers lus dans les données (|variation mensuelle| moyenne par mois civil, 2015-2026) et
+# cohérents avec les règles nationales : DE contrats annuels (janvier) ; IT et ES révisions trimestrielles
+# (ARERA, TUR) ; FR électricité TRVE (février, août) ; zone euro = mélange (trimestriel gaz, janvier élec.).
+# Calendrier et fenêtre choisis par prévision hors échantillon : origines trimestrielles 2019-01 → 2025-10,
+# horizons 1-12 mois, prix de gros réalisés, critère = RMSE du glissement annuel sur les mois cibles ≥ 2023
+# (cf. MODELES §4.2-4.3). Le terme de révision n'a pas d'interaction de régime ; la part indexée en a une.
+RESET_SPEC = {
+    "CP0452": {
+        "EA": ((1, 4, 7, 10), 1, 3, True), "IT": ((1, 4, 7, 10), 1, 6, True), "FR": ((1, 4, 7, 10), 1, 6, False),
+        "DE": ((1,), 1, 12, False), "ES": ((1, 4, 7, 10), 1, 6, True),
+    },
+    "CP0451": {
+        "EA": ((1, 4, 7, 10), 1, 6, False), "IT": ((1, 4, 7, 10), 1, 3, True), "FR": ((2, 8), 1, 1, False),
+        "DE": ((1,), 2, 7, False), "ES": ((1,), 1, 12, True),
+    },
+}
+
+
+def reset_buckets(item: str, geo: str, driver: str) -> list:
+    months, lo, hi, fast = RESET_SPEC[item][geo]
+    b = [Bucket(driver, lo, hi, kind="reset", months=months)]
+    if fast:   # part des contrats indexée chaque mois sur le prix de gros (offres de marché)
+        b.append(Bucket(driver, 0, 1, True))
+    return b
+
+
 def energy_equations(geo):
     d = ELEC_DRIVER[geo]
     eqs = {
+        # Carburants et fioul : prix à la pompe observés (WOB), prolongés par le prix de gros
         "CP0722": Equation(f"{geo} carburants", "CP0722",
-                           [Bucket("gasoil_eur", 0, 0), Bucket("gasoil_eur", 1, 1), Bucket("gasoil_eur", 2, 3)], ar=False),
-        "CP0453": Equation(f"{geo} fioul", "CP0453",
-                           [Bucket("gasoil_eur", 0, 0), Bucket("gasoil_eur", 1, 2)], ar=False),
-        "CP0452": Equation(f"{geo} gaz", "CP0452", gas_buckets(geo), regime_start=REG),
-        "CP0451": Equation(f"{geo} électricité", "CP0451",
-                           [Bucket(d, 0, 2, True), Bucket(d, 3, 11, True), Bucket(d, 12, 23, True)], regime_start=REG),
+                           [Bucket(f"wob_e95_{geo}", 0, 0), Bucket(f"wob_dsl_{geo}", 0, 0)], ar=False),
+        "CP0453": Equation(f"{geo} fioul", "CP0453", [Bucket(f"wob_heat_{geo}", 0, 0)], ar=False),
+        # Gaz et électricité : révisions à dates fixes (+ part indexée mensuellement), sans inertie AR :
+        # un saut de tarif ne se propage pas au mois suivant
+        "CP0452": Equation(f"{geo} gaz", "CP0452", reset_buckets("CP0452", geo, "ttf"), ar=False, regime_start=REG),
+        "CP0451": Equation(f"{geo} électricité", "CP0451", reset_buckets("CP0451", geo, d), ar=False,
+                           regime_start=REG),
     }
     for k, e in eqs.items():
         e.drift = CONFIG["energy_drift"].get(k)
@@ -181,12 +212,31 @@ def build_drivers(db, mkt, scenario="central", shocks: dict | None = None):
             X.loc[fut, k] *= mult
     X["gasoil_eur"] = X.gasoil_usd_t / X.eurusd
     X["brent_eur"] = X.brent_usd / X.eurusd
+    extend_wob(X, h.attrs.get("wob"))
     # Séries amont observées (étage 1), complétées plus loin par simulation
     X["ppi_energy"] = db["es_ppi_energy_index"].reindex(idx)
     X["ppi_interm"] = db["es_ppi_intermediate_goods_index"].reindex(idx)
     fm = (db["es_ppi_food_yoy"] / 12).reindex(idx)        # glissement annuel → rythme mensuel
     X["ppi_food"] = np.exp(fm.fillna(0).cumsum() / 100).where(fm.notna())
     return X, last_mkt
+
+
+def extend_wob(X: pd.DataFrame, anchor: dict | None) -> None:
+    """Prolonge les prix à la pompe WOB (colonnes wob_*) après le mois du dernier relevé.
+    Mois du dernier relevé : moyenne (partielle) des semaines publiées, inchangée.
+    Mois suivants : dernier relevé hebdomadaire + (1 + TVA) × κ × (gros du mois − gros du mois du relevé).
+    Avec le scénario central (gasoil tenu 3 mois), le prix à la pompe reste au dernier relevé 3 mois
+    (« WOB plat 3 mois »), puis suit la courbe à terme."""
+    if not anchor or anchor.get("last_date") is None:
+        return
+    L = pd.Period(anchor["last_date"], "M")
+    kl = {"gasoil": X["gasoil_eur"] * wob.GASOIL_T_PER_KL, "brent": X["brent_eur"] * wob.BRENT_BBL_PER_KL}
+    fut = X.index[X.index > L]
+    for col, last in anchor["last_week"].items():
+        _, prod, geo = col.split("_")
+        drv, kappa = CONFIG["wob_passthrough"][prod]
+        vat = anchor["vat"].get(geo, 20.0) / 100
+        X.loc[fut, col] = last + (1 + vat) * kappa * (kl[drv].loc[fut] - kl[drv].loc[L])
 
 
 # --------------------------------------------------------------------------------------

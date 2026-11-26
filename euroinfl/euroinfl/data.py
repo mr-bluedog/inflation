@@ -80,10 +80,14 @@ def load_market_inputs() -> dict:
     return json.loads((DATA / "market_inputs.json").read_text(encoding="utf-8"))
 
 
-def wholesale_history(db: pd.DataFrame, mkt: dict) -> pd.DataFrame:
-    """Prix de gros mensuels historiques (front-month) + mois récents estimés (market_inputs.json).
+def wholesale_history(db: pd.DataFrame, mkt: dict, wob_cutoff: pd.Timestamp | None = None) -> pd.DataFrame:
+    """Prix de gros mensuels historiques (front-month) + mois récents estimés (market_inputs.json)
+    + prix à la pompe du Weekly Oil Bulletin (moyennes mensuelles, mois en cours partiel).
     Colonnes : ttf (EUR/MWh), power_fr, power_de (EUR/MWh), gasoil_usd_t, brent_usd, eurusd,
-    gasoil_eur (EUR/t), brent_eur (EUR/bbl), food_commo (indice EUR), nonfood_commo."""
+    gasoil_eur (EUR/t), brent_eur (EUR/bbl), food_commo (indice EUR), nonfood_commo,
+    wob_<e95|dsl|heat>_<geo> (EUR / 1 000 l TTC).
+    h.attrs['wob'] = {'last_date', 'last_week', 'vat'} : ancrage du prolongement (pipeline.extend_wob).
+    wob_cutoff : relevés WOB publiés jusqu'à cette date seulement (backtest pseudo temps réel)."""
     h = pd.DataFrame({
         "ttf": db["legacy_gas_1m"], "power_fr": db["legacy_power_fr"], "power_de": db["legacy_power_de"],
         "gasoil_usd_t": db["legacy_gasoil_1m"] * 7.443, "brent_usd": db["legacy_crude_1m"],
@@ -102,6 +106,21 @@ def wholesale_history(db: pd.DataFrame, mkt: dict) -> pd.DataFrame:
     h[["food_commo", "nonfood_commo"]] = h[["food_commo", "nonfood_commo"]].ffill()
     h["gasoil_eur"] = h.gasoil_usd_t / h.eurusd
     h["brent_eur"] = h.brent_usd / h.eurusd
+    from . import wob   # import local : wob importe DATA/GEOS de ce module
+    weekly, vat = wob.load()
+    if wob_cutoff is None and mkt.get("wob_last_week"):
+        # millésime cohérent : dernier relevé WOB retenu lors du rafraîchissement de la market data
+        wob_cutoff = pd.Timestamp(mkt["wob_last_week"])
+    elif wob_cutoff is None and mkt.get("asof"):
+        # à défaut : relevés du lundi publiés (le jeudi) au plus tard à la date des cotations
+        wob_cutoff = pd.Timestamp(mkt["asof"]) - pd.Timedelta(days=3)
+    wm = wob.monthly(weekly, wob_cutoff)
+    if not wm.empty:
+        h = h.reindex(h.index.union(wm.index))
+        for c in wm.columns:
+            h[c] = wm[c]
+        d, last = wob.last_week(weekly, wob_cutoff)
+        h.attrs["wob"] = {"last_date": d, "last_week": last, "vat": vat}
     return h
 
 

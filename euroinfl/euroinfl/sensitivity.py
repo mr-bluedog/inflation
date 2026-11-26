@@ -60,7 +60,9 @@ def passthrough_tables(model):
     rows = []
     for g in GEOS:
         for it, e in model.eq[g].items():
-            drivers = sorted({b.driver for b in e.buckets if b.kind == "dlog"})
+            # 'reset' : le terme de révision transmet une part beta de la variation du gros entre deux révisions,
+            # il s'additionne donc aux élasticités 'dlog' dans le pass-through cumulé
+            drivers = sorted({b.driver for b in e.buckets if b.kind in ("dlog", "reset")})
             for d in drivers:
                 cur, old = e.passthrough(d, "current"), e.passthrough(d, "old")
                 rows.append({"geo": g, "item": it, "driver": d, "rho": cur["rho"],

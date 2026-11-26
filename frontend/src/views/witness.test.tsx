@@ -19,7 +19,8 @@ import { Backtest } from './Backtest';
 import { Inputs } from './Inputs';
 import { Overview } from './Overview';
 import { PassThrough } from './PassThrough';
-import { parseBuckets } from './passthrough/logic';
+import { bucketWindow, parseBuckets } from './passthrough/logic';
+import { frBuckets } from '../labels';
 import { Scenarios } from './Scenarios';
 
 vi.mock('../charts/Chart', () => ({ Chart: () => null })); // pas de canvas dans jsdom
@@ -88,11 +89,11 @@ describe.skipIf(!HAS_DATA)('chiffres témoins à l’écran (export statique ré
         .getAllByRole('cell')
         .map((c) => c.textContent);
     // colonnes : Fixing, EA, IT, FR, DE, ES, Marché EA, Écart EA
-    expect(cells('Nov-26')[1]).toBe(pct('3,93'));
-    expect(cells('Jan-27')[1]).toBe(pct('4,14'));
-    expect(cells('Dec-27')[1]).toBe(pct('2,35'));
-    expect(cells('Dec-26')[2]).toBe(pct('6,35'));
-    expect(cells('Jun-27')[4]).toBe(pct('3,08'));
+    expect(cells('Nov-26')[1]).toBe(pct('3,82'));
+    expect(cells('Jan-27')[1]).toBe(pct('3,98'));
+    expect(cells('Dec-27')[1]).toBe(pct('2,31'));
+    expect(cells('Dec-26')[2]).toBe(pct('5,95'));
+    expect(cells('Jun-27')[4]).toBe(pct('2,94'));
     expect(cells('Jan-27')[6]).toBe(pct('4,23'));
     expect(row(table, 'Oct-27').className).toBe('indicative');
     expect(row(table, 'Sep-27').className).toBe('');
@@ -101,7 +102,7 @@ describe.skipIf(!HAS_DATA)('chiffres témoins à l’écran (export statique ré
   it('Vue Pays : pont comptable EA Nov-26 = HICPxT BU', async () => {
     show(<Country />);
     const pont = await screen.findByRole('table', { name: 'Pont comptable Nov-26' });
-    expect(within(row(pont, 'HICPxT (BU)')).getAllByRole('cell')[2]!.textContent).toBe(pct('3,91'));
+    expect(within(row(pont, 'HICPxT (BU)')).getAllByRole('cell')[2]!.textContent).toBe(pct('3,81'));
     expect(within(row(pont, 'Résidu de chaînage')).getAllByRole('cell')[2]!.textContent).toBe(`+0,01${NB}pp`);
   });
 
@@ -113,9 +114,9 @@ describe.skipIf(!HAS_DATA)('chiffres témoins à l’écran (export statique ré
       within(row(t, k))
         .getAllByRole('cell')
         .map((x) => x.textContent);
-    expect(c('central').slice(4)).toEqual([pct('4,06'), pct('3,72'), pct('2,31')]);
-    expect(c('flat').slice(4)).toEqual([pct('4,06'), pct('3,97'), pct('2,82')]);
-    expect(c('full').slice(4)).toEqual([pct('3,96'), pct('3,61'), pct('2,34')]);
+    expect(c('central').slice(4)).toEqual([pct('3,87'), pct('3,33'), pct('2,24')]);
+    expect(c('flat').slice(4)).toEqual([pct('3,87'), pct('3,53'), pct('2,61')]);
+    expect(c('full').slice(4)).toEqual([pct('3,77'), pct('3,25'), pct('2,28')]);
     expect(c('central')[1]).toBe(`1${NB}240${NB}$/t`);
   });
 
@@ -147,17 +148,17 @@ describe.skipIf(!HAS_DATA)('pass-through : MODELES §11 à l’écran (export r�
         .slice(1)
         .map((x) => x.textContent);
     const s = (v: string) => `+${v}${NB}%`;
-    // MODELES §11 (1 décimale) : gaz 2,4 / 3,5 / 4,4 ; élec 1,5 / 2,7 / 3,9 ; énergie 1,2 / 1,8 / 2,4 ; HICPxT 0,15 / 0,22 / 0,31
-    expect(c('Gaz IT')).toEqual([s('2,39'), s('3,48'), s('4,44')]);
-    expect(c('Électricité IT')).toEqual([s('1,53'), s('2,74'), s('3,91')]);
-    expect(c('Énergie IT')).toEqual([s('1,15'), s('1,76'), s('2,40')]); // 1,1467 : MODELES écrit 1,2
-    expect(c('HICPxT Italie')).toEqual([s('0,15'), s('0,22'), s('0,31')]);
-    expect(c('HICPxT Zone euro')).toEqual([s('0,03'), s('0,05'), s('0,08')]);
-    // étapes : élasticités gaz 0,49 (avant 2023 0,15) et électricité 0,42
+    // MODELES §11 (1 décimale) : gaz 2,8 / 3,5 / 4,0 ; élec 1,8 / 2,5 / 2,5 ; énergie 1,3 / 1,7 / 1,8 ; HICPxT 0,17 / 0,20 / 0,25
+    expect(c('Gaz IT')).toEqual([s('2,81'), s('3,48'), s('3,97')]);
+    expect(c('Électricité IT')).toEqual([s('1,76'), s('2,46'), s('2,46')]);
+    expect(c('Énergie IT')).toEqual([s('1,33'), s('1,68'), s('1,84')]);
+    expect(c('HICPxT Italie')).toEqual([s('0,17'), s('0,20'), s('0,25')]);
+    expect(c('HICPxT Zone euro')).toEqual([s('0,02'), s('0,03'), s('0,06')]);
+    // étapes : élasticités gaz 0,41 (avant 2023 0,15) et électricité 0,25 (révisions trimestrielles + part indexée)
     expect(screen.getByText(/TTF → gaz de détail/).parentElement?.textContent).toContain(
-      'total 0,49 (avant 2023 : 0,15)',
+      'total 0,41 (avant 2023 : 0,15)',
     );
-    expect(screen.getByText(/électricité de détail/).parentElement?.textContent).toContain('élasticité 0,42');
+    expect(screen.getByText(/électricité de détail/).parentElement?.textContent).toContain('élasticité 0,25');
   });
 
   it("explorateur d'équations : gaz italien", async () => {
@@ -172,13 +173,13 @@ describe.skipIf(!HAS_DATA)('pass-through : MODELES §11 à l’écran (export r�
         .getAllByRole('cell')
         .map((x) => x.textContent)
         .slice(3),
-    ).toEqual(['+0,252', '6,4']);
+    ).toEqual(['+0,255', '8,0']);
     const pt = screen.getByRole('table', { name: 'Pass-through du régime actuel' });
     expect(
       within(pt)
         .getAllByRole('cell')
         .map((x) => x.textContent),
-    ).toEqual(['Gaz TTF', '0,49', '0,15']);
+    ).toEqual(['Gaz TTF', '0,41', '0,15']);
   });
 });
 
@@ -202,14 +203,14 @@ describe.skipIf(!HAS_DATA)('backtest et inputs à l’écran (export réel)', ()
         .getAllByRole('cell')
         .slice(2)
         .map((c) => c.textContent);
-    expect(cells('Bottom-up (BU)')).toEqual(['0,36', '0,75', '1,41', '2,98']);
+    expect(cells('Bottom-up (BU)')).toEqual(['0,31', '0,76', '1,45', '3,06']);
     expect(cells('Statistique (STAT)')).toEqual(['0,42', '0,93', '1,70', '3,29']);
     await userEvent.click(screen.getByRole('button', { name: 'Depuis 2023' }));
     const t2 = await screen.findByRole('table', { name: 'RMSE par pays et par modèle' });
     const bu = within(t2)
       .getAllByRole('row')
       .find((r) => r.textContent?.startsWith('EABottom-up'))!;
-    expect(within(bu).getAllByRole('cell')[2]!.textContent).toBe('0,22');
+    expect(within(bu).getAllByRole('cell')[2]!.textContent).toBe('0,19');
   });
 
   it('mois après la base : millésime de référence, valeurs estimées à la main', async () => {
@@ -235,6 +236,16 @@ describe('parseBuckets', () => {
       { driver: 'ttf', lo: 2, hi: 4, value: 0.118 },
       { driver: 'power_de', lo: 12, hi: 23, value: -0 },
     ]);
+  });
+
+  it('lit les termes de révision à dates fixes et les affiche à la française', () => {
+    const b = parseBuckets('ttf[révision 1/4/7/10 · moy. 1-6]=0.147; ttf[0-1]=0.261');
+    expect(b).toEqual([
+      { driver: 'ttf', months: '1/4/7/10', lo: 1, hi: 6, value: 0.147 },
+      { driver: 'ttf', lo: 0, hi: 1, value: 0.261 },
+    ]);
+    expect(bucketWindow(b[0]!)).toBe('révisions janv., avr., juil., oct. (moy. 1-6 m)');
+    expect(frBuckets('ttf[révision 1 · moy. 1-12]=0.068')).toBe('ttf[révision 1 · moy. 1-12]=0,068');
   });
 });
 

@@ -57,6 +57,17 @@ export const DRIVER_SHORT: Record<string, string> = {
   food_commo: 'Mat. prem. alimentaires',
   nonfood_commo: 'Mat. prem. industrielles',
 };
+// Prix à la pompe du Weekly Oil Bulletin (TTC), par zone : « wob_e95_EA » → « Essence pompe (WOB) »
+for (const geo of ['EA', 'IT', 'FR', 'DE', 'ES']) {
+  DRIVER_SHORT[`wob_e95_${geo}`] = 'Essence pompe (WOB)';
+  DRIVER_SHORT[`wob_dsl_${geo}`] = 'Gazole pompe (WOB)';
+  DRIVER_SHORT[`wob_heat_${geo}`] = 'Fioul pompe (WOB)';
+}
+
+/** Fenêtres d'un champ « buckets » à la française : décimales à virgule, sans toucher « moy. ». */
+export function frBuckets(s: string): string {
+  return s.replace(/(\d)\.(\d)/g, '$1,$2');
+}
 
 /** Équations de l'étage 1 (prix de production zone euro). */
 export const STAGE1_ITEMS: Record<string, string> = {

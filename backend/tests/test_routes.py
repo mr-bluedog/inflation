@@ -24,6 +24,7 @@ ROUTES = [
     "/api/backtest",
     "/api/backtest/errors?geo=EA&h=1",
     "/api/inputs/market",
+    "/api/market/paths",
     "/api/inputs/series",
     "/api/inputs/series/legacy_gas_1m",
     "/api/methodology",
@@ -123,11 +124,11 @@ def test_sensitivity_full_matrix(get):
 
 @reference_inputs
 def test_passthrough_it_gas_zoom(get):
-    """MODELES §11 : gaz de détail IT +2,4 / +3,5 / +4,4 % à 2 / 5 / 11 mois (TTF +10 %, élec. entraînée)."""
+    """MODELES §11 : gaz de détail IT +2,8 / +3,5 / +4,0 % à 2 / 5 / 11 mois (TTF +10 %, élec. entraînée)."""
     rows = {r["months"]: r for r in get("/api/passthrough?geo=IT&item=CP0452&shock=ttf_power")["data"]}
-    assert [round(rows[m]["level_pct"], 1) for m in (2, 5, 11)] == [2.4, 3.5, 4.4]
+    assert [round(rows[m]["level_pct"], 1) for m in (2, 5, 11)] == [2.8, 3.5, 4.0]
     tot = {r["months"]: r for r in get("/api/passthrough?geo=IT&item=TOT_X_TBC&shock=ttf_power")["data"]}
-    assert round(tot[11]["level_pct"], 2) == 0.31
+    assert round(tot[11]["level_pct"], 2) == 0.25
 
 
 @reference_inputs
@@ -135,10 +136,10 @@ def test_equation_it_gas(get):
     d = get("/api/equations/IT/CP0452")["data"]
     assert d["regime_active"] is True and d["regime_start"] == "2023-01" and d["drift"] == 0.15
     reg = sum(t["coef"] for t in d["terms"] if t["type"] in ("driver", "regime"))
-    assert reg == pytest.approx(d["elasticities"][0]["sum_current"])  # 0,49 (MODELES §4.2)
-    assert round(reg, 2) == 0.49
+    assert reg == pytest.approx(d["elasticities"][0]["sum_current"])  # 0,41 (MODELES §4.2)
+    assert round(reg, 2) == 0.41
     assert len(d["seasonal_effective"]) == 12
-    assert "γ1·D(2023-01)" in d["formula"]
+    assert "Rév[1/4/7/10]" in d["formula"] and "γ2·D(2023-01)" in d["formula"]
 
 
 def test_equation_stage1_and_404(client, get):
@@ -154,24 +155,24 @@ def test_scenarios(get):
     assert len(rows) == 6 * 3 * 14
     pick = {(r["scenario"], r["fixing"]): r["yoy"] for r in rows if r["item"] == "TOT_X_TBC"}
     # MODELES §12
-    assert round(pick[("flat", "2027-06")], 2) == 3.97
-    assert round(pick[("full", "2026-12")], 2) == 3.96
+    assert round(pick[("flat", "2027-06")], 2) == 3.53
+    assert round(pick[("full", "2026-12")], 2) == 3.77
     assert pick[("flat3_trend", "2027-12")] == pick[("central", "2027-12")]
 
 
 def test_backtest_shapes(get):
     d = get("/api/backtest")["data"]
     assert d["n_origins"] == 82 and d["errors_available"] is True
-    assert d["combo_weights"]["EA"][0] == 0.764 and len(d["combo_weights"]["EA"]) == 12
+    assert d["combo_weights"]["EA"][0] == 0.927 and len(d["combo_weights"]["EA"]) == 12
     post = [
         r
         for r in d["rmse"]
         if (r["geo"], r["item"], r["model"], r["period"], r["h"]) == ("EA", "TOT_X_TBC", "BU", "post2023", 1)
     ]
-    assert round(post[0]["value"], 2) == 0.22
+    assert round(post[0]["value"], 2) == 0.19
     err = get("/api/backtest/errors?geo=EA&h=1&model=BU")["data"]
     rm = math.sqrt(sum(r["err"] ** 2 for r in err) / len(err))
-    assert round(rm, 2) == 0.36
+    assert round(rm, 2) == 0.31
 
 
 def test_inputs(get):
@@ -201,3 +202,32 @@ def test_cors(client):
     assert r.headers.get("access-control-allow-origin") == "http://localhost:5173"
     r = client.get("/api/meta", headers={"Origin": "https://site-malveillant.example"})
     assert "access-control-allow-origin" not in r.headers
+
+
+def test_market_paths(get):
+    """Trajectoires des inputs de marché par scénario : identiques au moteur (pipeline.build_drivers)."""
+    d = get("/api/market/paths")["data"]
+    assert [s["key"] for s in d["scenarios"]] == [
+        "central",
+        "flat",
+        "full",
+        "flat3_trend",
+        "brent_crack",
+        "brent_crack_full",
+    ]
+    assert d["months"][0] == "2025-01" and d["months"][-1] == "2027-12"
+    keys = {x["key"]: x for x in d["drivers"]}
+    assert {"brent_usd", "gasoil_usd_t", "ttf", "power_de", "eurusd", "wob_e95_EA", "wob_dsl_IT"} <= set(keys)
+    # seul le gasoil (et ce qui en dérive : gazole et fioul à la pompe) dépend du scénario
+    assert keys["gasoil_usd_t"]["scenario_dependent"] and keys["wob_dsl_EA"]["scenario_dependent"]
+    assert not keys["brent_usd"]["scenario_dependent"] and not keys["ttf"]["scenario_dependent"]
+    assert not keys["wob_e95_EA"]["scenario_dependent"]
+    i = d["months"].index("2027-06")
+    assert (
+        d["paths"]["flat"]["gasoil_usd_t"][i]
+        == d["paths"]["flat"]["gasoil_usd_t"][d["months"].index(d["last_market_month"])]
+    )
+    assert keys["brent_usd"]["origin"][d["months"].index("2026-07")] == "base"
+    assert keys["brent_usd"]["origin"][i] == "projection"
+    assert set(keys["power_de"]["origin"]) <= {"base", "observe", "proxy", "estime", "projection"}
+    assert keys["wob_e95_EA"]["geo"] == "EA" and keys["ttf"]["geo"] is None

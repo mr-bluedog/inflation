@@ -284,6 +284,36 @@ class MarketInputs(BaseModel):
     drivers: list[DriverPath]
 
 
+class MarketPathDriver(BaseModel):
+    key: str
+    label: str
+    unit: str
+    group: str = Field(description="petrole | pompe | gaz_elec")
+    geo: str | None = Field(description="zone des prix à la pompe (WOB), sinon null")
+    scenario_dependent: bool = Field(description="la trajectoire change selon le scénario énergie")
+    origin: list[str] = Field(
+        description="par mois : base | observe | proxy | estime (mois récents) | projection"
+    )
+    partial: list[bool] = Field(description="par mois : moyenne partielle du mois en cours")
+
+
+class MarketScenario(BaseModel):
+    key: str
+    label: str
+
+
+class MarketPaths(BaseModel):
+    asof: str
+    months: list[str]
+    last_market_month: str
+    wob_last_week: str | None
+    scenarios: list[MarketScenario]
+    drivers: list[MarketPathDriver]
+    paths: dict[str, dict[str, list[float | None]]] = Field(
+        description="{scénario: {driver: valeurs par mois}} — niveau utilisé par le moteur pour le mois"
+    )
+
+
 class SeriesInfo(BaseModel):
     code: str
     label: str

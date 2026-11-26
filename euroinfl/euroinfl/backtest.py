@@ -36,8 +36,14 @@ class StatModel(P.Model):
         return self
 
 
+def wob_cutoff(T: pd.Period) -> pd.Timestamp:
+    """Relevés WOB connus quand le HICP de T est publié (vers le 17 de T+1) : semaines jusqu'au 12 de T+1
+    (relevé du lundi publié le jeudi suivant)."""
+    return (T + 1).to_timestamp() + pd.Timedelta(days=11)
+
+
 def drivers_at_origin(db, T: pd.Period, mode="rw"):
-    h = wholesale_history(db, {"recent_months": {}})
+    h = wholesale_history(db, {"recent_months": {}}, wob_cutoff=wob_cutoff(T))
     idx = pd.period_range("2005-01", T + 14, freq="M")
     X = h.reindex(idx)
     fut = idx[idx > T]
@@ -47,6 +53,10 @@ def drivers_at_origin(db, T: pd.Period, mode="rw"):
             X.loc[fut, c] = X.loc[T, c]
     X["gasoil_eur"] = X.gasoil_usd_t / X.eurusd
     X["brent_eur"] = X.brent_usd / X.eurusd
+    if mode == "rw":   # prix à la pompe : relevés publiés puis prolongement par le gros (figé)
+        P.extend_wob(X, h.attrs.get("wob"))
+    else:              # 'perfect' : prix à la pompe réalisés
+        X.update(wholesale_history(db, {"recent_months": {}}).filter(like="wob_").reindex(idx))
     w = (db["legacy_wage_tracker"] / 12).reindex(idx)
     w.loc[T:] = w.loc[:T - 1].dropna().iloc[-1]
     X["wage_m"] = w

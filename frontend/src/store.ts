@@ -11,15 +11,16 @@ interface AppState {
   model: ModelKey;
   fixing: string | null;
   theme: ThemePref;
+  /** scénario énergie (gasoil) affiché pour la market data : central, flat, full… */
+  energyScenario: string;
   /** dernière configuration du simulateur (query string), pour y revenir depuis l'en-tête */
   simSearch: string;
-  recalcTick: number;
   setSimSearch: (s: string) => void;
-  bumpRecalc: () => void;
   setGeo: (g: Geo) => void;
   setModel: (m: ModelKey) => void;
   setFixing: (f: string | null) => void;
   setTheme: (t: ThemePref) => void;
+  setEnergyScenario: (s: string) => void;
 }
 
 /** localStorage peut être indisponible (navigation privée, aperçu) : on l'enveloppe. */
@@ -54,19 +55,25 @@ export const useApp = create<AppState>()(
       model: 'COMBINE',
       fixing: null,
       theme: 'system',
+      energyScenario: 'central',
       simSearch: '',
-      recalcTick: 0,
       setSimSearch: (simSearch) => set({ simSearch }),
-      bumpRecalc: () => set((s) => ({ recalcTick: s.recalcTick + 1 })),
       setGeo: (geo) => set({ geo }),
       setModel: (model) => set({ model }),
       setFixing: (fixing) => set({ fixing }),
       setTheme: (theme) => set({ theme }),
+      setEnergyScenario: (energyScenario) => set({ energyScenario }),
     }),
     {
       name: 'inflation-dashboard',
       storage: createJSONStorage(() => safeStorage),
-      partialize: (s) => ({ geo: s.geo, model: s.model, theme: s.theme, simSearch: s.simSearch }),
+      partialize: (s) => ({
+        geo: s.geo,
+        model: s.model,
+        theme: s.theme,
+        simSearch: s.simSearch,
+        energyScenario: s.energyScenario,
+      }),
     },
   ),
 );

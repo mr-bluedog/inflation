@@ -13,6 +13,11 @@ Toute équation a la même forme lisible :
 - Pass-through cumulé de long terme = sum(beta_b [+ gamma_b]) / (1 - rho).
 - D_t (régime) = 1 à partir d'une date (ex. fin des tarifs réglementés) : gamma mesure le
   CHANGEMENT de transmission depuis cette date.
+- Terme « révision » (kind='reset', gaz et électricité) : les contrats des clients finals ne sont
+  révisés qu'à des dates fixes (ex. janvier en Allemagne, chaque trimestre en Italie). Le terme vaut
+      R_t = 1{mois(t) ∈ calendrier} × 100·log( A_t / A_t' ),  A_t = moyenne du prix de gros sur les retards [a..z],
+  t' = révision précédente : à chaque révision, le prix de détail rattrape une part beta de la variation
+  du prix de gros moyen depuis la révision précédente ; entre deux révisions, R_t = 0.
 Estimation : moindres carrés robustes (Huber, IRLS) + petite pénalité ridge sur les drivers.
 """
 from __future__ import annotations
@@ -46,11 +51,31 @@ class Bucket:
     lo: int              # premier retard (mois)
     hi: int              # dernier retard (mois)
     regime: bool = False # ajoute un terme d'interaction avec l'indicatrice de régime
-    kind: str = "dlog"   # 'dlog' (variation %) ou 'level' (niveau, ex. salaires a/a / 12)
+    kind: str = "dlog"   # 'dlog' (variation %), 'level' (niveau, ex. salaires a/a / 12) ou 'reset' (révision)
+    months: tuple = ()   # kind='reset' : mois civils de révision des contrats (1 = janvier)
 
     @property
     def label(self):
+        if self.kind == "reset":
+            return f"{self.driver}[révision {'/'.join(map(str, self.months))} · moy. {self.lo}-{self.hi}]"
         return f"{self.driver}[{self.lo}-{self.hi}]"
+
+
+def reset_term(level: pd.Series, months: tuple, lo: int, hi: int) -> pd.Series:
+    """R_t = 100·log(A_t / A_t') aux mois de révision (t' = révision précédente), 0 sinon ;
+    A_t = moyenne du niveau sur les retards lo..hi."""
+    A = sum(level.shift(j) for j in range(lo, hi + 1)) / (hi - lo + 1)
+    vals = np.zeros(len(A))
+    prev = None
+    a = A.to_numpy(dtype=float)
+    for i, p in enumerate(A.index):
+        if p.month in months:
+            if not np.isfinite(a[i]):
+                vals[i] = np.nan                      # prix de gros inconnu : observation exclue
+            elif prev is not None and np.isfinite(a[prev]):
+                vals[i] = 100 * np.log(a[i] / a[prev])
+            prev = i
+    return pd.Series(vals, index=A.index)
 
 
 @dataclass
@@ -77,11 +102,11 @@ class Equation:
     def _driver_terms(self, X: pd.DataFrame, t_index) -> pd.DataFrame:
         cols = {}
         for b in self.buckets:
-            if b.kind == "dlog":
-                x = 100 * np.log(X[b.driver] / X[b.driver].shift(1))
+            if b.kind == "reset":
+                m = reset_term(X[b.driver], b.months, b.lo, b.hi)
             else:
-                x = X[b.driver]
-            m = sum(x.shift(j) for j in range(b.lo, b.hi + 1)) / (b.hi - b.lo + 1)
+                x = 100 * np.log(X[b.driver] / X[b.driver].shift(1)) if b.kind == "dlog" else X[b.driver]
+                m = sum(x.shift(j) for j in range(b.lo, b.hi + 1)) / (b.hi - b.lo + 1)
             cols[b.label] = m
             if b.regime and self.regime_start and getattr(self, "_regime_on", True):
                 D = (m.index >= pd.Period(self.regime_start, "M")).astype(float)
@@ -157,7 +182,7 @@ class Equation:
         rho = self.coef.get("rho", 0.0) if self.ar else 0.0
         rows, tot = [], 0.0
         for b in self.buckets:
-            if b.driver != driver or b.kind != "dlog":
+            if b.driver != driver or b.kind not in ("dlog", "reset"):
                 continue
             v = self.coef[b.label]
             if b.regime and regime == "current" and self.regime_start and getattr(self, "_regime_on", False):

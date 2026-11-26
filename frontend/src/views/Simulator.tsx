@@ -54,7 +54,6 @@ export function Simulator() {
   const st = useMemo(() => parseSearch(sp), [sp]);
   const geo = useApp((s) => s.geo);
   const setSimSearch = useApp((s) => s.setSimSearch);
-  const recalcTick = useApp((s) => s.recalcTick);
   const mode = useThemeMode();
   const meta = useMeta();
   const sens = useSensitivitiesAll();
@@ -70,10 +69,6 @@ export function Simulator() {
   const debounced = useDebounced(body, DEBOUNCE_MS);
   const exactWanted = DATA_MODE === 'api' && (hasShock || st.scenario !== 'central');
   const exact = useSimulate(debounced, exactWanted && auto);
-  const { refetch } = exact;
-  useEffect(() => {
-    if (recalcTick > 0 && DATA_MODE === 'api') void refetch();
-  }, [recalcTick, refetch]);
 
   const linear = useMemo(
     () => (sens.data ? linearImpact(sens.data, st.shocks, st.linkPower) : null),

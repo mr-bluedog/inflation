@@ -27,6 +27,7 @@ import type {
   SimulateData,
   SimulateRequest,
   FixingsData,
+  MarketPaths,
 } from './types';
 
 export type DataMode = 'api' | 'static';
@@ -133,6 +134,7 @@ export const requests = {
       (d as BacktestErrorRow[]).filter((r) => (!h || r.h === h) && (!model || r.model === model)),
   }),
   marketInputs: (): Request => ({ path: '/api/inputs/market', staticFile: 'inputs/market.json' }),
+  marketPaths: (): Request => ({ path: '/api/market/paths', staticFile: 'market/paths.json' }),
   seriesCatalog: (): Request => ({ path: '/api/inputs/series', staticFile: 'inputs/series.json' }),
   series: (code: string): Request => ({
     path: `/api/inputs/series/${code}`,
@@ -157,6 +159,7 @@ export interface ResponseTypes {
   backtest: BacktestData;
   backtestErrors: BacktestErrorRow[];
   marketInputs: MarketInputs;
+  marketPaths: MarketPaths;
   seriesCatalog: SeriesInfo[];
   series: SeriesData;
   methodology: Methodology;

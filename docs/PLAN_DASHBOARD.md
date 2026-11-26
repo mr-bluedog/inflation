@@ -122,6 +122,7 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
   Mode linéaire, puis `POST /api/simulate` et mode exact ; presets ; décomposition par sous-indice ; URL partageable (chocs encodés dans la query string).
 - [x] **Phase 6 — Backtest et Inputs (1 j)** — fait le 22/11/2026 : RMSE (toute période / depuis 2023, MODELES §9 vérifié à l'écran), erreurs par origine, poids de combinaison, biais ; courbes et mois estimés, explorateur des 97 séries
   Tables RMSE, graphe d'erreurs, poids ; courbes, mois estimés, explorateur des 97 séries.
+- [x] **Ajout du 26/11/2026 — vue Market data** : hypothèses de marché du moteur (Brent, gasoil, EUR/USD, prix à la pompe WOB, TTF, électricité) par scénario énergie, sélecteur « Scénario énergie » dans l'en-tête ; la vue d'ensemble montre ces trajectoires à la place du graphe de trajectoire HICPxT (`/api/market/paths`).
 - [ ] **Phase 7 — Finition et déploiement (1 j)** — finition faite le 22/11/2026 (vues à la demande, filet d'erreur, export CSV/PNG, revue 375 px et sombre, Dockerfile, `railway.json`, `vercel.json`, README) ; **reste : la mise en ligne Railway + Vercel** (comptes du propriétaire)
   Responsive, mode sombre, états de chargement/erreur, export CSV/PNG des graphes, Dockerfile backend, déploiement Railway + Vercel, README.
 - [ ] **Phase 8 (plus tard)** — Édition des inputs depuis l'UI puis relance de `run_all.py` en tâche de fond ; historisation des vintages ; ajout d'un modèle ML challenger ; vues Linkers / Auctions.
@@ -140,18 +141,20 @@ Toutes les réponses : `{ "meta": { "asof", "last_obs", "run_id", "units" }, "da
 
 ## 7. Chiffres témoins (tests d'acceptation)
 
-Issus de `euroinfl/MODELES.md`. Le dashboard doit afficher exactement ces valeurs (à ±0,01 pp près) tant que les inputs n'ont pas changé.
+Issus de `euroinfl/MODELES.md`. Le dashboard doit afficher exactement ces valeurs (à ±0,01 pp près) tant que les inputs n'ont pas changé (millésime de référence du 20/11/2026, figé dans `backend/tests/fixtures`).
+
+Révision du 26/11/2026 (demandée) : bloc énergie refondu — carburants et fioul sur les prix à la pompe du Weekly Oil Bulletin, gaz et électricité à révisions des contrats à dates fixes (MODELES §4). Les témoins ci-dessous sont ceux du modèle révisé ; les anciens sont entre parenthèses.
 
 | Test | Attendu |
 |---|---|
-| COMBINE EA Nov-26 / Jan-27 / Dec-27 | 3,93 % / 4,14 % / 2,35 % |
-| COMBINE IT Dec-26 | 6,35 % |
-| COMBINE DE Jun-27 | 3,08 % |
+| COMBINE EA Nov-26 / Jan-27 / Dec-27 | 3,82 % / 3,98 % / 2,31 % (avant : 3,93 / 4,14 / 2,35) |
+| COMBINE IT Dec-26 | 5,95 % (6,35) |
+| COMBINE DE Jun-27 | 2,94 % (3,08) |
 | Marché EA Jan-27 | 4,23 % |
-| Sensibilité TTF +10 % (élec. entraînée), IT Jun-27 | +25,8 bp |
-| Sensibilité gasoil +10 %, EA Jun-27 | +18,0 bp |
+| Sensibilité TTF +10 % (élec. entraînée), IT Jun-27 | +22,0 bp (+25,8) |
+| Sensibilité gasoil +10 %, EA Jun-27 | +14,5 bp (+18,0) |
 | Salaires +1 pp/an, EA Dec-27 | +16,2 bp |
-| Backtest RMSE EA BU h1 / h12 | 0,36 / 2,98 pp |
+| Backtest RMSE EA BU h1 / h12 | 0,31 / 3,06 pp (0,36 / 2,98) |
 | Poids énergie EA (hors tabac) | 9,2 % |
 
 Si un chiffre diffère : ne pas « corriger » le front, chercher la cause (inputs modifiés, mauvaise colonne, unités) et la documenter.

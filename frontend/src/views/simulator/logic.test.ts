@@ -50,13 +50,13 @@ describe.skipIf(!isReferenceVintage(DATA))('approximation sur les sensibilités 
   it('+10 % retrouve exactement les chiffres témoins', () => {
     const it = (s: Record<string, number>, g: string, f: string) =>
       linearImpact(sens, s, true).bp.get(key3(g, 'TOT_X_TBC', f))!;
-    expect(it({ ttf: 10 }, 'IT', '2027-06')).toBeCloseTo(25.754, 3);
-    expect(it({ gasoil: 10 }, 'EA', '2027-06')).toBeCloseTo(18.033, 3);
+    expect(it({ ttf: 10 }, 'IT', '2027-06')).toBeCloseTo(21.987, 3);
+    expect(it({ gasoil: 10 }, 'EA', '2027-06')).toBeCloseTo(14.52, 3);
     expect(it({ wages_pp: 1 }, 'EA', '2027-12')).toBeCloseTo(16.191, 3);
   });
 
-  it('TTF +30 % : approximation log (exact moteur IT Jun-27 = +72,1 bp, testé côté backend)', () => {
+  it('TTF +30 % : approximation log (exact moteur IT Jun-27 = +61,6 bp, testé côté backend)', () => {
     const v = linearImpact(sens, { ttf: 30 }, true).bp.get(key3('IT', 'TOT_X_TBC', '2027-06'))!;
-    expect(v).toBeCloseTo(70.9, 1);
+    expect(v).toBeCloseTo(60.5, 1);
   });
 });

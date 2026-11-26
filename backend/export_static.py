@@ -40,6 +40,7 @@ def targets(client: TestClient) -> list[tuple[str, str]]:
         ("/api/equations", "equations/index.json"),
         ("/api/backtest", "backtest.json"),
         ("/api/inputs/market", "inputs/market.json"),
+        ("/api/market/paths", "market/paths.json"),
         ("/api/inputs/series", "inputs/series.json"),
         ("/api/inputs/fixings", "inputs/fixings.json"),
         ("/api/methodology", "methodology.json"),

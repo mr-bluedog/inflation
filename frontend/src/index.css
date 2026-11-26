@@ -306,6 +306,21 @@ table.data th {
 .estimated {
   font-style: italic;
 }
+/* Market data : mois projetés (courbes, règle de scénario) */
+table.data td.projected {
+  background: var(--hover);
+}
+.chart-title {
+  margin: 4px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.market-mini {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 8px 16px;
+}
 
 table.data {
   width: 100%;

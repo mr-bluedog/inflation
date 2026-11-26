@@ -111,5 +111,8 @@ bt = OUT / "backtest_summary.json"
 if bt.exists():
     dash["backtest"] = json.loads(bt.read_text(encoding="utf-8"))
 (OUT / "dashboard_data.json").write_text(json.dumps(dash, ensure_ascii=False, default=float), encoding="utf-8")
+# Trajectoires des inputs de marché utilisées par le moteur, par scénario énergie (vue Market data)
+from euroinfl.export import market_paths
+(OUT / "market_paths.json").write_text(json.dumps(market_paths(bu), ensure_ascii=False), encoding="utf-8")
 print(pd.DataFrame({g: [r["COMBINE"] for r in rows if r["geo"] == g] for g in GEOS}, index=[str(t) for t in P.FIXINGS]).round(2))
 print("OK →", OUT)

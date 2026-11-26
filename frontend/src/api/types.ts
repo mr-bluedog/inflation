@@ -237,6 +237,30 @@ export interface MarketInputs {
   assumptions: Record<string, unknown>;
   drivers: DriverPath[];
 }
+/** Trajectoires des inputs de marché utilisées par le moteur, par scénario énergie (/api/market/paths). */
+export type MarketGroup = 'petrole' | 'pompe' | 'gaz_elec';
+export type MarketOrigin = 'base' | 'observe' | 'proxy' | 'estime' | 'projection';
+export interface MarketPathDriver {
+  key: string;
+  label: string;
+  unit: string;
+  group: MarketGroup;
+  /** zone des prix à la pompe (WOB), sinon null */
+  geo: Geo | null;
+  scenario_dependent: boolean;
+  origin: MarketOrigin[];
+  partial: boolean[];
+}
+export interface MarketPaths {
+  asof: string;
+  months: string[];
+  last_market_month: string;
+  wob_last_week: string | null;
+  scenarios: { key: string; label: string }[];
+  drivers: MarketPathDriver[];
+  /** {scénario: {driver: valeurs par mois}} */
+  paths: Record<string, Record<string, (number | null)[]>>;
+}
 export interface SeriesInfo {
   code: string;
   label: string;

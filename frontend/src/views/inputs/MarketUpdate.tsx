@@ -93,8 +93,8 @@ export function MarketUpdate() {
       <p className="legend-note">
         Sources : EUR/USD BCE ; TTF, Brent et ULSD (proxy du gasoil ICE) sur contrats NYMEX via Yahoo Finance
         ; électricité day-ahead <a href="https://energy-charts.info">Energy-Charts</a> (CC BY 4.0,
-        Bundesnetzagentur / SMARD.de). Rien n'est appliqué sans validation. Les fixings d'inflation ne sont
-        pas publics : saisie ci-dessous.
+        Bundesnetzagentur / SMARD.de) ; prix à la pompe Weekly Oil Bulletin (Commission européenne). Rien
+        n'est appliqué sans validation. Les fixings d'inflation ne sont pas publics : saisie ci-dessous.
       </p>
       {msg && (
         <p className="legend-note" role="status">

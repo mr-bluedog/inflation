@@ -8,6 +8,31 @@ import re
 from .catalog import DRIVER_LABELS, ENERGY_ITEMS, LABELS, REGIME_START, P
 
 TERM_RE = re.compile(r"^(?P<driver>\w+)\[(?P<lo>\d+)-(?P<hi>\d+)\](?P<regime>×régime)?$")
+# terme de révision à dates fixes (engine.Bucket kind='reset') : « ttf[révision 1/4/7/10 · moy. 1-6] »
+RESET_RE = re.compile(
+    r"^(?P<driver>\w+)\[révision (?P<months>[\d/]+) · moy\. (?P<lo>\d+)-(?P<hi>\d+)\](?P<regime>×régime)?$"
+)
+MONTHS_FR = [
+    "janv.",
+    "févr.",
+    "mars",
+    "avr.",
+    "mai",
+    "juin",
+    "juil.",
+    "août",
+    "sept.",
+    "oct.",
+    "nov.",
+    "déc.",
+]
+
+
+def months_label(months: str) -> str:
+    """'1/4/7/10' → 'janv., avr., juil., oct.'"""
+    return ", ".join(MONTHS_FR[int(x) - 1] for x in months.split("/"))
+
+
 STAGE1 = "EA-stage1"
 
 
@@ -34,18 +59,20 @@ def describe(geo: str, item: str, raw: dict, elasticity_rows: list[dict]) -> dic
         if re.fullmatch(r"m\d\d", k):
             seasonal[k] = v
             continue
-        m = TERM_RE.match(k)
+        m = TERM_RE.match(k) or RESET_RE.match(k)
         if m:
-            label = f"{m['driver']}[{m['lo']}-{m['hi']}]"
+            is_reset = "months" in m.groupdict()
+            label = k.removesuffix("×régime")
             terms.append(
                 {
                     "term": k,
                     "type": "regime" if m["regime"] else "driver",
                     "driver": m["driver"],
-                    "driver_label": DRIVER_LABELS.get(m["driver"], (m["driver"], ""))[0],
+                    "driver_label": DRIVER_LABELS.get(m["driver"], (m["driver"], ""))[0]
+                    + (f" — révisions des contrats : {months_label(m['months'])}" if is_reset else ""),
                     "lag_from": int(m["lo"]),
                     "lag_to": int(m["hi"]),
-                    "transform": kinds.get(label, "dlog"),
+                    "transform": "reset" if is_reset else kinds.get(label, "dlog"),
                     "coef": v,
                     "t": tstat.get(k),
                 }
@@ -104,11 +131,17 @@ def formula(item: str, terms: list[dict], has_rho: bool, has_easter: bool, drift
     for t in terms:
         if t["type"] not in ("driver", "regime"):
             continue
-        x = f"Δlog {t['driver']}" if t["transform"] == "dlog" else t["driver"]
         sym = "γ" if t["type"] == "regime" else "β"
         if t["type"] == "driver":
             i += 1
         reg = f"·D({REGIME_START})" if t["type"] == "regime" else ""
+        if t["transform"] == "reset":
+            months = RESET_RE.match(t["term"])["months"]
+            parts.append(
+                f"{sym}{i}{reg}·Rév[{months}](Δlog moy({t['driver']}, {_window(t['lag_from'], t['lag_to'])}))"
+            )
+            continue
+        x = f"Δlog {t['driver']}" if t["transform"] == "dlog" else t["driver"]
         parts.append(f"{sym}{i}{reg}·moy({x}, {_window(t['lag_from'], t['lag_to'])})")
     if has_easter:
         parts.append("δ·Pâques(t)")

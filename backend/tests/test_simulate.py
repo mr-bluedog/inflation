@@ -17,11 +17,11 @@ def _pick(rows, geo, fixing, item="TOT_X_TBC"):
 @pytest.mark.parametrize(
     "shocks,link,geo,fixing,expected",
     [
-        ({"ttf": 10}, True, "IT", "2027-06", 25.8),
-        ({"ttf": 10}, False, "IT", "2027-06", 25.1),
-        ({"gasoil": 10}, True, "EA", "2027-06", 18.0),
+        ({"ttf": 10}, True, "IT", "2027-06", 22.0),
+        ({"ttf": 10}, False, "IT", "2027-06", 21.3),
+        ({"gasoil": 10}, True, "EA", "2027-06", 14.5),
         ({"wages_pp": 1}, True, "EA", "2027-12", 16.2),
-        ({"eurusd": 10}, True, "EA", "2027-06", -17.7),
+        ({"eurusd": 10}, True, "EA", "2027-06", -24.6),
     ],
 )
 @reference_inputs
@@ -77,7 +77,7 @@ def test_validation(client, body):
 @reference_inputs
 def test_ttf_30_exact_vs_log_approx(client, get):
     """Phase 5 : écart linéaire / exact pour TTF +30 % (élec. entraînée). L'approximation log
-    ln(1,3)/ln(1,1) × bp(+10 %) reste à ~1,2 bp de l'exact sur IT Jun-27 ; « x/10 » en serait à ~5 bp."""
+    ln(1,3)/ln(1,1) × bp(+10 %) reste à ~1,1 bp de l'exact sur IT Jun-27 ; « x/10 » en serait à ~4,3 bp."""
     import math
 
     d = _post(client, {"shocks": {"ttf": 30}, "link_power": True})["data"]
@@ -88,6 +88,6 @@ def test_ttf_30_exact_vs_log_approx(client, get):
         if r["fixing"] == "2027-06"
     )
     log_approx = s10 * math.log(1.3) / math.log(1.1)
-    assert round(exact, 1) == 72.1
+    assert round(exact, 1) == 61.6
     assert abs(log_approx - exact) < 1.5
     assert abs(3 * s10 - exact) > 4  # la règle x/10 est nettement moins précise

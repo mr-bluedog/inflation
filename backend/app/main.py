@@ -484,6 +484,55 @@ def put_fixings(req: Sch.FixingsUpdate):
     return get_fixings()
 
 
+@app.get("/api/market/paths", response_model=Sch.Envelope[Sch.MarketPaths], tags=["inputs"])
+def get_market_paths():
+    """Trajectoires des inputs de marché utilisées par le moteur, pour chaque scénario énergie (out/market_paths.json)."""
+    s = get_store()
+    mp = s.market_paths
+    if mp is None:
+        raise HTTPException(404, "out/market_paths.json absent : relancer euroinfl/run_all.py")
+    rq = Q.recent_quality(s.market_inputs)
+    wob_month = mp["wob_last_week"][:7] if mp["wob_last_week"] else None
+    drivers = []
+    for d in mp["drivers"]:
+        origin, partial = [], []
+        for m, o in zip(mp["months"], d["origin"], strict=True):
+            if o == "recent":  # origine réelle du mois récent : observé / proxy / estimé
+                o = Q.driver_quality(rq.get(m, {}).get("quality", {}), d["key"]) or "estime"
+                partial.append(bool(rq.get(m, {}).get("partial")))
+            else:
+                partial.append(o == "observe" and m == wob_month)
+            origin.append(o)
+        geo = d["key"].rsplit("_", 1)[1] if d["group"] == "pompe" else None
+        drivers.append(
+            {
+                "key": d["key"],
+                "label": C.DRIVER_LABELS[d["key"]][0],
+                "unit": C.DRIVER_LABELS[d["key"]][1],
+                "group": d["group"],
+                "geo": geo,
+                "scenario_dependent": d["scenario_dependent"],
+                "origin": origin,
+                "partial": partial,
+            }
+        )
+    data = {
+        "asof": s.market_inputs["asof"],
+        "months": mp["months"],
+        "last_market_month": mp["last_market_month"],
+        "wob_last_week": mp["wob_last_week"],
+        "scenarios": [{"key": k, "label": v} for k, v in C.P.GASOIL_SCENARIOS.items()],
+        "drivers": drivers,
+        "paths": mp["paths"],
+    }
+    notes = [
+        "Valeur du mois M = niveau utilisé par le moteur (prix de gros : contrat M+1 coté pendant M ; "
+        "prix à la pompe : moyenne des relevés hebdomadaires du mois)",
+        "Seul le gasoil (et donc gazole / fioul à la pompe) dépend du scénario énergie",
+    ]
+    return {"meta": meta(s, notes=notes), "data": data}
+
+
 @app.post("/api/inputs/market/refresh", tags=["administration"], dependencies=[Depends(ADM.require_admin)])
 def post_refresh():
     from .marketdata.sources import SourceError

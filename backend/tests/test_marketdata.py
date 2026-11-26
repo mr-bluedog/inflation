@@ -69,18 +69,26 @@ def test_proposal_follows_engine_conventions(current, ice):
     assert months == ["2026-08", "2026-09", "2026-10", "2026-11"]
     nov = {k: v for k, v in new["recent_months"]["2026-11"].items() if not k.startswith("_")}
     # origine enregistrée : observé (BCE, NYMEX), proxy (gasoil, électricité), mois en cours partiel
-    assert new["recent_months"]["2026-11"]["_quality"] == R.Q.RECENT_RULES
+    assert new["recent_months"]["2026-10"]["_quality"] == R.Q.RECENT_RULES
+    # électricité du mois en cours : contrat M+1 de la courbe (le spot partiel créait un pic artificiel)
+    assert new["recent_months"]["2026-11"]["_quality"] == {
+        **R.Q.RECENT_RULES,
+        "power_de": R.Q.ESTIMATED,
+        "power_fr": R.Q.ESTIMATED,
+    }
     assert new["recent_months"]["2026-11"]["_partial"] is True
     assert new["recent_months"]["2026-10"]["_partial"] is False
+    assert new["recent_months"]["2026-10"]["power_de"] == 150.0
     assert new["_curve_quality"] == R.Q.CURVE_RULES
     assert nov == {
         "ttf": 90.0,
-        "power_de": 150.0,
-        "power_fr": 160.0,
+        "power_de": current["curves"]["power_de"]["2026-12"],
+        "power_fr": current["curves"]["power_fr"]["2026-12"],
         "gasoil_usd_t": round(3.8 * GAL_T * 1.05, 2),
         "brent_usd": 95.0,
         "eurusd": 1.1,
     }
+    assert any("spot partiel écarté" in w for w in p.warnings)
     # courbes : livraisons de Dec-26 à Jan-28 ; gasoil = proxy ULSD × ratio
     assert min(new["curves"]["brent_usd"]) == "2026-12" and max(new["curves"]["brent_usd"]) == "2028-01"
     assert new["curves"]["gasoil_usd_t"]["2027-06"] == pytest.approx(round(3.7 * GAL_T * 1.05, 2))
@@ -137,6 +145,9 @@ def sandbox(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "MARKET_FIXINGS", data / "market_fixings.json")
     monkeypatch.setattr(ADM, "PROPOSAL", data / "market_inputs.proposed.json")
     monkeypatch.setattr(ADM, "VINTAGES", data / "vintages")
+    shutil.copy2(config.ENGINE_DATA_DIR / "wob_weekly.csv", data / "wob_weekly.csv")
+    monkeypatch.setattr(ADM, "WOB_FILE", data / "wob_weekly.csv")
+    monkeypatch.setattr(ADM, "WOB_PROPOSAL", data / "wob_weekly.proposed.csv")
     monkeypatch.setattr(
         ADM,
         "ice_gasoil_monthly",
@@ -263,3 +274,76 @@ def test_engine_ignores_quality_keys(current, ice):
     a = Model(db=db, mkt=new).fit().forecast("central").yoy("EA")
     b = Model(db=db, mkt=bare).fit().forecast("central").yoy("EA")
     assert (a - b).abs().max() == 0
+
+
+# ------------------------------------------------------------------ Weekly Oil Bulletin
+def _wob_xlsx(weeks: dict[str, float]) -> bytes:
+    """Classeur au format de l'historique officiel (3 lignes d'en-tête, colonnes « <pays>_price_… »)."""
+    import io
+
+    cols = ["Date"]
+    for p in ("EUR", "FR", "DE", "IT", "ES"):
+        for prod in ("euro95", "diesel", "heating_oil"):
+            cols.append(f"{p}_price_with_tax_{prod}")
+
+    def sheet(tag):
+        head = [
+            [c.replace("with_tax", tag) for c in cols],
+            [None] * len(cols),
+            ["Date"] + ["1000 l"] * (len(cols) - 1),
+        ]
+        body = [[pd.Timestamp(d)] + [v] * (len(cols) - 1) for d, v in weeks.items()]
+        return pd.DataFrame(head + body)
+
+    vat = pd.DataFrame(
+        [["VAT"], ["CTR"], [None, "Since:", "Euro-super 95"], [None, None, "1000 l"]]
+        + [[f"{c}_", "2020-01-01", v] for c, v in (("FR", 20), ("DE", 19), ("IT", 22), ("ES", 21))]
+    )
+    buf = io.BytesIO()
+    with pd.ExcelWriter(buf) as w:
+        sheet("with_tax").to_excel(w, sheet_name="Prices with taxes", header=False, index=False)
+        sheet("wo_tax").to_excel(w, sheet_name="Prices wo taxes", header=False, index=False)
+        vat.to_excel(w, sheet_name="VAT", header=False, index=False)
+    return buf.getvalue()
+
+
+class WobFetcher(FakeFetcher):
+    def wob_history(self):
+        return _wob_xlsx({"2026-11-02": 2000.0, "2026-11-09": 1900.0, "2026-11-16": 1800.0})
+
+
+def test_wob_parse_and_monthly():
+    import io
+
+    from euroinfl import wob
+
+    weekly, vat = wob.parse_history(io.BytesIO(WobFetcher().wob_history()))
+    assert vat["DE"] == 19 and vat["EA"] == pytest.approx(20.5)
+    m = wob.monthly(weekly)
+    assert m.loc[pd.Period("2026-11", "M"), "wob_e95_EA"] == pytest.approx(1900.0)
+    # backtest pseudo temps réel : seuls les relevés publiés à la date de coupure comptent
+    m2 = wob.monthly(weekly, pd.Timestamp("2026-11-10"))
+    assert m2.loc[pd.Period("2026-11", "M"), "wob_dsl_FR"] == pytest.approx(1950.0)
+    d, last = wob.last_week(weekly)
+    assert d == pd.Timestamp("2026-11-16") and last["wob_heat_IT"] == 1800.0
+
+
+def test_refresh_with_wob_then_apply(sandbox, monkeypatch):
+    monkeypatch.setattr(ADM, "run_engine", lambda: "OK")
+    before_wob = (sandbox / "wob_weekly.csv").read_text(encoding="utf-8")
+    p = ADM.refresh(WobFetcher(), TODAY)
+    assert p["wob"] is True and p["inputs"]["wob_last_week"] == "2026-11-16"
+    nov = next(r for r in p["diff"] if r["key"] == "wob_e95_EA" and r["period"] == "2026-11")
+    assert nov["proposed"] == pytest.approx(1900.0) and nov["unit"] == "€/1 000 l"
+    assert (sandbox / "wob_weekly.proposed.csv").exists()
+    ADM.apply_proposal(lambda: None)
+    assert (sandbox / "wob_weekly.csv").read_text(encoding="utf-8") != before_wob
+    assert not (sandbox / "wob_weekly.proposed.csv").exists()
+    assert any(
+        f.name.startswith("wob_weekly_") for f in (sandbox / "vintages").iterdir()
+    )  # ancien fichier archivé
+
+
+def test_refresh_without_wob_keeps_file(sandbox, monkeypatch):
+    p = ADM.refresh(FakeFetcher(), TODAY)
+    assert p["wob"] is False and not (sandbox / "wob_weekly.proposed.csv").exists()

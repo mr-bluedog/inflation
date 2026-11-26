@@ -207,6 +207,15 @@ EA,SERV,wage_m,-0.137348,0.377006,,,wage_m[1-6]=0.377,0.8862,0.1824,123
 
 Ce fichier est redondant avec les CSV. Le backend lit les CSV (source primaire) et n'en prend que `market_ea`, `drivers` et `weights`.
 
+## 8 bis. `out/market_paths.json` — trajectoires des inputs de marché (vue Market data)
+
+Écrit par `run_all.py` via `euroinfl/export.py` (`market_paths`), lu par `GET /api/market/paths` (statique : `market/paths.json`).
+- `months` : 2025-01 → 2027-12 ; `last_market_month` : dernier mois de `recent_months` ; `wob_last_week` : dernier relevé WOB du millésime.
+- `drivers[]` : `key`, `group` (`petrole` | `pompe` | `gaz_elec`), `origin` par mois (`base` | `recent` | `observe` | `projection` ; l'API remplace `recent` par l'origine réelle `observe` | `proxy` | `estime` et ajoute `partial`), `scenario_dependent`.
+- `paths[scénario][driver]` : niveau utilisé par le moteur pour chaque mois (`pipeline.build_drivers(db, mkt, scénario)`), pour les 6 scénarios énergie. Inputs : `brent_usd`, `gasoil_usd_t`, `gasoil_eur`, `eurusd`, `wob_<e95|dsl|heat>_<geo>` (5 zones), `ttf`, `power_de`, `power_fr`. Seuls le gasoil et ce qui en dérive (gasoil €, gazole et fioul à la pompe) changent avec le scénario.
+
+---
+
 ## 9. Backtest
 
 ### 9.1 `out/backtest_errors.csv` — 118 080 lignes, **10,1 Mo** (< 50 Mo : versionné, pas ajouté au `.gitignore`)
@@ -253,12 +262,15 @@ origin,geo,item,h,fc,act,err,model
 | `euroinfl/data/weights_2026.csv` | `year,geo,TOTAL,NRG,CP0451,CP0452,CP0453,CP0454,CP0455,CP0722,FOOD_P_X_TBC,FOOD_NP,IGD_NNRG,SERV,TOT_X_TBC` | poids Eurostat en ‰, années 2025 et 2026 ; normalisés par `data.load_weights(2026)` |
 | `euroinfl/data/market_inputs.json` | voir ci-dessous | **seul fichier d'hypothèses modifiable** |
 | `euroinfl/data/euro_inflation_database_long.csv` | long, 18 colonnes | identique octet pour octet à `data/raw/euro_inflation_database_long.csv` ; pivoté par `data.load_user_db()` (fréquence M uniquement) |
+| `euroinfl/data/wob_weekly.csv` | 1re ligne `# vat_pct EA=20.50 IT=22.00 …`, puis `date,geo,product,ttc,ht` | **Prix à la pompe** du Weekly Oil Bulletin (Commission européenne), relevé du lundi, € pour 1 000 l TTC et HT ; geo EA (moyenne « EUR_ » Commission), IT, FR, DE, ES ; product `euro95`, `diesel`, `heating_oil`. Lu par `wob.load()` ; moyennes mensuelles `wob_<e95|dsl|heat>_<geo>` dans `data.wholesale_history`. Remplacé (et l'ancien archivé dans `vintages/`) à l'application d'un rafraîchissement de la market data. |
 
 `market_inputs.json` :
 - `asof` (`2026-11-20`), `eurusd` (1,099, tenu plat sur tout l'horizon)
 - `curves.{gasoil_usd_t|ttf|brent_usd|power_fr|power_de}` : `{ "YYYY-MM": prix }` par **mois de livraison** ($/t, €/MWh, $/bbl). Convention : le niveau du mois M = contrat M+1, queue tenue plate.
 - `recent_months.{2026-08..2026-11}` : `{ttf, power_fr, power_de, gasoil_usd_t, brent_usd, eurusd}`, valeurs **estimées** (la base s'arrête en 2026-07). Ce sont les « mois estimés » de la vue Inputs.
 - `assumptions` : `food_commo_monthly_pct` (0), `nonfood_commo_monthly_pct` (0), `wage_growth_yoy` (null = dernier tracker BCE).
+- `wob_last_week` (optionnel, `YYYY-MM-DD`) : dernier relevé WOB du millésime ; le moteur ignore les relevés postérieurs. Absent : relevés publiés au plus tard à `asof` − 3 jours.
+- Électricité, mois en cours : depuis le 26/11/2026, un rafraîchissement prend le contrat M+1 de la courbe (origine `estime`) au lieu d'une moyenne spot partielle.
 - Les clés commençant par `_` sont des commentaires.
 
 ---
@@ -332,18 +344,20 @@ Le modèle est linéaire en **log** des prix : l'échelle `ln(1+x)/ln(1,1)` est 
 
 ---
 
-## 13. Chiffres témoins (plan §7), vérifiés le 22/11/2026
+## 13. Chiffres témoins (plan §7), vérifiés le 26/11/2026 (modèle à bloc énergie révisé)
+
+Millésime de référence du 20/11/2026 (`backend/tests/fixtures`), relevés WOB jusqu'au 16/11/2026.
 
 | Test | Attendu | Obtenu | Source | |
 |---|---|---|---|---|
-| COMBINE EA Nov-26 / Jan-27 / Dec-27 | 3,93 / 4,14 / 2,35 | 3,9281 / 4,1383 / 2,3537 | headline | ✓ |
-| COMBINE IT Dec-26 | 6,35 | 6,3489 | headline | ✓ |
-| COMBINE DE Jun-27 | 3,08 | 3,0772 | headline | ✓ |
+| COMBINE EA Nov-26 / Jan-27 / Dec-27 | 3,82 / 3,98 / 2,31 | 3,8240 / 3,9832 / 2,3140 | headline | ✓ |
+| COMBINE IT Dec-26 | 5,95 | 5,9469 | headline | ✓ |
+| COMBINE DE Jun-27 | 2,94 | 2,9399 | headline | ✓ |
 | Marché EA Jan-27 | 4,23 | 4,23 | run_all.py / dashboard_data | ✓ |
-| TTF +10 % élec. entraînée, IT Jun-27 | +25,8 bp | +25,754 | sensitivity `ttf_power` | ✓ |
-| Gasoil +10 %, EA Jun-27 | +18,0 bp | +18,033 | sensitivity `gasoil` | ✓ |
+| TTF +10 % élec. entraînée, IT Jun-27 | +22,0 bp | +21,987 | sensitivity `ttf_power` | ✓ |
+| Gasoil +10 %, EA Jun-27 | +14,5 bp | +14,520 | sensitivity `gasoil` | ✓ |
 | Salaires +1 pp/an, EA Dec-27 | +16,2 bp | +16,191 | sensitivity `wages` | ✓ |
-| Backtest RMSE EA BU h1 / h12 | 0,36 / 2,98 | 0,36 / 2,98 | backtest_summary | ✓ |
+| Backtest RMSE EA BU h1 / h12 | 0,31 / 3,06 | 0,314 / 3,06 | backtest_summary | ✓ |
 | Poids énergie EA | 9,2 % | 9,212 % | weights | ✓ |
 
-Contrôles complémentaires, tous conformes à MODELES : tableau §1 (70 valeurs COMBINE à 2 décimales), §9 (RMSE BU/STAT/naïf/prix parfaits des 5 pays ; EA depuis 2023 : h1 0,22, h6 BU 0,71 contre STAT 0,33), §11 (IT gaz / électricité / énergie / HICPxT), §12 (5 scénarios × 3 fixings), §10 (63 valeurs ; seuls 2 écarts d'arrondi au 0,1 : `ttf_only` EA Jan-27 = 1,55 écrit 1,5, `nonfood_commo` EA Jan-27 = 0,055 écrit 0).
+Contrôles complémentaires, conformes à MODELES : tableau §1 (70 valeurs COMBINE à 2 décimales), §9 (RMSE des 5 pays ; EA depuis 2023 : h1 0,19, h6 BU 0,64 contre STAT 0,33), §11 (IT gaz / électricité / énergie / HICPxT), §12 (5 scénarios × 3 fixings), §10 (63 valeurs). Les lignes d'exemple des §1 à §6 et le tableau §12.3 illustrent le format et la linéarité ; leurs valeurs datent du modèle du 22/11 (avant la révision énergie).

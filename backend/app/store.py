@@ -64,6 +64,7 @@ class DataStore:
     series_values: pd.DataFrame
     methodology: str
     run_id: str
+    market_paths: dict | None = None
 
     @property
     def asof(self) -> str:
@@ -158,6 +159,7 @@ def load_store() -> DataStore:
         series_values=vals,
         methodology=config.METHODOLOGY_MD.read_text(encoding="utf-8"),
         run_id=_run_id(files),
+        market_paths=read_json(out / "market_paths.json") if (out / "market_paths.json").exists() else None,
     )
 
 

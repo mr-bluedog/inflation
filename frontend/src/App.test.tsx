@@ -63,13 +63,13 @@ beforeAll(() => {
 describe('layout', () => {
   beforeEach(mockFetch);
 
-  it('affiche les 8 vues et la date des données', async () => {
+  it('affiche les 9 vues et la date des données', async () => {
     renderAt('/route-inexistante');
     const nav = screen.getByRole('navigation');
-    expect(within(nav).getAllByRole('link')).toHaveLength(8);
+    expect(within(nav).getAllByRole('link')).toHaveLength(9);
     expect(await screen.findByText('HICP oct-26 · courbes 20/11/2026')).toBeInTheDocument();
     expect(screen.getByText('Page introuvable.')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Recalculer' })).toBeEnabled(); // mode API
+    expect(screen.getByRole('button', { name: 'Rafraîchir la market data' })).toBeEnabled(); // mode API
   });
 
   it('le sélecteur de pays met à jour le store', async () => {

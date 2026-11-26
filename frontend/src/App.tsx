@@ -11,6 +11,7 @@ function view<K extends string>(
   return lazy(() => load().then((m) => ({ default: m[name] })));
 }
 
+const MarketData = view(() => import('./views/MarketData'), 'MarketData');
 const Country = view(() => import('./views/Country'), 'Country');
 const Simulator = view(() => import('./views/Simulator'), 'Simulator');
 const PassThrough = view(() => import('./views/PassThrough'), 'PassThrough');
@@ -24,6 +25,7 @@ export function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Overview />} />
+        <Route path="market-data" element={<MarketData />} />
         <Route path="pays" element={<Country />} />
         <Route path="simulateur" element={<Simulator />} />
         <Route path="pass-through" element={<PassThrough />} />

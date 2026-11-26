@@ -1,4 +1,4 @@
-/** Les 8 vues du plan §2 (navigation latérale). */
+/** Les vues du plan §2 (navigation latérale), plus Market data. */
 export interface ViewDef {
   path: string;
   label: string;
@@ -14,6 +14,14 @@ export const VIEWS: ViewDef[] = [
     description: 'Prochain fixing, trajectoire BU / STAT / COMBINE / marché, tableau 14 fixings × 5 pays.',
     phase: 3,
     sources: ['/api/headline', '/api/history'],
+  },
+  {
+    path: '/market-data',
+    label: 'Market data',
+    description:
+      'Hypothèses de marché du moteur : Brent, gasoil, TTF, électricité, EUR/USD, prix à la pompe, par scénario énergie.',
+    phase: 8,
+    sources: ['/api/market/paths'],
   },
   {
     path: '/pays',

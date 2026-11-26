@@ -5,6 +5,7 @@
 | EUR/USD | BCE, taux de référence quotidien (data-api.ecb.europa.eu) | officiel |
 | TTF, Brent, ULSD | Yahoo Finance (contrats NYMEX : front continu et échéances) | API non officielle, peut changer |
 | Électricité DE, FR | Energy-Charts (Fraunhofer ISE), day-ahead | licence CC BY 4.0 (Bundesnetzagentur / SMARD) |
+| Prix à la pompe | Commission européenne, Weekly Oil Bulletin, historique xlsx | officiel, hebdomadaire (lundi) |
 
 Chaque connecteur renvoie une série quotidienne pandas (index = date). Aucune donnée utilisateur n'est envoyée.
 """
@@ -28,7 +29,12 @@ SOURCES = {
     "ecb": "BCE, taux de référence EUR/USD (data-api.ecb.europa.eu)",
     "yahoo": "Yahoo Finance, contrats NYMEX (non officiel)",
     "energy_charts": "Energy-Charts (Fraunhofer ISE), day-ahead, CC BY 4.0, données Bundesnetzagentur / SMARD.de",
+    "wob": "Commission européenne, Weekly Oil Bulletin (prix à la pompe TTC et HT, relevé du lundi)",
 }
+WOB_HISTORY_URL = (
+    "https://energy.ec.europa.eu/document/download/906e60ca-8b6a-44e7-8589-652854d2fd3f_en"
+    "?filename=Weekly_Oil_Bulletin_Prices_History_maticni_4web.xlsx"
+)
 
 
 class SourceError(RuntimeError):
@@ -97,3 +103,11 @@ def energy_charts_daily(bzn: str, start: date, end: date) -> pd.Series:
         raise SourceError(f"Energy-Charts {bzn} : série vide")
     s.index = s.index.tz_localize(None).normalize()
     return s.groupby(level=0).mean()
+
+
+def wob_history_xlsx() -> bytes:
+    """Historique complet du Weekly Oil Bulletin (xlsx officiel, ≈ 4,5 Mo)."""
+    data = _get(WOB_HISTORY_URL)
+    if not data.startswith(b"PK"):  # un xlsx est une archive zip
+        raise SourceError("Weekly Oil Bulletin : le fichier reçu n'est pas un classeur xlsx")
+    return data

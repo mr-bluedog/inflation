@@ -12,11 +12,11 @@ def _by_fixing(rows, key="fixing"):
 @pytest.mark.parametrize(
     "geo,fixing,expected",
     [
-        ("EA", "2026-11", 3.93),
-        ("EA", "2027-01", 4.14),
-        ("EA", "2027-12", 2.35),
-        ("IT", "2026-12", 6.35),
-        ("DE", "2027-06", 3.08),
+        ("EA", "2026-11", 3.82),
+        ("EA", "2027-01", 3.98),
+        ("EA", "2027-12", 2.31),
+        ("IT", "2026-12", 5.95),
+        ("DE", "2027-06", 2.94),
     ],
 )
 @reference_inputs
@@ -36,8 +36,8 @@ def test_market_ea_jan27(get):
 @pytest.mark.parametrize(
     "shock,geo,fixing,expected",
     [
-        ("ttf_power", "IT", "2027-06", 25.8),
-        ("gasoil", "EA", "2027-06", 18.0),
+        ("ttf_power", "IT", "2027-06", 22.0),
+        ("gasoil", "EA", "2027-06", 14.5),
         ("wages", "EA", "2027-12", 16.2),
     ],
 )
@@ -55,8 +55,8 @@ def test_backtest_rmse_ea_bu(get):
         for r in rows
         if (r["geo"], r["item"], r["model"], r["period"]) == ("EA", "TOT_X_TBC", "BU", "all")
     }
-    assert round(sel[1], 2) == 0.36
-    assert round(sel[12], 2) == 2.98
+    assert round(sel[1], 2) == 0.31
+    assert round(sel[12], 2) == 3.06
 
 
 def test_energy_weight_ea(get):

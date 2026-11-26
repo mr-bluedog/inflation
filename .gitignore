@@ -17,5 +17,6 @@ frontend/dist-static/
 
 # Market data : proposition en attente et archives locales des inputs remplacés
 euroinfl/data/market_inputs.proposed.json
+euroinfl/data/wob_weekly.proposed.csv
 euroinfl/data/vintages/
 euroinfl/data/*.tmp

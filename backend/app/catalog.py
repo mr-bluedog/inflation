@@ -60,6 +60,12 @@ DRIVER_LABELS = {
     "ppi_interm": ("PPI biens intermédiaires (zone euro)", "indice"),
     "wage_m": ("Salaires négociés (g.a. / 12)", "%/mois"),
 }
+# Prix à la pompe du Weekly Oil Bulletin (TTC), par zone
+_WOB_PRODUCTS = {"e95": "Euro-super 95 à la pompe", "dsl": "Gazole à la pompe", "heat": "Fioul domestique"}
+_WOB_GEOS = {"EA": "zone euro", "IT": "Italie", "FR": "France", "DE": "Allemagne", "ES": "Espagne"}
+for _p, _pl in _WOB_PRODUCTS.items():
+    for _g, _gl in _WOB_GEOS.items():
+        DRIVER_LABELS[f"wob_{_p}_{_g}"] = (f"{_pl} TTC, {_gl} (WOB)", "€/1 000 l")
 
 # Taille et unité des chocs pré-calculés (sensitivity.run_all)
 SHOCK_SIZE = {k: (1.0, "pp/an") if k == "wages" else (10.0, "%") for k in S.SHOCKS}

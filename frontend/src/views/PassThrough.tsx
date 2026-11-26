@@ -12,7 +12,7 @@ import { Chart } from '../charts/Chart';
 import { QueryState } from '../components/QueryState';
 import { Segmented } from '../components/Segmented';
 import { fmtNum, fmtPct } from '../format';
-import { ITEM_SHORT, SHOCK_SHORT, STAGE1_ITEMS } from '../labels';
+import { frBuckets, ITEM_SHORT, SHOCK_SHORT, STAGE1_ITEMS } from '../labels';
 import { useApp } from '../store';
 import { useThemeMode } from '../useThemeMode';
 import {
@@ -20,6 +20,7 @@ import {
   elasticity,
   itemLabel,
   levelAt,
+  bucketWindow,
   parseBuckets,
   profileOption,
   seasonOption,
@@ -90,7 +91,7 @@ function ItalyZoom() {
   const elec = elasticity(el.data.data, 'IT', 'CP0451', 'ttf');
   const gasB = gas ? parseBuckets(gas.buckets) : [];
   const elecB = elec ? parseBuckets(elec.buckets) : [];
-  const win = (b: { lo: number; hi: number }) => (b.lo === b.hi ? `${b.lo} m` : `${b.lo}-${b.hi} m`);
+  const win = bucketWindow;
   const wpct = (v: number | undefined) => `${fmtNum((v ?? 0) * 100, 0)} %`;
 
   return (
@@ -288,7 +289,7 @@ function Elasticities({ onOpen }: { onOpen: (geo: string, item: string) => void 
                       <td>{pp2(r.rho)}</td>
                       <td>{pp2(r.r2)}</td>
                       <td>{r.n}</td>
-                      <td style={{ textAlign: 'left', fontSize: 12 }}>{r.buckets.replace(/\./g, ',')}</td>
+                      <td style={{ textAlign: 'left', fontSize: 12 }}>{frBuckets(r.buckets)}</td>
                     </tr>
                   ))}
                 </tbody>

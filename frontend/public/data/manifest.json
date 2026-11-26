@@ -1,10 +1,10 @@
 {
  "mode": "static",
- "run_id": "5f323b63be50",
+ "run_id": "cd4a5a6e916b",
  "asof": "2026-11-20",
  "last_obs": "2026-10",
- "n_files": 273,
- "bytes": 6939834,
+ "n_files": 274,
+ "bytes": 6966755,
  "files": [
   {
    "route": "/api/meta",
@@ -25,6 +25,10 @@
   {
    "route": "/api/inputs/market",
    "file": "inputs/market.json"
+  },
+  {
+   "route": "/api/market/paths",
+   "file": "market/paths.json"
   },
   {
    "route": "/api/inputs/series",

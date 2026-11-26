@@ -1,4 +1,5 @@
-import { useFixings, useHeadline, useHeadlineAll, useHistory, useMeta } from '../api/hooks';
+import { Link } from 'react-router-dom';
+import { useFixings, useHeadline, useHeadlineAll, useHistory, useMarketPaths, useMeta } from '../api/hooks';
 import { GEOS, type Geo } from '../api/types';
 import { Chart } from '../charts/Chart';
 import { QueryState } from '../components/QueryState';
@@ -7,14 +8,8 @@ import { fmtBp, fmtDateFr, fmtFixing, fmtMonthFr, fmtPct } from '../format';
 import { useApp } from '../store';
 import { divergingColor, INK } from '../theme';
 import { useThemeMode } from '../useThemeMode';
-import {
-  fixingTable,
-  HISTORY_FROM,
-  kpis,
-  modelTitle,
-  otherMarketFor,
-  trajectoryOption,
-} from './overview/logic';
+import { fixingTable, HISTORY_FROM, kpis, modelTitle, otherMarketFor } from './overview/logic';
+import { marketChartOption, SCENARIO_SHORT } from './market/logic';
 
 const GAP_SCALE_BP = 30; // saturation de la carte de chaleur (bp)
 
@@ -22,6 +17,8 @@ export function Overview() {
   const geo = useApp((s) => s.geo);
   const setGeo = useApp((s) => s.setGeo);
   const model = useApp((s) => s.model);
+  const energyScenario = useApp((s) => s.energyScenario);
+  const marketPaths = useMarketPaths();
   const mode = useThemeMode();
   const meta = useMeta();
   const headline = useHeadline(geo);
@@ -100,27 +97,41 @@ export function Overview() {
 
       <section className="card">
         <div className="card-head">
-          <h2>Trajectoire HICPxT {geoName(geo)} : publié puis prévu, glissement annuel (%)</h2>
+          <h2>Hypothèses de marché du moteur — {SCENARIO_SHORT[energyScenario] ?? energyScenario}</h2>
+          <Link to="/market-data" className="legend-note">
+            Toute la market data →
+          </Link>
         </div>
-        <QueryState q={headline}>
-          {(hl) => (
-            <QueryState q={history}>
-              {(hi) => (
-                <>
-                  <Chart
-                    ariaLabel={`Trajectoire HICPxT ${geoName(geo)} : historique et 14 fixings`}
-                    height={360}
-                    option={trajectoryOption(hi.data, hl.data, model, mode, indicativeFrom, other)}
-                  />
-                  <div className="card-foot">
-                    Historique : Eurostat (vintage {m?.dates.hicp_vintage}), glissement calculé en niveaux sur
-                    t−12. Prévisions : moteur euroinfl, run {hl.meta.run_id}. Zone grisée : fixings au-delà de
-                    h+10 (indicatifs). Molette ou pincement pour zoomer.
-                  </div>
-                </>
-              )}
-            </QueryState>
-          )}
+        <QueryState q={marketPaths}>
+          {(env) => {
+            const mp = env.data;
+            const keys = ['brent_usd', 'gasoil_usd_t', 'eurusd', 'ttf', 'power_de', `wob_e95_${geo}`];
+            const ds = keys.flatMap((k) => mp.drivers.filter((d) => d.key === k));
+            return (
+              <>
+                <div className="market-mini">
+                  {ds.map((d) => (
+                    <div key={d.key}>
+                      <h3 className="chart-title">
+                        {d.label} ({d.unit})
+                      </h3>
+                      <Chart
+                        ariaLabel={`${d.label} : trajectoire utilisée par le moteur`}
+                        height={170}
+                        option={marketChartOption(mp, d, energyScenario, mode, true)}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="card-foot">
+                  Niveaux utilisés par le moteur, mois par mois (janv. 2025 → déc. 2027) : trait plein = base
+                  de données et mois observés, pointillés sur fond grisé = projection du scénario énergie
+                  choisi en haut de page. Les prévisions du tableau ci-dessous restent celles du scénario
+                  central.
+                </div>
+              </>
+            );
+          }}
         </QueryState>
       </section>
 
