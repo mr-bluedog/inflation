@@ -179,6 +179,19 @@ export interface RmseRow {
   h: number;
   value: number;
 }
+/** Score de prédiction (backtest) : skill = 1 − RMSE / RMSE naïf ; hit = part des bons sens de variation. */
+export interface ScoreRow {
+  geo: Geo;
+  item: string;
+  model: 'BU' | 'STAT';
+  period: 'all' | 'post2023';
+  h: number;
+  skill: number | null;
+  hit: number | null;
+  /** erreur absolue moyenne vs fixing réalisé, pp */
+  mae: number | null;
+  n: number;
+}
 export interface BacktestData {
   origins: string;
   n_origins: number;
@@ -187,6 +200,7 @@ export interface BacktestData {
   combo_weights: Record<Geo, number[]>;
   combo_detail: Record<Geo, number[][]>;
   errors_available: boolean;
+  scores: ScoreRow[];
 }
 export interface BacktestErrorRow {
   origin: string;

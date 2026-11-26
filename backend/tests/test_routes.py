@@ -231,3 +231,23 @@ def test_market_paths(get):
     assert keys["brent_usd"]["origin"][i] == "projection"
     assert set(keys["power_de"]["origin"]) <= {"base", "observe", "proxy", "estime", "projection"}
     assert keys["wob_e95_EA"]["geo"] == "EA" and keys["ttf"]["geo"] is None
+
+
+def test_backtest_scores(get):
+    """Scores de prédiction : 10 sous-composantes × 5 zones × BU/STAT × 2 périodes × 12 horizons."""
+    d = get("/api/backtest")["data"]
+    sc = d["scores"]
+    assert len(sc) == 10 * 5 * 2 * 2 * 12
+    assert {r["item"] for r in sc} >= {"TOT_X_TBC", "CP0722", "CP0452", "CP0451", "SERV"}
+    r = next(
+        x
+        for x in sc
+        if (x["geo"], x["item"], x["model"], x["period"], x["h"]) == ("EA", "TOT_X_TBC", "BU", "all", 1)
+    )
+    rm = {
+        x["model"]: x["value"]
+        for x in d["rmse"]
+        if (x["geo"], x["item"], x["period"], x["h"]) == ("EA", "TOT_X_TBC", "all", 1)
+    }
+    assert r["skill"] == pytest.approx(1 - rm["BU"] / rm["NAIF"], abs=2e-3)  # 1 − RMSE / RMSE naïf
+    assert 0.5 < r["hit"] <= 1 and r["n"] == 82

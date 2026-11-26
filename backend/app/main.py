@@ -275,9 +275,28 @@ def get_backtest():
         "combo_weights": {g: [w[str(h)] for h in range(1, 13)] for g, w in b["combo_weights_BU"].items()},
         "combo_detail": b["combo_detail"],
         "errors_available": s.backtest_errors is not None,
+        "scores": [
+            {
+                "geo": g,
+                "item": it,
+                "model": m,
+                "period": per,
+                "h": h,
+                "skill": r["skill"][h - 1],
+                "hit": r["hit"][h - 1],
+                "mae": r["mae"][h - 1],
+                "n": r["n"][h - 1],
+            }
+            for per, by_item in b.get("scores", {}).items()
+            for it, by_geo in by_item.items()
+            for g, by_m in by_geo.items()
+            for m, r in by_m.items()
+            for h in range(1, 13)
+        ],
     }
     notes = [
         "RMSE du glissement annuel ; h1 = premier mois non publié",
+        "scores : skill = 1 − RMSE / RMSE naïf ; hit = part des bons sens de variation (|variation| ≥ 0,05 pp)",
         "COMBINE : toute la période, HICPxT uniquement",
     ]
     return {"meta": meta(s, ["rmse", "bias"], notes=notes), "data": data}

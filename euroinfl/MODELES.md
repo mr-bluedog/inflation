@@ -235,6 +235,22 @@ Le calendrier se lit dans les données : la variation mensuelle moyenne du gaz d
 | Énergie EA | 1.20 → **0.82** | 4.15 → **2.79** | 6.19 → **4.18** | 8.96 → **7.13** |
 | HICPxT EA | 0.23 → **0.20** | 0.50 → **0.42** | 0.76 → **0.68** | 1.56 → 1.63 |
 
+**Score de prédiction BU par sous-composante, zone euro** (1 − RMSE / RMSE naïf ; h1 = nowcast du fixing du mois). Détail par pays et pour STAT : vue Backtest du dashboard.
+| | h1 | h3 | h6 | h12 | h1 depuis 2023 | h3 | h6 | h12 | Bon sens h1 |
+|---|---|---|---|---|---|---|---|---|---|
+| HICPxT | +38 % | +34 % | +28 % | +13 % | +62 % | +60 % | +61 % | +49 % | 80 % |
+| Énergie | +49 % | +37 % | +34 % | +28 % | +77 % | +62 % | +57 % | +31 % | 91 % |
+| Carburants | +70 % | +40 % | +31 % | +29 % | +84 % | +54 % | +33 % | +23 % | 94 % |
+| Fioul | +59 % | +36 % | +30 % | +28 % | +84 % | +59 % | +35 % | +21 % | 93 % |
+| Gaz | +29 % | +36 % | +32 % | +32 % | +56 % | +79 % | +78 % | +62 % | 81 % |
+| Électricité | +26 % | +38 % | +36 % | +32 % | +52 % | +67 % | +77 % | +68 % | 65 % |
+| Alim. transformée | +65 % | +61 % | +53 % | +34 % | +78 % | +78 % | +77 % | +75 % | 82 % |
+| Alim. non transformée | +32 % | +33 % | +35 % | +30 % | +38 % | +52 % | +54 % | +72 % | 76 % |
+| Biens (NEIG) | −6 % | +2 % | +31 % | +12 % | −12 % | +33 % | +64 % | +62 % | 67 % |
+| Services | +9 % | 0 % | −6 % | −14 % | +16 % | −3 % | −29 % | −100 % | 78 % |
+
+Le point faible est les **services** (et les biens à très court terme) : au-delà de 3 mois, le BU fait moins bien que « glissement annuel inchangé ».
+
 **Lecture.**
 - Le BU bat les références sur toute la période, et nettement pendant le choc énergétique 2021-23.
 - **Depuis 2023**, en régime calme, il reste meilleur à court terme (EA h1 0,19). Au-delà de 6 mois, STAT fait mieux sur l'agrégat (EA h6 0,33 contre 0,64). C'est en partie dû à des compensations d'erreurs, mais le BU sous-estime d'environ 0,7 pp à 12 mois la persistance post-2022 des services et des biens.

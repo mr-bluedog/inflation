@@ -719,3 +719,11 @@ input.search {
   border-radius: 4px;
   padding: 4px 6px;
 }
+/* Backtest : scores par sous-composante (zone euro puis pays) */
+table.scores tr.group-start td {
+  border-top: 2px solid var(--axis);
+}
+table.scores .indent {
+  padding-left: 12px;
+  color: var(--ink-2);
+}

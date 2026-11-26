@@ -218,7 +218,7 @@ Ce fichier est redondant avec les CSV. Le backend lit les CSV (source primaire) 
 
 ## 9. Backtest
 
-### 9.1 `out/backtest_errors.csv` — 118 080 lignes, **10,1 Mo** (< 50 Mo : versionné, pas ajouté au `.gitignore`)
+### 9.1 `out/backtest_errors.csv` — 196 800 lignes, **16,7 Mo** (< 50 Mo : versionné, pas ajouté au `.gitignore`) ; 10 sous-composantes depuis le 26/11/2026 (+ carburants, fioul, gaz, électricité)
 
 | Colonne | Type | Valeurs |
 |---|---|---|
@@ -247,6 +247,7 @@ origin,geo,item,h,fc,act,err,model
 - `bias_post2023[item][geo][model]` : erreur moyenne, pp.
 - `combo_detail[geo]` : list[12] de `[w_toute_période, w_depuis_2023]` bruts.
 - `combo_weights_BU[geo]["1".."12"]` : poids lissés (= `combo_weights.json`).
+- `scores[all|post2023][item][geo][BU|STAT]` : `{skill, hit, n}`, listes de 12 (h1…h12). `skill` = 1 − RMSE(modèle) / RMSE(naïf) ; `hit` = part des origines où le sens de variation du glissement annuel depuis l'origine est juste (variations réalisées < 0,05 pp exclues). Exposé par `/api/backtest` → `scores[]` (lignes `geo, item, model, period, h, skill, hit, n`).
 
 ### 9.3 `out/combo_weights.json`
 

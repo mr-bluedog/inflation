@@ -24,8 +24,8 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-06,
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-07,35.10211802149499
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-08,34.1273536686526
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-09,32.84282499196544
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-10,32.491740217250786
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-11,33.299803770482406
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-10,32.491740217251945
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-11,33.29980377048134
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,NRG,2027-12,27.875127070902117
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0722,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0722,2026-12,0.0
@@ -57,14 +57,14 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0453,2027-
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0453,2027-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2026-12,38.26657805168239
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-01,103.17912123187334
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-02,103.23841347472644
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-01,103.17912123187298
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-02,103.23841347472431
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-03,100.63709578730595
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-04,140.4769041800293
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-04,140.47690418003143
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-05,138.12969071500981
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-06,137.588265284203
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-06,137.58826528420317
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-07,134.07046494360984
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-08,132.67350731135377
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-08,132.67350731135394
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-09,128.8044880581518
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-10,120.94525112134491
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),EA,CP0452,2027-11,120.32708580752339
@@ -149,7 +149,7 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,20
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-06,21.682219457812568
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-07,23.709118210217817
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-08,24.095763259770475
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-09,24.252976334895315
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-09,24.252976334893095
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-10,24.656903286264242
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-11,25.211305461190214
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,TOT_X_TBC,2027-12,17.723624421916995
@@ -157,15 +157,15 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2026-11,
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2026-12,74.82571009621353
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-01,171.9506061312149
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-02,169.9230427896435
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-03,157.7861544755475
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-04,184.787154951629
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-05,182.06271619457084
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-06,180.7057102136909
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-07,192.76383124063426
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-08,186.48632950828414
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-03,157.78615447554324
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-04,184.78715495163112
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-05,182.06271619457314
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-06,180.70571021368877
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-07,192.76383124063648
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-08,186.48632950828636
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-09,178.3341535083205
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-10,169.43637191594414
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-11,169.09525068890883
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-10,169.4363719159453
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-11,169.09525068890875
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,NRG,2027-12,116.08970133657807
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0722,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0722,2026-12,0.0
@@ -196,33 +196,33 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0453,2027-
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0453,2027-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0453,2027-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2026-11,0.0
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2026-12,174.07678090083323
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-01,404.9442467713021
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-02,403.24344805249694
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-03,371.94099246291756
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-04,407.1005015578688
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-05,400.27361744108276
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-06,397.8257050706468
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-07,450.19902659383143
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-08,443.70790863728297
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-09,419.9727372553075
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-10,375.1648321213108
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-11,367.74258295138804
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2026-12,174.07678090083536
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-01,404.9442467713064
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-02,403.2434480525019
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-03,371.94099246292467
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-04,407.1005015578709
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-05,400.2736174410845
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-06,397.8257050706489
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-07,450.1990265938339
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-08,443.7079086372851
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-09,419.97273725530977
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-10,375.164832121313
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-11,367.74258295139026
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0452,2027-12,249.27994509653217
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2026-11,0.0
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2026-12,94.45004552662155
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-01,229.3059431010967
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2026-12,94.45004552662368
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-01,229.30594310109882
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-02,228.40560212641384
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-03,220.18795879235498
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-04,286.28885007366625
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-05,287.04634171227354
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-06,281.37406332088943
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-07,269.16111254010156
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-08,265.8523706448967
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-09,259.07548091556043
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-10,236.44738708522794
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-11,233.83511466996018
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-12,167.25881301827727
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-04,286.28885007366375
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-05,287.0463417122739
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-06,281.37406332088733
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-07,269.1611125401017
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-08,265.8523706448989
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-09,259.0754809155603
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-10,236.44738708522905
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-11,233.8351146699613
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,CP0451,2027-12,167.25881301827613
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,FOOD_P_X_TBC,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,FOOD_P_X_TBC,2026-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),IT,FOOD_P_X_TBC,2027-01,0.010470660967154544
@@ -297,16 +297,16 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2026-11,
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2026-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-01,4.48788375690512
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-02,0.10519069113108515
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-03,0.061121327186164365
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-03,0.06112132718838481
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-04,8.963781320281416
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-05,8.83788092414406
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-05,8.83788092414517
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-06,9.162140788518958
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-07,15.59438989014783
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-08,15.188661381552171
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-09,14.675526199469058
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-10,14.406909456416983
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-11,15.084230722779424
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-12,15.371213429877795
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-10,14.406909456419292
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-11,15.084230722781733
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,NRG,2027-12,15.371213429880015
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0722,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0722,2026-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0722,2027-01,0.0
@@ -338,17 +338,17 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0453,2027-
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2026-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-01,29.816122171646242
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-02,29.874859378095664
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-03,28.806409777142505
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-04,94.65024157406354
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-05,85.37708779383877
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-06,87.4253574803749
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-07,124.377498684618
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-08,126.18970894764826
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-09,122.44755692514921
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-10,116.12369877476158
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-11,116.12369877476158
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-12,116.12369877476603
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-02,29.874859378100638
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-03,28.80640977714677
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-04,94.6502415740703
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-05,85.37708779384303
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-06,87.42535748038165
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-07,124.37749868462227
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-08,126.18970894765269
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-09,122.44755692515366
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-10,116.12369877476603
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-11,116.12369877476824
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0452,2027-12,116.12369877477047
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0451,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0451,2026-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),FR,CP0451,2027-01,0.0
@@ -424,7 +424,7 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,20
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-01,0.20108479723779382
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-02,0.29324941062336407
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-03,0.5201104638241638
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-04,0.8135450115709375
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-04,0.813545011573158
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-05,1.1418027013276877
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-06,1.487380496856261
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,TOT_X_TBC,2027-07,1.8325196267143795
@@ -439,14 +439,14 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-01,
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-02,1.7032244191517165
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-03,1.5943492715697616
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-04,1.5662365308855009
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-05,1.6223419029604003
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-05,1.6223419029581798
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-06,1.6685342072375597
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-07,1.5897957502897242
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-08,1.5672565220736345
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-07,1.5897957502875038
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-08,1.567256522071503
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-09,1.5132042443799065
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-10,1.5483593437148002
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-11,1.591561591747226
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-12,1.6224048550361747
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-10,1.5483593437138232
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-11,1.5915615917494463
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,NRG,2027-12,1.6224048550339543
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,CP0722,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,CP0722,2026-12,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),DE,CP0722,2027-01,0.0
@@ -577,15 +577,15 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2026-11,
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2026-12,32.816024028483604
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-01,65.1191926774743
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-02,64.83659215195132
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-03,60.94642007283157
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-03,60.946420072833796
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-04,67.20352640951165
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-05,68.0456627844217
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-06,67.00861813153213
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-07,66.01391847656957
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-08,62.02219256308599
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-09,59.032194805449656
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-10,58.463575685646774
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-11,59.689111574662235
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-06,67.00861813153658
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-07,66.01391847657068
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-08,62.022192563085895
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-09,59.03219480545072
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-10,58.46357568564784
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-11,59.68911157466117
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,NRG,2027-12,34.886879907418674
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0722,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0722,2026-12,0.0
@@ -622,26 +622,26 @@ ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-03,12.815214856385282
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-04,54.68678755662566
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-05,54.52636894109446
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-06,49.52533586063197
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-06,49.52533586062966
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-07,74.33858765818488
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-08,73.5335934125736
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-09,73.06016480039155
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-08,73.53359341256916
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-09,73.06016480038942
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-10,69.39596178052065
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-11,69.4131590531577
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0452,2027-12,70.98948886291811
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2026-11,0.0
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2026-12,89.92721216208412
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2026-12,89.92721216208182
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-01,165.44654012881077
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-02,169.80708719651182
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-03,175.7472365884327
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-03,175.74723658843504
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-04,197.038768347484
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-05,197.82984886439044
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-05,197.8298488643926
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-06,173.96285910519003
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-07,165.44766258493436
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-08,162.8863592640628
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-09,157.64639801157276
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-10,152.81601994120098
-ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-11,151.64641328283102
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-07,165.4476625849366
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-08,162.88635926406724
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-09,157.64639801157497
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-10,152.8160199412032
+ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-11,151.64641328283213
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,CP0451,2027-12,72.48461208511081
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,FOOD_P_X_TBC,2026-11,0.0
 ttf_power,Gaz TTF +10 % (avec électricité de gros entraînée),ES,FOOD_P_X_TBC,2026-12,0.0
@@ -724,8 +724,8 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-06,24.6149
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-07,23.73576006873712
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-08,23.02701449374056
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-09,22.13093600152538
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-10,21.87880818086958
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-11,22.419382170747504
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-10,21.878808180870735
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-11,22.419382170745283
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,NRG,2027-12,16.836208632254834
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0722,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0722,2026-12,0.0
@@ -757,14 +757,14 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0453,2027-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0453,2027-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2026-12,38.26657805168239
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-01,103.17912123187334
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-02,103.23841347472644
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-01,103.17912123187298
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-02,103.23841347472431
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-03,100.63709578730595
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-04,140.4769041800293
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-04,140.47690418003143
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-05,138.12969071500981
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-06,137.588265284203
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-06,137.58826528420317
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-07,134.07046494360984
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-08,132.67350731135377
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-08,132.67350731135394
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-09,128.8044880581518
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-10,120.94525112134491
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),EA,CP0452,2027-11,120.32708580752339
@@ -857,15 +857,15 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2026-12,74.82571009621353
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-01,171.9506061312149
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-02,169.9230427896435
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-03,157.7861544755475
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-04,184.787154951629
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-05,182.06271619457084
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-06,180.7057102136909
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-07,192.76383124063426
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-08,186.48632950828414
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-03,157.78615447554324
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-04,184.78715495163112
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-05,182.06271619457314
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-06,180.70571021368877
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-07,192.76383124063648
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-08,186.48632950828636
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-09,178.3341535083205
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-10,169.43637191594414
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-11,169.09525068890883
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-10,169.4363719159453
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-11,169.09525068890875
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,NRG,2027-12,116.08970133657807
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0722,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0722,2026-12,0.0
@@ -896,33 +896,33 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0453,2027-10,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0453,2027-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0453,2027-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2026-11,0.0
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2026-12,174.07678090083323
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-01,404.9442467713021
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-02,403.24344805249694
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-03,371.94099246291756
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-04,407.1005015578688
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-05,400.27361744108276
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-06,397.8257050706468
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-07,450.19902659383143
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-08,443.70790863728297
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-09,419.9727372553075
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-10,375.1648321213108
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-11,367.74258295138804
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2026-12,174.07678090083536
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-01,404.9442467713064
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-02,403.2434480525019
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-03,371.94099246292467
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-04,407.1005015578709
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-05,400.2736174410845
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-06,397.8257050706489
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-07,450.1990265938339
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-08,443.7079086372851
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-09,419.97273725530977
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-10,375.164832121313
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-11,367.74258295139026
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0452,2027-12,249.27994509653217
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2026-11,0.0
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2026-12,94.45004552662155
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-01,229.3059431010967
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2026-12,94.45004552662368
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-01,229.30594310109882
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-02,228.40560212641384
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-03,220.18795879235498
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-04,286.28885007366625
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-05,287.04634171227354
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-06,281.37406332088943
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-07,269.16111254010156
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-08,265.8523706448967
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-09,259.07548091556043
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-10,236.44738708522794
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-11,233.83511466996018
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-12,167.25881301827727
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-04,286.28885007366375
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-05,287.0463417122739
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-06,281.37406332088733
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-07,269.1611125401017
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-08,265.8523706448989
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-09,259.0754809155603
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-10,236.44738708522905
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-11,233.8351146699613
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,CP0451,2027-12,167.25881301827613
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,FOOD_P_X_TBC,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,FOOD_P_X_TBC,2026-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),IT,FOOD_P_X_TBC,2027-01,0.007492573748102416
@@ -997,16 +997,16 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2026-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-01,4.48788375690512
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-02,4.433677879116615
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-03,4.040087838570461
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-03,4.040087838572681
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-04,12.76482682629032
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-05,12.615953143846337
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-05,12.615953143847447
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-06,13.101237910475572
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-07,19.451030203165853
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-08,18.940934147502198
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-09,18.28913954730167
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-10,17.9523612620347
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-11,18.74750943025143
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-12,19.097302580883824
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,NRG,2027-12,19.097302580886044
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0722,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0722,2026-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0722,2027-01,0.0
@@ -1038,17 +1038,17 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0453,2027-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2026-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-01,29.816122171646242
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-02,29.874859378095664
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-03,28.806409777142505
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-04,94.65024157406354
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-05,85.37708779383877
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-06,87.4253574803749
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-07,124.377498684618
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-08,126.18970894764826
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-09,122.44755692514921
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-10,116.12369877476158
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-11,116.12369877476158
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-12,116.12369877476603
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-02,29.874859378100638
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-03,28.80640977714677
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-04,94.6502415740703
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-05,85.37708779384303
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-06,87.42535748038165
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-07,124.37749868462227
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-08,126.18970894765269
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-09,122.44755692515366
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-10,116.12369877476603
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-11,116.12369877476824
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0452,2027-12,116.12369877477047
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0451,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0451,2026-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),FR,CP0451,2027-01,0.0
@@ -1131,7 +1131,7 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,TOT_X_TBC,2027-07,1
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,TOT_X_TBC,2027-08,1.4508115008116107
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,TOT_X_TBC,2027-09,1.6905481310525161
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,TOT_X_TBC,2027-10,1.9428775008978327
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,TOT_X_TBC,2027-11,2.207585234648146
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,TOT_X_TBC,2027-11,2.2075852346503666
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,TOT_X_TBC,2027-12,2.4509986601861655
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2026-12,0.0
@@ -1139,14 +1139,14 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-01,1.70419
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-02,1.7032244191517165
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-03,1.5943492715697616
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-04,1.5662365308855009
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-05,1.6223419029604003
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-05,1.6223419029581798
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-06,1.6685342072375597
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-07,1.5897957502897242
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-08,1.5672565220736345
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-07,1.5897957502875038
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-08,1.567256522071503
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-09,1.5132042443799065
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-10,1.5483593437148002
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-11,1.591561591747226
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-12,1.6224048550361747
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-10,1.5483593437138232
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-11,1.5915615917494463
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,NRG,2027-12,1.6224048550339543
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,CP0722,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,CP0722,2026-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),DE,CP0722,2027-01,0.0
@@ -1267,26 +1267,26 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-03,0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-04,0.8751648842175719
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-05,1.0712397444945232
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-06,1.2701717845597926
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-07,1.7350046556607879
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-07,1.7350046556585674
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-08,1.9295375954131444
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-09,2.1282063613625724
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-10,2.3299678872001905
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-11,2.541774071507241
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-11,2.5417740715050208
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,TOT_X_TBC,2027-12,2.758590710723041
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2026-12,-0.19338919510669683
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-01,1.5464531533805115
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-02,1.553080432847942
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-02,1.553080432843501
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-03,1.449497440215719
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-04,5.781961601898367
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-05,5.875580435263927
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-05,5.875580435266237
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-06,5.726996404396001
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-07,8.501351222475195
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-08,8.037503962660075
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-08,8.037503962660164
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-09,7.720980682115552
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-10,7.6828184020984125
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-11,7.948378199933259
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-12,8.281303803764395
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-10,7.682818402098235
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-11,7.948378199931128
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,NRG,2027-12,8.281303803764306
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0722,2026-11,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0722,2026-12,0.0
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0722,2027-01,0.0
@@ -1322,10 +1322,10 @@ ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-02,12.4
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-03,12.815214856385282
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-04,54.68678755662566
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-05,54.52636894109446
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-06,49.52533586063197
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-06,49.52533586062966
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-07,74.33858765818488
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-08,73.5335934125736
-ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-09,73.06016480039155
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-08,73.53359341256916
+ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-09,73.06016480038942
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-10,69.39596178052065
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-11,69.4131590531577
 ttf_only,Gaz TTF +10 % (électricité de gros inchangée),ES,CP0452,2027-12,70.98948886291811
@@ -1421,12 +1421,12 @@ power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-03,3.1084153307681106
 power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-04,10.863355128261087
 power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-05,10.984980668078403
 power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-06,11.264537410904385
-power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-07,16.66466476140105
+power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-07,16.66466476140327
 power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-08,16.274644161010656
 power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-09,15.705122056599574
-power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-10,15.560037371422553
+power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-10,15.560037371422641
 power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-11,15.952214348335936
-power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-12,16.194625529755147
+power_de,Électricité de gros Allemagne +10 %,EA,NRG,2027-12,16.194625529756213
 power_de,Électricité de gros Allemagne +10 %,EA,CP0722,2026-11,0.0
 power_de,Électricité de gros Allemagne +10 %,EA,CP0722,2026-12,0.0
 power_de,Électricité de gros Allemagne +10 %,EA,CP0722,2027-01,0.0
@@ -1477,12 +1477,12 @@ power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-03,9.2783071486547
 power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-04,33.816609921886
 power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-05,33.89693771311162
 power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-06,33.34503738811057
-power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-07,49.97481764214218
-power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-08,49.92716512041806
-power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-09,49.4769956395702
-power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-10,48.225117145199725
-power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-11,48.225117145199725
-power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-12,48.225117145199725
+power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-07,49.9748176421444
+power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-08,49.9271651204225
+power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-09,49.47699563957242
+power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-10,48.22511714520195
+power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-11,48.22511714520195
+power_de,Électricité de gros Allemagne +10 %,EA,CP0451,2027-12,48.22511714520195
 power_de,Électricité de gros Allemagne +10 %,EA,FOOD_P_X_TBC,2026-11,0.0
 power_de,Électricité de gros Allemagne +10 %,EA,FOOD_P_X_TBC,2026-12,0.0
 power_de,Électricité de gros Allemagne +10 %,EA,FOOD_P_X_TBC,2027-01,0.00212064875215745
@@ -1543,7 +1543,7 @@ power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2026-11,0.0
 power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2026-12,0.0
 power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2027-01,0.020603034296406975
 power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2027-02,0.06848583184559942
-power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2027-03,0.2214252874521705
+power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2027-03,0.22142528745439094
 power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2027-04,0.4574978566962429
 power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2027-05,0.693825419688654
 power_de,Électricité de gros Allemagne +10 %,IT,TOT_X_TBC,2027-06,0.941435962589221
@@ -1830,7 +1830,7 @@ power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-06,0.7138031821
 power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-07,0.901392478143137
 power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-08,1.102041085701
 power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-09,1.308904980765746
-power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-10,1.5267409342301086
+power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-10,1.526740934232329
 power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-11,1.7539134697108771
 power_de,Électricité de gros Allemagne +10 %,DE,TOT_X_TBC,2027-12,1.9643674269675948
 power_de,Électricité de gros Allemagne +10 %,DE,NRG,2026-11,0.0
@@ -1967,25 +1967,25 @@ power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-03,8.1981672240
 power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-04,8.34167617339343
 power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-05,8.52126746445192
 power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-06,8.742285322715926
-power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-07,8.826730975506347
+power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-07,8.826730975501906
 power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-08,8.921029168702521
-power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-09,9.003317960021295
+power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-09,9.003317960019075
 power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-10,9.115631610523423
 power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-11,9.269314030433407
 power_de,Électricité de gros Allemagne +10 %,ES,TOT_X_TBC,2027-12,5.232044005620828
 power_de,Électricité de gros Allemagne +10 %,ES,NRG,2026-11,0.0
 power_de,Électricité de gros Allemagne +10 %,ES,NRG,2026-12,48.48248202740102
 power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-01,93.35017290882828
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-02,92.92535646404865
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-03,87.36504916638577
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-04,90.1730597020233
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-05,91.27176994637729
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-06,89.96754263545182
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-07,84.42103577799398
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-02,92.92535646404652
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-03,87.36504916638799
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-04,90.17305970202347
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-05,91.27176994637942
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-06,89.96754263545625
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-07,84.42103577799509
 power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-08,79.2423253572272
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-09,75.31772066891271
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-10,74.53893021052274
-power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-11,75.94755706152742
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-09,75.31772066891165
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-10,74.5389302105215
+power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-11,75.94755706152637
 power_de,Électricité de gros Allemagne +10 %,ES,NRG,2027-12,39.011138118121295
 power_de,Électricité de gros Allemagne +10 %,ES,CP0722,2026-11,0.0
 power_de,Électricité de gros Allemagne +10 %,ES,CP0722,2026-12,0.0
@@ -2031,17 +2031,17 @@ power_de,Électricité de gros Allemagne +10 %,ES,CP0452,2027-11,0.0
 power_de,Électricité de gros Allemagne +10 %,ES,CP0452,2027-12,0.0
 power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2026-11,0.0
 power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2026-12,132.08033774759755
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-01,243.2428001676179
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-02,249.65376335962065
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-03,258.3870893655927
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-04,289.69032363629344
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-05,290.8533859761928
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-01,243.242800167618
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-02,249.65376335962083
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-03,258.3870893655949
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-04,289.69032363629594
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-05,290.8533859761952
 power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-06,255.76366203225564
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-07,243.24445042497754
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-08,239.47877124328
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-07,243.24445042497968
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-08,239.4787712432822
 power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-09,231.7748757926208
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-10,224.6731576981187
-power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-11,222.9535786821102
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-10,224.6731576981198
+power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-11,222.9535786821113
 power_de,Électricité de gros Allemagne +10 %,ES,CP0451,2027-12,106.28250267816108
 power_de,Électricité de gros Allemagne +10 %,ES,FOOD_P_X_TBC,2026-11,0.0
 power_de,Électricité de gros Allemagne +10 %,ES,FOOD_P_X_TBC,2026-12,0.0
@@ -2397,16 +2397,16 @@ power_fr,Électricité de gros France +10 %,FR,NRG,2026-11,0.0
 power_fr,Électricité de gros France +10 %,FR,NRG,2026-12,0.0
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-01,0.0
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-02,-5.617228783501105
-power_fr,Électricité de gros France +10 %,FR,NRG,2027-03,-5.163643611652002
+power_fr,Électricité de gros France +10 %,FR,NRG,2027-03,-5.163643611649782
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-04,-4.932749317827501
-power_fr,Électricité de gros France +10 %,FR,NRG,2027-05,-4.90293608297776
+power_fr,Électricité de gros France +10 %,FR,NRG,2027-05,-4.90293608297887
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-06,-5.111903714514199
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-07,-5.004896637801348
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-08,-4.869455232063835
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-09,-4.689512069308055
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-10,-4.601056458781727
 power_fr,Électricité de gros France +10 %,FR,NRG,2027-11,-4.753964538635103
-power_fr,Électricité de gros France +10 %,FR,NRG,2027-12,-4.835475841775683
+power_fr,Électricité de gros France +10 %,FR,NRG,2027-12,-4.835475841777903
 power_fr,Électricité de gros France +10 %,FR,CP0722,2026-11,0.0
 power_fr,Électricité de gros France +10 %,FR,CP0722,2026-12,0.0
 power_fr,Électricité de gros France +10 %,FR,CP0722,2027-01,0.0
@@ -2817,8 +2817,8 @@ gasoil,Gasoil ICE +10 % (en $),EA,NRG,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),EA,NRG,2026-12,142.78221598352337
 gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-01,142.53537178543036
 gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-02,139.55555982291017
-gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-03,127.89818444257418
-gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-04,121.15796174994698
+gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-03,127.89818444257861
+gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-04,121.1579617499492
 gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-05,119.59334907541307
 gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-06,119.20085708990725
 gasoil,Gasoil ICE +10 % (en $),EA,NRG,2027-07,113.278690933043
@@ -2947,8 +2947,8 @@ gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-03,14.52662010100525
 gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-04,14.78955820381822
 gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-05,15.174782472893167
 gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-06,15.607707520313152
-gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-07,15.989733981007781
-gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-08,16.606166955630552
+gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-07,15.98973398100556
+gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-08,16.60616695562611
 gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-09,17.15240853125133
 gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-10,17.643019044581987
 gasoil,Gasoil ICE +10 % (en $),IT,TOT_X_TBC,2027-11,18.270119631353943
@@ -2957,16 +2957,16 @@ gasoil,Gasoil ICE +10 % (en $),IT,NRG,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),IT,NRG,2026-12,128.29290869913876
 gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-01,128.61016430538007
 gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-02,125.83400445111721
-gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-03,115.64664561546572
+gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-03,115.6466456154682
 gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-04,104.21543086565954
-gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-05,100.22293838787704
+gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-05,100.22293838787934
 gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-06,96.91751478605894
 gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-07,92.49741808939227
 gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-08,89.00587152164796
-gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-09,84.71951661694787
-gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-10,79.59598744932022
-gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-11,78.37059506223821
-gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-12,-12.414743238204906
+gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-09,84.7195166169501
+gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-10,79.59598744932012
+gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-11,78.37059506223926
+gasoil,Gasoil ICE +10 % (en $),IT,NRG,2027-12,-12.414743238205972
 gasoil,Gasoil ICE +10 % (en $),IT,CP0722,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),IT,CP0722,2026-12,284.087602158165
 gasoil,Gasoil ICE +10 % (en $),IT,CP0722,2027-01,286.92337972594044
@@ -3097,14 +3097,14 @@ gasoil,Gasoil ICE +10 % (en $),FR,NRG,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2026-12,210.44321818326068
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-01,209.603485759353
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-02,205.8594993348617
-gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-03,185.51338084626724
+gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-03,185.51338084626946
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-04,173.4916092152239
-gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-05,167.8481715594926
+gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-05,167.84817155949372
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-06,170.27821435820823
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-07,161.9822963668993
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-08,156.1449552081928
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-09,149.89738989103384
-gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-10,145.98013067043567
+gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-10,145.98013067043337
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-11,149.3035284810496
 gasoil,Gasoil ICE +10 % (en $),FR,NRG,2027-12,-17.830658113995312
 gasoil,Gasoil ICE +10 % (en $),FR,CP0722,2026-11,0.0
@@ -3238,15 +3238,15 @@ gasoil,Gasoil ICE +10 % (en $),DE,NRG,2026-12,69.97549080804077
 gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-01,70.43471761015726
 gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-02,69.57035628059272
 gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-03,64.11764324633529
-gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-04,61.864171571857085
+gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-04,61.86417157185487
 gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-05,62.76244883481219
 gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-06,63.354854953112664
-gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-07,59.0534590073255
-gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-08,57.84347211246761
+gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-07,59.05345900732328
+gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-08,57.843472112466586
 gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-09,55.63845445318183
-gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-10,56.597524225253615
-gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-11,57.69820624829336
-gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-12,-6.018680357685602
+gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-10,56.59752422525255
+gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-11,57.69820624829558
+gasoil,Gasoil ICE +10 % (en $),DE,NRG,2027-12,-6.018680357687822
 gasoil,Gasoil ICE +10 % (en $),DE,CP0722,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),DE,CP0722,2026-12,118.64054101130108
 gasoil,Gasoil ICE +10 % (en $),DE,CP0722,2027-01,110.84834830936927
@@ -3376,17 +3376,17 @@ gasoil,Gasoil ICE +10 % (en $),ES,TOT_X_TBC,2027-12,3.1664745633563918
 gasoil,Gasoil ICE +10 % (en $),ES,NRG,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),ES,NRG,2026-12,221.3178062367426
 gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-01,220.23175119563874
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-02,217.0815369799218
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-03,200.49824363955747
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-04,203.56525469196427
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-05,202.20388874434116
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-06,194.5765022014668
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-07,179.82803912957147
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-08,168.28699385818098
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-09,160.1899254466778
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-10,158.14948870092957
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-02,217.0815369799197
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-03,200.4982436395597
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-04,203.5652546919641
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-05,202.20388874434346
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-06,194.57650220146664
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-07,179.82803912957257
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-08,168.28699385818106
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-09,160.1899254466776
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-10,158.14948870092937
 gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-11,160.34500707675417
-gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-12,-14.208947579542652
+gasoil,Gasoil ICE +10 % (en $),ES,NRG,2027-12,-14.208947579542563
 gasoil,Gasoil ICE +10 % (en $),ES,CP0722,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),ES,CP0722,2026-12,379.61413026430967
 gasoil,Gasoil ICE +10 % (en $),ES,CP0722,2027-01,382.2032639490789
@@ -3453,10 +3453,10 @@ gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-05,2.8268894753202822
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-06,4.220567765567118
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-07,5.718365251401458
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-08,7.273511505485608
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-09,8.862963587261685
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-09,8.862963587263906
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-10,10.457581696121654
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-11,12.023904483673409
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-12,13.561550314575843
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-11,12.02390448367563
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_P_X_TBC,2027-12,13.561550314578064
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2026-12,0.0
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-01,0.6446246437685765
@@ -3466,11 +3466,11 @@ gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-04,4.2568719336322225
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-05,5.475814484763308
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-06,6.682948155496415
 gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-07,7.929311544616624
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-08,9.133888522099287
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-09,10.241236559493938
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-10,11.436519443595028
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-11,12.60672426550924
-gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-12,13.774758431155387
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-08,9.133888522101508
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-09,10.241236559496159
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-10,11.436519443597248
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-11,12.60672426551146
+gasoil,Gasoil ICE +10 % (en $),ES,FOOD_NP,2027-12,13.774758431157608
 gasoil,Gasoil ICE +10 % (en $),ES,IGD_NNRG,2026-11,0.0
 gasoil,Gasoil ICE +10 % (en $),ES,IGD_NNRG,2026-12,0.0
 gasoil,Gasoil ICE +10 % (en $),ES,IGD_NNRG,2027-01,0.04929563970357265
@@ -3506,7 +3506,7 @@ eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-02,-23.857839757295274
 eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-03,-23.806019976215786
 eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-04,-23.946243010750656
 eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-05,-24.19186966431841
-eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-06,-24.57559606278359
+eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-06,-24.57559606278137
 eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-07,-24.79720898633575
 eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-08,-25.245937141349373
 eurusd,Euro +10 % contre dollar,EA,TOT_X_TBC,2027-09,-25.688395350813575
@@ -3517,14 +3517,14 @@ eurusd,Euro +10 % contre dollar,EA,NRG,2026-11,0.0
 eurusd,Euro +10 % contre dollar,EA,NRG,2026-12,-262.93695816498325
 eurusd,Euro +10 % contre dollar,EA,NRG,2027-01,-259.4852371434353
 eurusd,Euro +10 % contre dollar,EA,NRG,2027-02,-252.85106682181765
-eurusd,Euro +10 % contre dollar,EA,NRG,2027-03,-231.29138527539172
-eurusd,Euro +10 % contre dollar,EA,NRG,2027-04,-219.68418705217928
+eurusd,Euro +10 % contre dollar,EA,NRG,2027-03,-231.2913852753895
+eurusd,Euro +10 % contre dollar,EA,NRG,2027-04,-219.68418705217817
 eurusd,Euro +10 % contre dollar,EA,NRG,2027-05,-217.13616290209183
-eurusd,Euro +10 % contre dollar,EA,NRG,2027-06,-217.59285269725925
-eurusd,Euro +10 % contre dollar,EA,NRG,2027-07,-207.94743714367291
+eurusd,Euro +10 % contre dollar,EA,NRG,2027-06,-217.59285269725703
+eurusd,Euro +10 % contre dollar,EA,NRG,2027-07,-207.94743714367402
 eurusd,Euro +10 % contre dollar,EA,NRG,2027-08,-200.71145702612148
 eurusd,Euro +10 % contre dollar,EA,NRG,2027-09,-192.02663512613913
-eurusd,Euro +10 % contre dollar,EA,NRG,2027-10,-188.40081685458364
+eurusd,Euro +10 % contre dollar,EA,NRG,2027-10,-188.4008168545825
 eurusd,Euro +10 % contre dollar,EA,NRG,2027-11,-191.80403191075382
 eurusd,Euro +10 % contre dollar,EA,NRG,2027-12,23.82276144094364
 eurusd,Euro +10 % contre dollar,EA,CP0722,2026-11,0.0
@@ -3651,22 +3651,22 @@ eurusd,Euro +10 % contre dollar,IT,TOT_X_TBC,2027-07,-24.16462956263521
 eurusd,Euro +10 % contre dollar,IT,TOT_X_TBC,2027-08,-24.701929198880368
 eurusd,Euro +10 % contre dollar,IT,TOT_X_TBC,2027-09,-25.139343364590783
 eurusd,Euro +10 % contre dollar,IT,TOT_X_TBC,2027-10,-25.497958882836347
-eurusd,Euro +10 % contre dollar,IT,TOT_X_TBC,2027-11,-26.111450145736015
+eurusd,Euro +10 % contre dollar,IT,TOT_X_TBC,2027-11,-26.111450145738235
 eurusd,Euro +10 % contre dollar,IT,TOT_X_TBC,2027-12,-4.301159653348208
 eurusd,Euro +10 % contre dollar,IT,NRG,2026-11,0.0
 eurusd,Euro +10 % contre dollar,IT,NRG,2026-12,-210.0383001373075
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-01,-208.20591672383165
-eurusd,Euro +10 % contre dollar,IT,NRG,2027-02,-202.8341138288983
+eurusd,Euro +10 % contre dollar,IT,NRG,2027-02,-202.83411382889582
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-03,-186.13390748163818
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-04,-168.2360330814058
-eurusd,Euro +10 % contre dollar,IT,NRG,2027-05,-162.14604749724035
+eurusd,Euro +10 % contre dollar,IT,NRG,2027-05,-162.14604749723804
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-06,-157.83769544743816
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-07,-151.71715824428443
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-08,-145.79798863083803
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-09,-138.479616855417
-eurusd,Euro +10 % contre dollar,IT,NRG,2027-10,-130.0775096031658
+eurusd,Euro +10 % contre dollar,IT,NRG,2027-10,-130.07750960316588
 eurusd,Euro +10 % contre dollar,IT,NRG,2027-11,-128.68521910862967
-eurusd,Euro +10 % contre dollar,IT,NRG,2027-12,20.83640760976344
+eurusd,Euro +10 % contre dollar,IT,NRG,2027-12,20.836407609762286
 eurusd,Euro +10 % contre dollar,IT,CP0722,2026-11,0.0
 eurusd,Euro +10 % contre dollar,IT,CP0722,2026-12,-469.7870494986777
 eurusd,Euro +10 % contre dollar,IT,CP0722,2027-01,-469.45114612732016
@@ -3777,8 +3777,8 @@ eurusd,Euro +10 % contre dollar,IT,SERV,2027-07,-2.570072545191593
 eurusd,Euro +10 % contre dollar,IT,SERV,2027-08,-3.1171847090405436
 eurusd,Euro +10 % contre dollar,IT,SERV,2027-09,-3.644507410176523
 eurusd,Euro +10 % contre dollar,IT,SERV,2027-10,-4.167767915026488
-eurusd,Euro +10 % contre dollar,IT,SERV,2027-11,-4.7055319343858315
-eurusd,Euro +10 % contre dollar,IT,SERV,2027-12,-5.2378128764596354
+eurusd,Euro +10 % contre dollar,IT,SERV,2027-11,-4.705531934388052
+eurusd,Euro +10 % contre dollar,IT,SERV,2027-12,-5.237812876461856
 eurusd,Euro +10 % contre dollar,FR,TOT_X_TBC,2026-11,0.0
 eurusd,Euro +10 % contre dollar,FR,TOT_X_TBC,2026-12,-24.57254829078881
 eurusd,Euro +10 % contre dollar,FR,TOT_X_TBC,2027-01,-24.503788013316985
@@ -3797,11 +3797,11 @@ eurusd,Euro +10 % contre dollar,FR,NRG,2026-11,0.0
 eurusd,Euro +10 % contre dollar,FR,NRG,2026-12,-278.29159949191313
 eurusd,Euro +10 % contre dollar,FR,NRG,2027-01,-275.17406217647994
 eurusd,Euro +10 % contre dollar,FR,NRG,2027-02,-269.4145110105904
-eurusd,Euro +10 % contre dollar,FR,NRG,2027-03,-242.46142383260283
+eurusd,Euro +10 % contre dollar,FR,NRG,2027-03,-242.46142383260505
 eurusd,Euro +10 % contre dollar,FR,NRG,2027-04,-227.086995631115
 eurusd,Euro +10 % contre dollar,FR,NRG,2027-05,-219.81553467574022
-eurusd,Euro +10 % contre dollar,FR,NRG,2027-06,-223.68388721825784
-eurusd,Euro +10 % contre dollar,FR,NRG,2027-07,-213.46473760728068
+eurusd,Euro +10 % contre dollar,FR,NRG,2027-06,-223.68388721826005
+eurusd,Euro +10 % contre dollar,FR,NRG,2027-07,-213.4647376072818
 eurusd,Euro +10 % contre dollar,FR,NRG,2027-08,-205.5690004901078
 eurusd,Euro +10 % contre dollar,FR,NRG,2027-09,-197.0725082124015
 eurusd,Euro +10 % contre dollar,FR,NRG,2027-10,-191.84626571797648
@@ -3928,7 +3928,7 @@ eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-04,-19.588580618579154
 eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-05,-19.886563519317946
 eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-06,-20.294225284007705
 eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-07,-20.53237748297354
-eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-08,-20.94028359494793
+eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-08,-20.940283594945708
 eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-09,-21.317805009994917
 eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-10,-21.84551096505505
 eurusd,Euro +10 % contre dollar,DE,TOT_X_TBC,2027-11,-22.414167543685082
@@ -3939,14 +3939,14 @@ eurusd,Euro +10 % contre dollar,DE,NRG,2027-01,-216.32733016158312
 eurusd,Euro +10 % contre dollar,DE,NRG,2027-02,-212.28665333022258
 eurusd,Euro +10 % contre dollar,DE,NRG,2027-03,-195.14900258249534
 eurusd,Euro +10 % contre dollar,DE,NRG,2027-04,-188.97885912278255
-eurusd,Euro +10 % contre dollar,DE,NRG,2027-05,-192.04504221988495
+eurusd,Euro +10 % contre dollar,DE,NRG,2027-05,-192.04504221988606
 eurusd,Euro +10 % contre dollar,DE,NRG,2027-06,-195.2127270425863
-eurusd,Euro +10 % contre dollar,DE,NRG,2027-07,-183.28923851877786
-eurusd,Euro +10 % contre dollar,DE,NRG,2027-08,-179.1798124916289
+eurusd,Euro +10 % contre dollar,DE,NRG,2027-07,-183.2892385187801
+eurusd,Euro +10 % contre dollar,DE,NRG,2027-08,-179.17981249162995
 eurusd,Euro +10 % contre dollar,DE,NRG,2027-09,-171.8525775762526
-eurusd,Euro +10 % contre dollar,DE,NRG,2027-10,-174.6931041675393
-eurusd,Euro +10 % contre dollar,DE,NRG,2027-11,-178.988743856201
-eurusd,Euro +10 % contre dollar,DE,NRG,2027-12,21.053960702422934
+eurusd,Euro +10 % contre dollar,DE,NRG,2027-10,-174.69310416753922
+eurusd,Euro +10 % contre dollar,DE,NRG,2027-11,-178.9887438561988
+eurusd,Euro +10 % contre dollar,DE,NRG,2027-12,21.053960702421826
 eurusd,Euro +10 % contre dollar,DE,CP0722,2026-11,0.0
 eurusd,Euro +10 % contre dollar,DE,CP0722,2026-12,-480.6602476274069
 eurusd,Euro +10 % contre dollar,DE,CP0722,2027-01,-440.51898499606114
@@ -4078,15 +4078,15 @@ eurusd,Euro +10 % contre dollar,ES,NRG,2026-12,-341.56499307384183
 eurusd,Euro +10 % contre dollar,ES,NRG,2027-01,-337.2067741951156
 eurusd,Euro +10 % contre dollar,ES,NRG,2027-02,-331.2025406667129
 eurusd,Euro +10 % contre dollar,ES,NRG,2027-03,-305.4200162727172
-eurusd,Euro +10 % contre dollar,ES,NRG,2027-04,-310.5178939996178
+eurusd,Euro +10 % contre dollar,ES,NRG,2027-04,-310.51789399962
 eurusd,Euro +10 % contre dollar,ES,NRG,2027-05,-308.5317896304618
-eurusd,Euro +10 % contre dollar,ES,NRG,2027-06,-297.81494006678065
-eurusd,Euro +10 % contre dollar,ES,NRG,2027-07,-276.089593869695
-eurusd,Euro +10 % contre dollar,ES,NRG,2027-08,-258.0638824504833
-eurusd,Euro +10 % contre dollar,ES,NRG,2027-09,-245.26281066696072
+eurusd,Euro +10 % contre dollar,ES,NRG,2027-06,-297.81494006677843
+eurusd,Euro +10 % contre dollar,ES,NRG,2027-07,-276.0895938696928
+eurusd,Euro +10 % contre dollar,ES,NRG,2027-08,-258.06388245048214
+eurusd,Euro +10 % contre dollar,ES,NRG,2027-09,-245.2628106669618
 eurusd,Euro +10 % contre dollar,ES,NRG,2027-10,-242.0016339414687
 eurusd,Euro +10 % contre dollar,ES,NRG,2027-11,-245.9568535052515
-eurusd,Euro +10 % contre dollar,ES,NRG,2027-12,25.14629967615427
+eurusd,Euro +10 % contre dollar,ES,NRG,2027-12,25.146299676154182
 eurusd,Euro +10 % contre dollar,ES,CP0722,2026-11,0.0
 eurusd,Euro +10 % contre dollar,ES,CP0722,2026-12,-634.8290762401487
 eurusd,Euro +10 % contre dollar,ES,CP0722,2027-01,-633.5600911577211
@@ -4347,9 +4347,9 @@ food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-03,0.282272
 food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-04,0.5658369640837435
 food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-05,0.9717631340055988
 food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-06,1.496358041905843
-food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-07,2.159318157171075
+food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-07,2.1593181571688547
 food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-08,2.9156402826902017
-food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-09,3.6784975953718657
+food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-09,3.6784975953696453
 food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-10,4.53538485685856
 food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-11,5.48302111689436
 food_commo,Matières premières alimentaires +10 %,IT,TOT_X_TBC,2027-12,6.385371361075087
@@ -4627,11 +4627,11 @@ food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-03,0.236017
 food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-04,0.47656863235268077
 food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-05,0.8195316755132964
 food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-06,1.262210819441556
-food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-07,1.7847963105754872
+food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-07,1.7847963105777076
 food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-08,2.404638717385943
 food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-09,3.0968626784511066
-food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-10,3.865573893919727
-food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-11,4.699794559654968
+food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-10,3.8655738939219475
+food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-11,4.699794559657189
 food_commo,Matières premières alimentaires +10 %,DE,TOT_X_TBC,2027-12,5.46526776771028
 food_commo,Matières premières alimentaires +10 %,DE,NRG,2026-11,0.0
 food_commo,Matières premières alimentaires +10 %,DE,NRG,2026-12,0.0
@@ -4712,11 +4712,11 @@ food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-04,4.459
 food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-05,7.670637980861095
 food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-06,11.793392710655048
 food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-07,16.78439515181207
-food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-08,22.65530868486243
-food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-09,29.349495298998107
-food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-10,36.632582322264625
-food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-11,44.09262238019185
-food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-12,51.50421389837456
+food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-08,22.65530868486465
+food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-09,29.349495299002548
+food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-10,36.63258232226685
+food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-11,44.09262238019407
+food_commo,Matières premières alimentaires +10 %,DE,FOOD_P_X_TBC,2027-12,51.50421389837678
 food_commo,Matières premières alimentaires +10 %,DE,FOOD_NP,2026-11,0.0
 food_commo,Matières premières alimentaires +10 %,DE,FOOD_NP,2026-12,0.0
 food_commo,Matières premières alimentaires +10 %,DE,FOOD_NP,2027-01,0.0
@@ -4765,9 +4765,9 @@ food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-01,0.022426
 food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-02,0.0963931712361088
 food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-03,0.24871864632958207
 food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-04,0.5106549933131532
-food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-05,0.8906508561778992
+food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-05,0.8906508561756787
 food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-06,1.3770243218780287
-food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-07,1.979986916864629
+food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-07,1.9799869168624085
 food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-08,2.677357678830816
 food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-09,3.4586648602807912
 food_commo,Matières premières alimentaires +10 %,ES,TOT_X_TBC,2027-10,4.328183272299668
@@ -5047,7 +5047,7 @@ nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-03,0.23
 nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-04,0.40581170516862386
 nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-05,0.5887595031350834
 nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-06,0.7775349782757068
-nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-07,0.9719721522483127
+nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-07,0.9719721522460922
 nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-08,1.2421518353411543
 nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-09,1.6512639114485417
 nonfood_commo,Matières premières industrielles +10 %,IT,TOT_X_TBC,2027-10,2.0710730628259455
@@ -5469,8 +5469,8 @@ nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-05,0.87
 nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-06,1.1648966417121542
 nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-07,1.3829874250848029
 nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-08,1.603379899328683
-nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-09,1.8501368597156898
-nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-10,2.034485136530595
+nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-09,1.8501368597134693
+nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-10,2.0344851365283745
 nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-11,2.2065969603457525
 nonfood_commo,Matières premières industrielles +10 %,ES,TOT_X_TBC,2027-12,2.3376186561518963
 nonfood_commo,Matières premières industrielles +10 %,ES,NRG,2026-11,0.0
@@ -5747,7 +5747,7 @@ wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-03,5.962908896268715
 wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-04,7.34479526226961
 wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-05,8.795161646062422
 wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-06,10.285776164553617
-wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-07,11.889046705040318
+wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-07,11.889046705035877
 wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-08,13.398469640504285
 wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-09,14.517480939213456
 wages,Salaires négociés +1 pp par an,IT,TOT_X_TBC,2027-10,15.700763688786257

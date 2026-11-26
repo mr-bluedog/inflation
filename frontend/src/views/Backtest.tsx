@@ -15,11 +15,16 @@ import {
   rmse,
   rmseOption,
   weightsOption,
+  SCORE_ITEMS,
   type Period,
 } from './backtest/logic';
+import { ScoreBoard } from './backtest/ScoreBoard';
 
-const ITEMS = ['TOT_X_TBC', 'NRG', 'FOOD_P_X_TBC', 'FOOD_NP', 'IGD_NNRG', 'SERV'] as const;
+const ITEMS = SCORE_ITEMS;
 const pp = (v: number | null | undefined) => fmtNum(v, 2);
+/** erreurs : pp → bp (1 pp = 100 bp de glissement annuel) */
+const bp = (v: number | null | undefined, sign = false) =>
+  v === null || v === undefined ? '—' : fmtNum(v * 100, 0, sign);
 
 export function Backtest() {
   const geo = useApp((s) => s.geo);
@@ -31,6 +36,7 @@ export function Backtest() {
   const [h, setH] = useState(1);
   const errs = useBacktestErrors(geo, h);
   const geoName = meta.data?.data.geos.find((g) => g.code === geo)?.name ?? geo;
+  const geoNames = Object.fromEntries((meta.data?.data.geos ?? []).map((g) => [g.code, g.name]));
 
   return (
     <div className="page">
@@ -73,10 +79,12 @@ export function Backtest() {
                 </span>
               </div>
 
+              <ScoreBoard bt={bt} period={period} geoNames={geoNames} />
+
               <section className="card">
                 <div className="card-head">
                   <h2>
-                    RMSE par horizon : {ITEM_SHORT[item as keyof typeof ITEM_SHORT]} {geoName} (pp)
+                    RMSE par horizon : {ITEM_SHORT[item as keyof typeof ITEM_SHORT]} {geoName} (bp)
                   </h2>
                 </div>
                 <Chart
@@ -93,7 +101,7 @@ export function Backtest() {
               <section className="card">
                 <div className="card-head">
                   <h2>
-                    RMSE par pays et par modèle (pp) — {period === 'all' ? 'toute la période' : 'depuis 2023'}
+                    RMSE par pays et par modèle (bp) — {period === 'all' ? 'toute la période' : 'depuis 2023'}
                   </h2>
                 </div>
                 <div className="scroll-x">
@@ -115,7 +123,7 @@ export function Backtest() {
                             <td style={{ textAlign: 'left' }}>{MODEL_LABEL[m] ?? m}</td>
                             {KEY_H.map((x) => (
                               <td key={x} className={g === geo ? 'sel' : ''}>
-                                {pp(rmse(bt.rmse, g, item, m, period, x))}
+                                {bp(rmse(bt.rmse, g, item, m, period, x))}
                               </td>
                             ))}
                           </tr>
@@ -129,7 +137,7 @@ export function Backtest() {
               <section className="card">
                 <div className="card-head">
                   <h2>
-                    Erreurs HICPxT {geoName} par origine, horizon h{h} (prévu − réalisé, pp)
+                    Erreur sur chaque fixing HICPxT {geoName}, prévu à h{h} (prévu − réalisé, bp)
                   </h2>
                   <Segmented<string>
                     ariaLabel="Horizon des erreurs"
@@ -197,7 +205,7 @@ export function Backtest() {
               <section className="card">
                 <div className="card-head">
                   <h2>
-                    Biais moyen depuis 2023 : {ITEM_SHORT[item as keyof typeof ITEM_SHORT]} {geoName} (pp)
+                    Biais moyen depuis 2023 : {ITEM_SHORT[item as keyof typeof ITEM_SHORT]} {geoName} (bp)
                   </h2>
                 </div>
                 <table className="data" aria-label="Biais depuis 2023">
@@ -214,9 +222,7 @@ export function Backtest() {
                       <tr key={m}>
                         <td>{MODEL_LABEL[m] ?? m}</td>
                         {KEY_H.map((x) => (
-                          <td key={x}>
-                            {fmtNum(rmse(bt.bias_post2023, geo, item, m, 'post2023', x), 2, true)}
-                          </td>
+                          <td key={x}>{bp(rmse(bt.bias_post2023, geo, item, m, 'post2023', x), true)}</td>
                         ))}
                       </tr>
                     ))}

@@ -203,14 +203,14 @@ describe.skipIf(!HAS_DATA)('backtest et inputs à l’écran (export réel)', ()
         .getAllByRole('cell')
         .slice(2)
         .map((c) => c.textContent);
-    expect(cells('Bottom-up (BU)')).toEqual(['0,31', '0,76', '1,45', '3,06']);
-    expect(cells('Statistique (STAT)')).toEqual(['0,42', '0,93', '1,70', '3,29']);
+    expect(cells('Bottom-up (BU)')).toEqual(['31', '76', '145', '306']); // bp
+    expect(cells('Statistique (STAT)')).toEqual(['42', '93', '170', '329']);
     await userEvent.click(screen.getByRole('button', { name: 'Depuis 2023' }));
     const t2 = await screen.findByRole('table', { name: 'RMSE par pays et par modèle' });
     const bu = within(t2)
       .getAllByRole('row')
       .find((r) => r.textContent?.startsWith('EABottom-up'))!;
-    expect(within(bu).getAllByRole('cell')[2]!.textContent).toBe('0,19');
+    expect(within(bu).getAllByRole('cell')[2]!.textContent).toBe('19');
   });
 
   it('mois après la base : millésime de référence, valeurs estimées à la main', async () => {

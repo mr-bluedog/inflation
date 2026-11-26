@@ -4,7 +4,7 @@ from euroinfl.data import load_user_db, load_hicp, load_weights
 from euroinfl import backtest as B
 db=load_user_db('data/euro_inflation_database_long.csv'); H=load_hicp(); W=load_weights()
 orig=pd.period_range('2019-01','2025-10',freq='M')
-items=('TOT_X_TBC','NRG','FOOD_P_X_TBC','FOOD_NP','IGD_NNRG','SERV')
+items=('TOT_X_TBC','NRG','CP0722','CP0453','CP0452','CP0451','FOOD_P_X_TBC','FOOD_NP','IGD_NNRG','SERV')
 t=time.time()
 res={}
 res['BU']=B.run(db,H,W,orig,'rw',items=items); print('BU',time.time()-t,flush=True)

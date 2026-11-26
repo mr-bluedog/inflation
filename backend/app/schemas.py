@@ -217,6 +217,22 @@ class RmseRow(BaseModel):
     value: float
 
 
+class ScoreRow(BaseModel):
+    geo: str
+    item: str
+    model: str = Field(description="BU | STAT")
+    period: str = Field(description="all (origines 2019-01 → 2025-10) | post2023 (origines ≥ 2023-01)")
+    h: int = Field(description="1 = nowcast (premier mois non publié) … 12")
+    skill: float | None = Field(
+        description="1 − RMSE(modèle) / RMSE(naïf) ; 1 = parfait, 0 = naïf, < 0 = pire"
+    )
+    hit: float | None = Field(
+        description="part des origines où le sens de variation du glissement annuel est juste"
+    )
+    mae: float | None = Field(description="erreur absolue moyenne vs fixing réalisé, pp")
+    n: int
+
+
 class BacktestData(BaseModel):
     origins: str
     n_origins: int
@@ -225,6 +241,7 @@ class BacktestData(BaseModel):
     combo_weights: dict[str, list[float]]
     combo_detail: dict[str, list[list[float]]]
     errors_available: bool
+    scores: list[ScoreRow]
 
 
 class BacktestErrorRow(BaseModel):
